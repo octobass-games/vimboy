@@ -2,6 +2,7 @@ import Phaser from "phaser";
 import "./index.css";
 import { GAME_WIDTH, GAME_HEIGHT, CELL_SIZE } from "./constants/constants";
 import Movement from "./Movement";
+import Background from "./Background";
 
 const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
   active: false,
@@ -22,14 +23,12 @@ export class GameScene extends Phaser.Scene {
   }
 
   public create() {
-    this.add.grid(
-      GAME_WIDTH / 2,
-      GAME_HEIGHT / 2,
-      GAME_WIDTH,
-      GAME_HEIGHT,
-      CELL_SIZE,
-      CELL_SIZE
-    );
+    const graphics = this.add.graphics({ x: 0, y: 0 });
+    new Background(graphics).drawBackground();
+    this.add.text(0, 0, "Hello World", {
+      fontFamily: '"Consolas"',
+      fontSize: CELL_SIZE
+    });
 
     this.vimboy = this.add.sprite(
       CELL_SIZE / 2,
