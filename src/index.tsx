@@ -1,7 +1,7 @@
 import Phaser from "phaser";
 import "./index.css";
 import { GAME_WIDTH, GAME_HEIGHT, CELL_SIZE } from "./constants/constants";
-import { Colours } from "./constants/colours";
+import Movement from "./Movement";
 
 const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
   active: false,
@@ -11,6 +11,8 @@ const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
 
 export class GameScene extends Phaser.Scene {
   private vimboy?: Phaser.GameObjects.Sprite;
+  private movement?: Movement;
+
   constructor() {
     super(sceneConfig);
   }
@@ -26,10 +28,7 @@ export class GameScene extends Phaser.Scene {
       GAME_WIDTH,
       GAME_HEIGHT,
       CELL_SIZE,
-      CELL_SIZE,
-      Colours.BLACK,
-      undefined,
-      Colours.GREEN
+      CELL_SIZE
     );
 
     this.vimboy = this.add.sprite(
@@ -37,10 +36,12 @@ export class GameScene extends Phaser.Scene {
       GAME_HEIGHT - CELL_SIZE / 2,
       "vimboy"
     );
+
+    this.movement = new Movement(this.vimboy, this.input);
   }
 
   public update() {
-    // TODO
+    this.movement!.checkKeys();
   }
 }
 
