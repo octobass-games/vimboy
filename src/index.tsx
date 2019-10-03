@@ -1,6 +1,7 @@
 import Phaser from "phaser";
-
 import "./index.css";
+import { GAME_WIDTH, GAME_HEIGHT, CELL_SIZE } from "./constants/constants";
+import { Colours } from "./constants/colours";
 
 const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
   active: false,
@@ -9,15 +10,33 @@ const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
 };
 
 export class GameScene extends Phaser.Scene {
-  private square?: Phaser.GameObjects.Rectangle;
-
+  private vimboy?: Phaser.GameObjects.Sprite;
   constructor() {
     super(sceneConfig);
   }
 
+  public preload(): void {
+    this.load.image("vimboy", process.env.PUBLIC_URL + "/images/vimboy.png");
+  }
+
   public create() {
-    this.square = this.add.rectangle(400, 400, 100, 100, 0xffffff);
-    this.physics.add.existing(this.square);
+    this.add.grid(
+      GAME_WIDTH / 2,
+      GAME_HEIGHT / 2,
+      GAME_WIDTH,
+      GAME_HEIGHT,
+      CELL_SIZE,
+      CELL_SIZE,
+      Colours.BLACK,
+      undefined,
+      Colours.GREEN
+    );
+
+    this.vimboy = this.add.sprite(
+      CELL_SIZE / 2,
+      GAME_HEIGHT - CELL_SIZE / 2,
+      "vimboy"
+    );
   }
 
   public update() {
@@ -27,8 +46,8 @@ export class GameScene extends Phaser.Scene {
 
 const config: Phaser.Types.Core.GameConfig = {
   type: Phaser.AUTO,
-  width: 800,
-  height: 600,
+  width: GAME_WIDTH,
+  height: GAME_HEIGHT,
   physics: {
     default: "arcade",
     arcade: {
@@ -38,4 +57,4 @@ const config: Phaser.Types.Core.GameConfig = {
   scene: GameScene
 };
 
-var game = new Phaser.Game(config);
+new Phaser.Game(config);
