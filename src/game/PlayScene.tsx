@@ -14,7 +14,7 @@ const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
 export class PlayScene extends Phaser.Scene {
   private vimboy: VimBoy;
   private textCreator: TextCreator;
-  private modeManager: ModeManager;
+  public modeManager: ModeManager;
 
   constructor() {
     super(sceneConfig);

@@ -15,6 +15,7 @@ class ModeManager {
   private modeText?: Phaser.GameObjects.Text;
   private scene: PlayScene;
   private insertKey?: Phaser.Input.Keyboard.Key;
+  private escapeKey?: Phaser.Input.Keyboard.Key;
 
   public constructor(scene: PlayScene) {
     this.scene = scene;
@@ -32,6 +33,7 @@ class ModeManager {
     );
 
     this.insertKey = this.scene.input.keyboard.addKey("I");
+    this.escapeKey = this.scene.input.keyboard.addKey("ESC");
   }
 
   public update() {
@@ -40,11 +42,24 @@ class ModeManager {
       500
     );
 
-    if (insertKeyPressed) {
-      this.mode = Mode.INSERT;
-      this.modeText!.setText(this.mode).setX(this.getTextXPosition());
+    if (insertKeyPressed && this.mode === Mode.NAVIGATION) {
+      this.setMode(Mode.INSERT);
+    }
+
+    const escapeKeyPressed = this.scene.input.keyboard.checkDown(
+      this.escapeKey!,
+      500
+    );
+
+    if (escapeKeyPressed && this.mode === Mode.INSERT) {
+      this.setMode(Mode.NAVIGATION);
     }
   }
+
+  private setMode = (mode: Mode) => {
+    this.mode = mode;
+    this.modeText!.setText(this.mode).setX(this.getTextXPosition());
+  };
 
   private getTextXPosition = () => GAME_WIDTH - this.mode.length * 8;
 }

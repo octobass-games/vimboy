@@ -1,5 +1,6 @@
 import { CELL_SIZE, BOTTOM_BAR_Y } from "../constants/constants";
 import { PlayScene } from "./PlayScene";
+import { Mode } from "./ModeManager";
 
 class Movement {
   private upKey: Phaser.Input.Keyboard.Key;
@@ -13,20 +14,25 @@ class Movement {
   }
 
   public checkKeys(vimboy: Phaser.GameObjects.Sprite) {
-    const isMovingUp = this.scene.input.keyboard.checkDown(this.upKey, 500);
-    if (isMovingUp) {
-      if (vimboy.y - CELL_SIZE <= 0) {
-        return;
+    if (this.scene.modeManager.mode === Mode.NAVIGATION) {
+      const isMovingUp = this.scene.input.keyboard.checkDown(this.upKey, 500);
+      if (isMovingUp) {
+        if (vimboy.y - CELL_SIZE <= 0) {
+          return;
+        }
+        vimboy.setY(vimboy.y - CELL_SIZE);
       }
-      vimboy.setY(vimboy.y - CELL_SIZE);
-    }
 
-    const isMovingDown = this.scene.input.keyboard.checkDown(this.downKey, 500);
-    if (isMovingDown) {
-      if (vimboy.y + CELL_SIZE >= BOTTOM_BAR_Y) {
-        return;
+      const isMovingDown = this.scene.input.keyboard.checkDown(
+        this.downKey,
+        500
+      );
+      if (isMovingDown) {
+        if (vimboy.y + CELL_SIZE >= BOTTOM_BAR_Y) {
+          return;
+        }
+        vimboy.setY(vimboy.y + CELL_SIZE);
       }
-      vimboy.setY(vimboy.y + CELL_SIZE);
     }
   }
 }
