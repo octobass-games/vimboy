@@ -1,30 +1,32 @@
-import { CELL_SIZE } from "../constants/constants";
+import { CELL_SIZE, BOTTOM_BAR_Y } from "../constants/constants";
+import { PlayScene } from "./PlayScene";
 
 class Movement {
-  private vimboy: Phaser.GameObjects.Sprite;
   private upKey: Phaser.Input.Keyboard.Key;
   private downKey: Phaser.Input.Keyboard.Key;
-  private input: Phaser.Input.InputPlugin;
+  private scene: PlayScene;
 
-  constructor(
-    vimboy: Phaser.GameObjects.Sprite,
-    input: Phaser.Input.InputPlugin
-  ) {
-    this.vimboy = vimboy;
-    this.input = input;
-    this.upKey = this.input.keyboard.addKey("K");
-    this.downKey = this.input.keyboard.addKey("J");
+  constructor(scene: PlayScene) {
+    this.scene = scene;
+    this.upKey = this.scene.input.keyboard.addKey("K");
+    this.downKey = this.scene.input.keyboard.addKey("J");
   }
 
-  public checkKeys() {
-    const isMovingUp = this.input.keyboard.checkDown(this.upKey, 500);
+  public checkKeys(vimboy: Phaser.GameObjects.Sprite) {
+    const isMovingUp = this.scene.input.keyboard.checkDown(this.upKey, 500);
     if (isMovingUp) {
-      this.vimboy!.setY(this.vimboy!.y - CELL_SIZE);
+      if (vimboy.y - CELL_SIZE <= 0) {
+        return;
+      }
+      vimboy.setY(vimboy.y - CELL_SIZE);
     }
 
-    const isMovingDown = this.input.keyboard.checkDown(this.downKey!, 500);
+    const isMovingDown = this.scene.input.keyboard.checkDown(this.downKey, 500);
     if (isMovingDown) {
-      this.vimboy!.setY(this.vimboy!.y + CELL_SIZE);
+      if (vimboy.y + CELL_SIZE >= BOTTOM_BAR_Y) {
+        return;
+      }
+      vimboy.setY(vimboy.y + CELL_SIZE);
     }
   }
 }

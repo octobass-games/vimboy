@@ -1,5 +1,9 @@
 import Phaser from "phaser";
-import { CELL_SIZE, GAME_WIDTH, GAME_HEIGHT } from "../constants/constants";
+import {
+  CELL_SIZE,
+  GAME_WIDTH,
+  PLAY_ZONE_HEIGHT
+} from "../constants/constants";
 
 import { PlayScene } from "./PlayScene";
 import { FONT, FONT_SIZE } from "../constants/text";
@@ -35,7 +39,7 @@ class TextCreator {
   };
 
   private add = () => {
-    const numberOfGaps = GAME_HEIGHT / CELL_SIZE;
+    const numberOfGaps = PLAY_ZONE_HEIGHT / CELL_SIZE;
     const gridIndexY = this.getRandomNumber(numberOfGaps);
     const y = this.getRandomNumber(numberOfGaps) * CELL_SIZE;
 
