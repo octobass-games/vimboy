@@ -1,4 +1,4 @@
-import { CELL_SIZE } from "./constants/constants";
+import { CELL_SIZE } from "../constants/constants";
 
 class Movement {
   private vimboy: Phaser.GameObjects.Sprite;
