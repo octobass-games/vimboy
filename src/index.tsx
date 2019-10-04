@@ -3,6 +3,7 @@ import "./index.css";
 import { GAME_WIDTH, GAME_HEIGHT, CELL_SIZE } from "./constants/constants";
 import Movement from "./Movement";
 import Background from "./Background";
+import TextCreator from "./TextCreator";
 
 const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
   active: false,
@@ -13,6 +14,7 @@ const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
 export class GameScene extends Phaser.Scene {
   private vimboy?: Phaser.GameObjects.Sprite;
   private movement?: Movement;
+  private textCreator?: TextCreator;
 
   constructor() {
     super(sceneConfig);
@@ -25,11 +27,6 @@ export class GameScene extends Phaser.Scene {
   public create() {
     const graphics = this.add.graphics({ x: 0, y: 0 });
     new Background(graphics).drawBackground();
-    this.add.text(0, 0, "Hello World", {
-      fontFamily: '"Consolas"',
-      fontSize: CELL_SIZE
-    });
-
     this.vimboy = this.add.sprite(
       CELL_SIZE / 2,
       GAME_HEIGHT - CELL_SIZE / 2,
@@ -37,10 +34,12 @@ export class GameScene extends Phaser.Scene {
     );
 
     this.movement = new Movement(this.vimboy, this.input);
+    this.textCreator = new TextCreator(this);
   }
 
   public update() {
     this.movement!.checkKeys();
+    this.textCreator!.update();
   }
 }
 
