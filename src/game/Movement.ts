@@ -1,4 +1,4 @@
-import { CELL_SIZE, BOTTOM_BAR_Y } from "../constants/constants";
+import { CELL_SIZE, BOTTOM_BAR_Y } from "../constants/game";
 import { Mode } from "./ModeManager";
 import { isKeyPressed } from "./KeyHelper";
 

@@ -1,6 +1,6 @@
 import Phaser from "phaser";
 
-import { GAME_WIDTH, BOTTOM_BAR_Y, CELL_SIZE } from "../constants/constants";
+import { GAME_WIDTH, BOTTOM_BAR_Y, CELL_SIZE } from "../constants/game";
 import { FONT, FONT_SIZE } from "../constants/text";
 import { isKeyPressed } from "./KeyHelper";
 

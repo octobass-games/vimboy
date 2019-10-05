@@ -1,6 +1,6 @@
 import Phaser from "phaser";
 import "./index.css";
-import { GAME_WIDTH, GAME_HEIGHT } from "./constants/constants";
+import { GAME_WIDTH, GAME_HEIGHT } from "./constants/game";
 import { PlayScene } from "./game/PlayScene";
 
 const config: Phaser.Types.Core.GameConfig = {

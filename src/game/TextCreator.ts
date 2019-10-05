@@ -3,7 +3,7 @@ import {
   CELL_SIZE,
   GAME_WIDTH,
   PLAY_ZONE_HEIGHT
-} from "../constants/constants";
+} from "../constants/game";
 
 import { FONT, FONT_SIZE } from "../constants/text";
 

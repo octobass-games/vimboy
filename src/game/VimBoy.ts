@@ -1,5 +1,5 @@
 import { PlayScene } from "./PlayScene";
-import { CELL_SIZE, PLAY_ZONE_HEIGHT } from "../constants/constants";
+import { CELL_SIZE, PLAY_ZONE_HEIGHT } from "../constants/game";
 import Movement from "./Movement";
 import WordAttack from "./WordAttack";
 

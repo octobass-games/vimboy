@@ -1,5 +1,5 @@
 import { Mode } from "./ModeManager";
-import { PLAY_ZONE_HEIGHT } from "../constants/constants";
+import { PLAY_ZONE_HEIGHT } from "../constants/game";
 import { isKeyPressed } from "./KeyHelper";
 
 class WordAttack {

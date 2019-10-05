@@ -1,7 +1,7 @@
 import Phaser from "phaser";
 
 import { Colours } from "../constants/colours";
-import { GAME_WIDTH, CELL_SIZE, GAME_HEIGHT } from "../constants/constants";
+import { GAME_WIDTH, CELL_SIZE, GAME_HEIGHT } from "../constants/game";
 
 class Background {
   private graphics: Phaser.GameObjects.Graphics;
