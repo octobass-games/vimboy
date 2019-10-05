@@ -5,7 +5,6 @@ import {
   PLAY_ZONE_HEIGHT
 } from "../constants/constants";
 
-import { PlayScene } from "./PlayScene";
 import { FONT, FONT_SIZE } from "../constants/text";
 
 interface TextItem {
@@ -15,12 +14,7 @@ interface TextItem {
 }
 
 class TextCreator {
-  private scene: PlayScene;
   private words: TextItem[] = [];
-
-  constructor(scene: PlayScene) {
-    this.scene = scene;
-  }
 
   public update = () => {
     if (this.getRandomNumber(100) === 99) {
@@ -50,18 +44,18 @@ class TextCreator {
 
   public add = (x: number, y: number, word: string, gridIndexY: number, xTween: number) => {
     
-    const text = this.scene.add.text(x, y, word, {
+    const text = window.scene.add.text(x, y, word, {
       fontFamily: FONT,
       fontSize: FONT_SIZE
     });
 
-    const textObject = this.scene.physics.world.enableBody(text);
+    const textObject = window.scene.physics.world.enableBody(text);
 
     const body = textObject.body as Phaser.Physics.Arcade.Body;
 
     body.setAllowGravity(false);
 
-    this.scene.tweens.timeline({
+    window.scene.tweens.timeline({
       targets: body.velocity,
       loop: -1,
       tweens: [{ x: xTween, y: 0, duration: 2000, ease: "Stepped" }]

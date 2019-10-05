@@ -4,7 +4,6 @@ import Background from "./Background";
 import TextCreator from "./TextCreator";
 import VimBoy from "./VimBoy";
 import ModeManager from "./ModeManager";
-import KeyHelper from "./KeyHelper";
 
 const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
   active: false,
@@ -16,14 +15,14 @@ export class PlayScene extends Phaser.Scene {
   private vimboy: VimBoy;
   public textCreator: TextCreator;
   public modeManager: ModeManager;
-  public keyHelper: KeyHelper;
 
   constructor() {
     super(sceneConfig);
-    this.vimboy = new VimBoy(this);
-    this.textCreator = new TextCreator(this);
-    this.modeManager = new ModeManager(this);
-    this.keyHelper = new KeyHelper(this)
+    window.scene = this
+
+    this.vimboy = new VimBoy();
+    this.textCreator = new TextCreator();
+    this.modeManager = new ModeManager();
   }
 
   public preload(): void {

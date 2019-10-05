@@ -1,14 +1,3 @@
-import { PlayScene } from "./PlayScene";
+export const isKeyPressed = (key: Phaser.Input.Keyboard.Key): boolean => window.scene.input.keyboard.checkDown(key,500);
 
-class KeyHelper {
-  private scene: PlayScene;
-  constructor(scene: PlayScene) {
-    this.scene = scene;
-  }
-
-  public isKeyPressed = (key: Phaser.Input.Keyboard.Key): boolean => 
-    this.scene.input.keyboard.checkDown(key,500);
-  
-}
-
-export default KeyHelper;
+// TODO: capital letter files should not be so

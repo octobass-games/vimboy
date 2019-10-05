@@ -1,28 +1,23 @@
 import Phaser from "phaser";
 
-import { PlayScene } from "./PlayScene";
 import { GAME_WIDTH, BOTTOM_BAR_Y, CELL_SIZE } from "../constants/constants";
 import { FONT, FONT_SIZE } from "../constants/text";
+import { isKeyPressed } from "./KeyHelper";
 
 export enum Mode {
-  NAVIGATION = " -- NAVIGATION --",
-  INSERT = " -- INSERT --"
+  NORMAL = "-- NORMAL -- ",
+  INSERT = "-- INSERT -- "
 }
 
 class ModeManager {
-  public mode: Mode = Mode.NAVIGATION;
+  public mode: Mode = Mode.NORMAL;
 
   private modeText?: Phaser.GameObjects.Text;
-  private scene: PlayScene;
   private insertKey?: Phaser.Input.Keyboard.Key;
   private escapeKey?: Phaser.Input.Keyboard.Key;
 
-  public constructor(scene: PlayScene) {
-    this.scene = scene;
-  }
-
   public create() {
-    this.modeText = this.scene.add.text(
+    this.modeText = window.scene.add.text(
       this.getTextXPosition(),
       BOTTOM_BAR_Y + CELL_SIZE / 2,
       this.mode,
@@ -32,17 +27,17 @@ class ModeManager {
       }
     );
 
-    this.insertKey = this.scene.input.keyboard.addKey("I");
-    this.escapeKey = this.scene.input.keyboard.addKey("ESC");
+    this.insertKey = window.scene.input.keyboard.addKey("I");
+    this.escapeKey = window.scene.input.keyboard.addKey("ESC");
   }
 
   public update() {
-    if (this.scene.keyHelper.isKeyPressed(this.insertKey!) && this.mode === Mode.NAVIGATION) {
+    if (isKeyPressed(this.insertKey!) && this.mode === Mode.NORMAL) {
       this.setMode(Mode.INSERT);
     }
 
-    if (this.scene.keyHelper.isKeyPressed(this.escapeKey!) && this.mode === Mode.INSERT) {
-      this.setMode(Mode.NAVIGATION);
+    if (isKeyPressed(this.escapeKey!) && this.mode === Mode.INSERT) {
+      this.setMode(Mode.NORMAL);
     }
   }
 
