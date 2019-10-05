@@ -15,6 +15,20 @@ interface TextItem {
 
 class TextCreator {
   private words: TextItem[] = [];
+  private enemies?: Phaser.GameObjects.Group
+  private attacks?: Phaser.GameObjects.Group
+
+  public create = () => {
+    this.enemies = window.scene.add.group()
+    this.attacks = window.scene.add.group()
+
+    window.scene.physics.add.overlap(this.attacks, this.enemies, this.onCollision)
+  }
+
+  private onCollision = (attack: Phaser.GameObjects.GameObject, enemy: Phaser.GameObjects.GameObject) => {
+    console.log('collision', attack, enemy)
+    enemy.destroy();
+  }
 
   public update = () => {
     if (this.getRandomNumber(100) === 99) {
@@ -38,11 +52,11 @@ class TextCreator {
     const y = this.getRandomNumber(numberOfGaps) * CELL_SIZE;
     const text = this.getRandomWord()
 
-    this.add(GAME_WIDTH, y, text, gridIndexY, -100)
+    this.add(GAME_WIDTH, y, text, gridIndexY, -100, true)
   }
 
 
-  public add = (x: number, y: number, word: string, gridIndexY: number, xTween: number) => {
+  public add = (x: number, y: number, word: string, gridIndexY: number, xTween: number, enemy: boolean) => {
     
     const text = window.scene.add.text(x, y, word, {
       fontFamily: FONT,
@@ -66,6 +80,12 @@ class TextCreator {
       body,
       object: textObject
     });
+
+    if (enemy){
+      this.enemies!.add(textObject)
+    }else{
+      this.attacks!.add(textObject)
+    }
   };
 
   private getRandomWord = () => "Hello World";

@@ -35,6 +35,7 @@ export class PlayScene extends Phaser.Scene {
 
     this.modeManager.create();
     this.vimboy.create();
+    this.textCreator.create();
   }
 
   public update() {

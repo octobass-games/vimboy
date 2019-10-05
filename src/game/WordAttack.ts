@@ -15,7 +15,7 @@ class WordAttack {
 
         Object.entries(this.keys!).forEach( ([letter, keyObject]) => {
             if(isKeyPressed(keyObject)){
-                window.scene.textCreator.add(x, y, letter, PLAY_ZONE_HEIGHT / y, 100 )
+                window.scene.textCreator.add(x, y, letter, PLAY_ZONE_HEIGHT / y, 100 , false)
             }
 
         })
