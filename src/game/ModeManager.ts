@@ -37,21 +37,11 @@ class ModeManager {
   }
 
   public update() {
-    const insertKeyPressed = this.scene.input.keyboard.checkDown(
-      this.insertKey!,
-      500
-    );
-
-    if (insertKeyPressed && this.mode === Mode.NAVIGATION) {
+    if (this.scene.keyHelper.isKeyPressed(this.insertKey!) && this.mode === Mode.NAVIGATION) {
       this.setMode(Mode.INSERT);
     }
 
-    const escapeKeyPressed = this.scene.input.keyboard.checkDown(
-      this.escapeKey!,
-      500
-    );
-
-    if (escapeKeyPressed && this.mode === Mode.INSERT) {
+    if (this.scene.keyHelper.isKeyPressed(this.escapeKey!) && this.mode === Mode.INSERT) {
       this.setMode(Mode.NAVIGATION);
     }
   }

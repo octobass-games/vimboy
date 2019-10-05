@@ -15,19 +15,14 @@ class Movement {
 
   public checkKeys(vimboy: Phaser.GameObjects.Sprite) {
     if (this.scene.modeManager.mode === Mode.NAVIGATION) {
-      const isMovingUp = this.scene.input.keyboard.checkDown(this.upKey, 500);
-      if (isMovingUp) {
+      if (this.scene.keyHelper.isKeyPressed(this.upKey!)) {
         if (vimboy.y - CELL_SIZE <= 0) {
           return;
         }
         vimboy.setY(vimboy.y - CELL_SIZE);
       }
 
-      const isMovingDown = this.scene.input.keyboard.checkDown(
-        this.downKey,
-        500
-      );
-      if (isMovingDown) {
+      if (this.scene.keyHelper.isKeyPressed(this.downKey!)) {
         if (vimboy.y + CELL_SIZE >= BOTTOM_BAR_Y) {
           return;
         }
