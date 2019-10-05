@@ -24,7 +24,7 @@ class TextCreator {
 
   public update = () => {
     if (this.getRandomNumber(100) === 99) {
-      this.add();
+      this.addEnemyText();
     }
     this.cleanup();
   };
@@ -38,12 +38,19 @@ class TextCreator {
     });
   };
 
-  private add = () => {
+  private addEnemyText = () => {
     const numberOfGaps = PLAY_ZONE_HEIGHT / CELL_SIZE;
     const gridIndexY = this.getRandomNumber(numberOfGaps);
     const y = this.getRandomNumber(numberOfGaps) * CELL_SIZE;
+    const text = this.getRandomWord()
 
-    const text = this.scene.add.text(GAME_WIDTH, y, this.getRandomWord(), {
+    this.add(GAME_WIDTH, y, text, gridIndexY, -100)
+  }
+
+
+  public add = (x: number, y: number, word: string, gridIndexY: number, xTween: number) => {
+    
+    const text = this.scene.add.text(x, y, word, {
       fontFamily: FONT,
       fontSize: FONT_SIZE
     });
@@ -57,7 +64,7 @@ class TextCreator {
     this.scene.tweens.timeline({
       targets: body.velocity,
       loop: -1,
-      tweens: [{ x: -100, y: 0, duration: 2000, ease: "Stepped" }]
+      tweens: [{ x: xTween, y: 0, duration: 2000, ease: "Stepped" }]
     });
 
     this.words.push({
