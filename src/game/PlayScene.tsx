@@ -4,6 +4,7 @@ import Background from "./Background";
 import TextCreator from "./TextCreator";
 import VimBoy from "./VimBoy";
 import ModeManager from "./ModeManager";
+import StatusLine from "./StatusLine";
 
 const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
   active: false,
@@ -15,10 +16,11 @@ export class PlayScene extends Phaser.Scene {
   private vimboy: VimBoy;
   public textCreator: TextCreator;
   public modeManager: ModeManager;
+  public statusLine?: StatusLine;
 
   constructor() {
     super(sceneConfig);
-    window.scene = this
+    window.scene = this;
 
     this.vimboy = new VimBoy();
     this.textCreator = new TextCreator();
@@ -32,6 +34,8 @@ export class PlayScene extends Phaser.Scene {
   public create() {
     const graphics = this.add.graphics({ x: 0, y: 0 });
     new Background(graphics).drawBackground();
+    this.statusLine = new StatusLine(graphics);
+    this.statusLine.create();
 
     this.modeManager.create();
     this.vimboy.create();
@@ -42,5 +46,6 @@ export class PlayScene extends Phaser.Scene {
     this.vimboy.update();
     this.textCreator.update();
     this.modeManager.update();
+    this.statusLine!.update();
   }
 }

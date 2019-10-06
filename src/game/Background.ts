@@ -23,16 +23,6 @@ class Background {
       );
       this.graphics.fillRectShape(rect);
     }
-
-    // Bottom Bar
-    const rect = new Phaser.Geom.Rectangle(
-      0,
-      GAME_HEIGHT - CELL_SIZE,
-      GAME_WIDTH,
-      CELL_SIZE
-    );
-    this.graphics.fillStyle(Colours.BLACK);
-    this.graphics.fillRectShape(rect);
   }
 }
 
