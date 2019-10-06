@@ -1,11 +1,10 @@
-import { PlayScene } from "./PlayScene";
 import { CELL_SIZE, PLAY_ZONE_HEIGHT } from "../constants/game";
 import Movement from "./Movement";
 import WordAttack from "./WordAttack";
 
 class VimBoy {
   private movement?: Movement;
-  private wordAttack: WordAttack; 
+  private wordAttack: WordAttack;
   private vimboy?: Phaser.GameObjects.Sprite;
 
   constructor() {
@@ -21,7 +20,7 @@ class VimBoy {
 
   public create = () => {
     this.movement = new Movement();
-    this.wordAttack.create()
+    this.wordAttack.create();
 
     this.vimboy = window.scene.add.sprite(
       CELL_SIZE / 2,
@@ -30,9 +29,9 @@ class VimBoy {
     );
   };
 
-  public update = () => { 
+  public update = () => {
     this.movement!.checkKeys(this.vimboy!);
-    this.wordAttack.update(this.vimboy!.x, this.vimboy!.y - CELL_SIZE / 2)
+    this.wordAttack.update(this.vimboy!.x, this.vimboy!.y - CELL_SIZE / 2);
   };
 }
 

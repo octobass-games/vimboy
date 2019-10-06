@@ -6,7 +6,7 @@ class Random {
     ];
 
     public static getNumber(max: number): number {
-      return Math.floor(Math.random() * Math.floor(max));
+      return Math.round(Math.floor(Math.random() * Math.floor(max)));
     }
 
     public static getWord(): string {
