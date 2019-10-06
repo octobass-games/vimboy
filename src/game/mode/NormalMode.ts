@@ -9,29 +9,23 @@ class NormalMode extends Mode {
         new Binding('dd', new DeleteLine()),
     ];
 
-    private timerStarted: boolean = false;
     private input: string = '';
-    private context: any;
 
     constructor() {
         super('normal', '--- NORMAL ---', NormalMode.bindings);
     }
 
     handle(keyEvent: KeyboardEvent, context: any) {
-        this.input = this.input.concat(keyEvent.key);
-        this.context = context;
-
-        if (!this.timerStarted) {
-            this.timerStarted = true;
-
-            setTimeout(() => {
-                const binding: Binding | undefined = this.bindings.find(binding => this.input === binding.key);
-
-                binding && binding.action.act(this.context);
-
+        if (keyEvent.key === 'Escape') {
+            this.input = '';
+        } else {
+            this.input = this.input.concat(keyEvent.key);
+            
+            const binding: Binding | undefined = this.bindings.find(binding => this.input === binding.key);
+            if (binding) {
+                binding.action.act(context);
                 this.input = '';
-                this.timerStarted = false;
-            }, 250);
+            }
         }
     }
 }
