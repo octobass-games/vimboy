@@ -48,10 +48,12 @@ export class PlayScene extends Phaser.Scene {
     new Background(graphics).drawBackground();
     this.statusLine = new StatusLine(graphics);
     this.statusLine.create();
+
     this.scoreBoard.create();
     this.health.create();
-    this.modeManager.create();
+
     this.vimboy.create();
+    this.modeManager.create(this.vimboy);
     this.textCreator.create();
   }
 
