@@ -1,10 +1,12 @@
 import Mode from './Mode';
 import Binding from './binding/Binding';
 import PrintText from './action/PrintText';
+import EnterNormalMode from './action/EnterNormalMode';
 
 class InsertMode extends Mode {
     private static bindings: Binding[] = [
         new Binding('any', new PrintText()),
+        new Binding('escape', new EnterNormalMode()),
     ];
 
     constructor() {
@@ -12,7 +14,12 @@ class InsertMode extends Mode {
     }
 
     handle(keyEvent: KeyboardEvent, context: any) {
-        InsertMode.bindings[0].action.act(context);
+        console.log(keyEvent.key);
+        if (keyEvent.key !== 'Escape') {
+            InsertMode.bindings[0].action.act(context);
+        } else {
+            InsertMode.bindings[1].action.act(context);
+        }
     }
 }
 

@@ -57,6 +57,10 @@ class ModeManager {
   public switchToInsert(): void {
       this.mode = new InsertMode();
   }
+
+  public switchToNormal(): void {
+      this.mode = new NormalMode();
+  }
 }
 
 export default ModeManager;
