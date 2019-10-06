@@ -52,6 +52,8 @@ class Movement {
     if (vimboy.y + CELL_SIZE >= BOTTOM_BAR_Y) {
       return;
     }
+    window.scene.vimboy.playDown();
+
     vimboy.setY(vimboy.y + CELL_SIZE);
   }
 
@@ -59,11 +61,13 @@ class Movement {
     if (vimboy.y - CELL_SIZE <= 0) {
       return;
     }
+    window.scene.vimboy.playUp();
     vimboy.setY(vimboy.y - CELL_SIZE);
   }
 
   public jumpToLine(line: number, vimboy: Phaser.GameObjects.Sprite) {
     const lineNo = this.clamp(line, 1, this.bottomLine());
+    window.scene.vimboy.playPop();
     vimboy.setY(lineNo * CELL_SIZE - CELL_SIZE / 2);
   }
 

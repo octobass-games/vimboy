@@ -42,11 +42,37 @@ class VimBoy {
     window.scene.anims.create({
       key: "vimboy-word-attack",
       frames: window.scene.anims.generateFrameNumbers("vimboy", {
-        start: 5,
-        end: 6
+        frames: [5]
       }),
       frameRate: 10,
-      repeat: 1
+      repeat: 0
+    });
+
+    window.scene.anims.create({
+      key: "vimboy-up",
+      frames: window.scene.anims.generateFrameNumbers("vimboy", {
+        frames: [1, 2, 3]
+      }),
+      frameRate: 10,
+      repeat: 0
+    });
+
+    window.scene.anims.create({
+      key: "vimboy-down",
+      frames: window.scene.anims.generateFrameNumbers("vimboy", {
+        frames: [6, 7, 8]
+      }),
+      frameRate: 10,
+      repeat: 0
+    });
+
+    window.scene.anims.create({
+      key: "vimboy-pop",
+      frames: window.scene.anims.generateFrameNumbers("vimboy", {
+        frames: [9]
+      }),
+      frameRate: 10,
+      repeat: 0
     });
   };
 
@@ -61,6 +87,10 @@ class VimBoy {
 
   public playWordAttack = () =>
     this.vimboy!.anims.play("vimboy-word-attack", false);
+
+  public playUp = () => this.vimboy!.anims.play("vimboy-up", true);
+  public playDown = () => this.vimboy!.anims.play("vimboy-down", true);
+  public playPop = () => this.vimboy!.anims.play("vimboy-pop", true);
 
   public jumpToLine = (lineNumber: number) =>
     this.movement!.jumpToLine(lineNumber, this.vimboy!);
