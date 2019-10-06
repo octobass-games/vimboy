@@ -85,16 +85,12 @@ class TextCreator {
     const enemyInRow = this.words.find(
       t => t.type === TextTypes.ENEMY && t.gridIndexY === gridIndexY
     );
-
-    console.log(gridIndexY);
-    console.log(this.words.map(t => t.gridIndexY));
-
     if (enemyInRow) {
       // Don't add enemy when one already exists
       return;
     }
 
-    const y = this.getRandomNumber(numberOfGaps) * CELL_SIZE;
+    const y = gridIndexY * CELL_SIZE;
     const text = this.getRandomWord();
 
     this.add(GAME_WIDTH, y, text, gridIndexY, -100, TextTypes.ENEMY);
@@ -145,7 +141,7 @@ class TextCreator {
   private getRandomWord = () => "Hello World";
 
   private getRandomNumber = (max: number): number =>
-    Math.floor(Math.random() * Math.floor(max));
+    Math.round(Math.floor(Math.random() * Math.floor(max)));
 }
 
 export default TextCreator;
