@@ -12,9 +12,10 @@ class VimBoy {
   }
 
   public preload = () => {
-    window.scene.load.image(
+    window.scene.load.spritesheet(
       "vimboy",
-      process.env.PUBLIC_URL + "/images/vimboy.png"
+      process.env.PUBLIC_URL + "/images/vimboy-spritesheet.png",
+      { frameWidth: 50, frameHeight: CELL_SIZE }
     );
   };
 
@@ -23,24 +24,33 @@ class VimBoy {
     this.wordAttack.create();
 
     this.vimboy = window.scene.add.sprite(
-      CELL_SIZE / 2,
+      50 / 2,
       PLAY_ZONE_HEIGHT - CELL_SIZE / 2,
       "vimboy"
     );
+
+    window.scene.anims.create({
+      key: "vimboy-bob",
+      frames: window.scene.anims.generateFrameNumbers("vimboy", {
+        start: 0,
+        end: 3
+      }),
+      frameRate: 10,
+      repeat: -1
+    });
   };
 
   public update = () => {
     this.movement!.update(this.vimboy!);
     this.wordAttack.update(this.vimboy!.x, this.vimboy!.y - CELL_SIZE / 2);
+    this.vimboy!.anims.play("vimboy-bob", true);
   };
 
-  public jumpToLine = (lineNumber: number) => 
+  public jumpToLine = (lineNumber: number) =>
     this.movement!.jumpToLine(lineNumber, this.vimboy!);
-  
 
-  public jumpBackNLines = (n: number) => 
+  public jumpBackNLines = (n: number) =>
     this.movement!.jumpBackNLines(n, this.vimboy!);
-  
 }
 
 export default VimBoy;
