@@ -8,6 +8,7 @@ import {
 import { Colours } from "../constants/colours";
 import { FONT, FONT_SIZE } from "../constants/text";
 import { Mode } from "./ModeManager";
+import { calculateCommand } from "./commandModeUtils";
 
 const modeNames = {
   [Mode.NORMAL]: "-- NORMAL --",
@@ -40,8 +41,11 @@ class StatusLine {
               this.storedCommand = this.storedCommand.slice(0, -1);
               break;
             case "Enter":
-              const lineNumber = parseInt(this.storedCommand);
-              window.scene.vimboy.jumpToLine(lineNumber);
+              calculateCommand(this.storedCommand, {
+                noMatch: () => undefined,
+                jumpToLine: window.scene.vimboy.jumpToLine
+              });
+
               window.scene.modeManager.setMode(Mode.NORMAL);
               this.storedCommand = "";
               break;
