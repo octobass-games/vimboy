@@ -24,6 +24,8 @@ class WordAttack {
             100,
             TextTypes.ATTACK
           );
+
+          window.scene.vimboy.playWordAttack();
         }
       });
     }

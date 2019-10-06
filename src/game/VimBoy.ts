@@ -33,18 +33,34 @@ class VimBoy {
       key: "vimboy-bob",
       frames: window.scene.anims.generateFrameNumbers("vimboy", {
         start: 0,
-        end: 3
+        end: 4
       }),
       frameRate: 10,
       repeat: -1
+    });
+
+    window.scene.anims.create({
+      key: "vimboy-word-attack",
+      frames: window.scene.anims.generateFrameNumbers("vimboy", {
+        start: 5,
+        end: 6
+      }),
+      frameRate: 10,
+      repeat: 1
     });
   };
 
   public update = () => {
     this.movement!.update(this.vimboy!);
     this.wordAttack.update(this.vimboy!.x, this.vimboy!.y - CELL_SIZE / 2);
-    this.vimboy!.anims.play("vimboy-bob", true);
+
+    if (!this.vimboy!.anims.isPlaying) {
+      this.vimboy!.anims.play("vimboy-bob", true);
+    }
   };
+
+  public playWordAttack = () =>
+    this.vimboy!.anims.play("vimboy-word-attack", false);
 
   public jumpToLine = (lineNumber: number) =>
     this.movement!.jumpToLine(lineNumber, this.vimboy!);
