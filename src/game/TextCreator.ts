@@ -3,8 +3,14 @@ import { CELL_SIZE, GAME_WIDTH, PLAY_ZONE_HEIGHT } from "../constants/game";
 
 import { FONT, FONT_SIZE } from "../constants/text";
 
+export enum TextTypes {
+  ENEMY = "ENEMY",
+  ATTACK = "ATTACK"
+}
+
 interface TextItem {
   gridIndexY: number;
+  type: TextTypes;
   body: Phaser.Physics.Arcade.Body;
   object: Phaser.GameObjects.GameObject;
 }
@@ -59,21 +65,39 @@ class TextCreator {
   };
 
   private cleanup = () => {
-    this.words.forEach(({ object, body }, index) => {
-      if (body.x < 0 - GAME_WIDTH) {
+    var newList: TextItem[] = [];
+    this.words.forEach(item => {
+      const { object, body } = item;
+      if (body.x < 0 - GAME_WIDTH || body.x > GAME_WIDTH + 200) {
         object.destroy();
+      } else {
+        newList.push(item);
       }
-      // TODO: need to clear from list too
     });
+
+    this.words = newList;
   };
 
   private addEnemyText = () => {
     const numberOfGaps = PLAY_ZONE_HEIGHT / CELL_SIZE;
     const gridIndexY = this.getRandomNumber(numberOfGaps);
+
+    const enemyInRow = this.words.find(
+      t => t.type === TextTypes.ENEMY && t.gridIndexY === gridIndexY
+    );
+
+    console.log(gridIndexY);
+    console.log(this.words.map(t => t.gridIndexY));
+
+    if (enemyInRow) {
+      // Don't add enemy when one already exists
+      return;
+    }
+
     const y = this.getRandomNumber(numberOfGaps) * CELL_SIZE;
     const text = this.getRandomWord();
 
-    this.add(GAME_WIDTH, y, text, gridIndexY, -100, true);
+    this.add(GAME_WIDTH, y, text, gridIndexY, -100, TextTypes.ENEMY);
   };
 
   public add = (
@@ -82,7 +106,7 @@ class TextCreator {
     word: string,
     gridIndexY: number,
     xTween: number,
-    enemy: boolean
+    type: TextTypes
   ) => {
     const text = window.scene.add.text(x, y, word, {
       fontFamily: FONT,
@@ -104,13 +128,17 @@ class TextCreator {
     this.words.push({
       gridIndexY,
       body,
+      type,
       object: textObject
     });
 
-    if (enemy) {
-      this.enemies!.add(textObject);
-    } else {
-      this.attacks!.add(textObject);
+    switch (type) {
+      case TextTypes.ATTACK:
+        this.attacks!.add(textObject);
+        break;
+      case TextTypes.ENEMY:
+        this.enemies!.add(textObject);
+        break;
     }
   };
 
