@@ -3,9 +3,9 @@ import Movement from "./Movement";
 import WordAttack from "./WordAttack";
 
 class VimBoy {
-  private movement?: Movement;
+  public movement?: Movement;
   private wordAttack: WordAttack;
-  private vimboy?: Phaser.GameObjects.Sprite;
+  public vimboy?: Phaser.GameObjects.Sprite;
 
   constructor() {
     this.wordAttack = new WordAttack();

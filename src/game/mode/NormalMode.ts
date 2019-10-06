@@ -3,10 +3,14 @@ import Binding from './binding/Binding';
 import EnterInsertMode from './action/EnterInsertMode';
 import EnterCommandMode from './action/EnterCommandMode';
 import DeleteLine from './action/DeleteLine';
+import MoveUp from './action/MoveUp';
+import MoveDown from './action/MoveDown';
 
 class NormalMode extends Mode {
     private static bindings: Binding[] = [
         new Binding('i', new EnterInsertMode()),
+        new Binding('j', new MoveDown()),
+        new Binding('k', new MoveUp()),
         new Binding('dd', new DeleteLine()),
         new Binding('Shift:', new EnterCommandMode()),
     ];

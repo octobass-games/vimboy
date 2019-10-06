@@ -48,7 +48,7 @@ class Movement {
   private canMove = (): boolean => true
     // window.scene.modeManager.mode === Mode.NORMAL;
 
-  private downALine(vimboy: Phaser.GameObjects.Sprite) {
+  public downALine(vimboy: Phaser.GameObjects.Sprite) {
     if (vimboy.y + CELL_SIZE >= BOTTOM_BAR_Y) {
       return;
     }
@@ -57,7 +57,7 @@ class Movement {
     vimboy.setY(vimboy.y + CELL_SIZE);
   }
 
-  private upALine(vimboy: Phaser.GameObjects.Sprite) {
+  public upALine(vimboy: Phaser.GameObjects.Sprite) {
     if (vimboy.y - CELL_SIZE <= 0) {
       return;
     }
