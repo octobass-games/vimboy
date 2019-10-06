@@ -59,7 +59,7 @@ class TextCreator {
   };
 
   public update = () => {
-    if (this.getRandomNumber(100) === 99) {
+    if (Random.getNumber(100) === 99) {
       this.addEnemyText();
     }
     this.cleanup();
