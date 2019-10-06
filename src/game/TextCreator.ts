@@ -1,9 +1,5 @@
 import Phaser from "phaser";
-import {
-  CELL_SIZE,
-  GAME_WIDTH,
-  PLAY_ZONE_HEIGHT
-} from "../constants/game";
+import { CELL_SIZE, GAME_WIDTH, PLAY_ZONE_HEIGHT } from "../constants/game";
 
 import { FONT, FONT_SIZE } from "../constants/text";
 
@@ -15,20 +11,39 @@ interface TextItem {
 
 class TextCreator {
   private words: TextItem[] = [];
-  private enemies?: Phaser.GameObjects.Group
-  private attacks?: Phaser.GameObjects.Group
+  private enemies?: Phaser.GameObjects.Group;
+  private attacks?: Phaser.GameObjects.Group;
 
   public create = () => {
-    this.enemies = window.scene.add.group()
-    this.attacks = window.scene.add.group()
+    this.enemies = window.scene.add.group();
+    this.attacks = window.scene.add.group();
 
-    window.scene.physics.add.overlap(this.attacks, this.enemies, this.onCollision)
-  }
+    window.scene.physics.add.overlap(
+      this.attacks,
+      this.enemies,
+      this.onCollision
+    );
+  };
 
-  private onCollision = (attack: Phaser.GameObjects.GameObject, enemy: Phaser.GameObjects.GameObject) => {
-    console.log('collision', attack, enemy)
-    enemy.destroy();
-  }
+  private onCollision = (
+    attack: Phaser.GameObjects.GameObject,
+    enemy: Phaser.GameObjects.GameObject
+  ) => {
+    const attackTextObj = attack as Phaser.GameObjects.Text;
+    const enemyTextObj = enemy as Phaser.GameObjects.Text;
+    const enemyText = enemyTextObj.text.toLowerCase().trim();
+
+    const enemyTextFirstChar = enemyText.charAt(0);
+
+    if (attackTextObj.text.toLowerCase() === enemyTextFirstChar) {
+      if (enemyTextObj.text.length === 1) {
+        enemy.destroy();
+      } else {
+        enemyTextObj.setText(enemyText.substr(1));
+      }
+    }
+    attackTextObj.destroy();
+  };
 
   public update = () => {
     if (this.getRandomNumber(100) === 99) {
@@ -50,14 +65,19 @@ class TextCreator {
     const numberOfGaps = PLAY_ZONE_HEIGHT / CELL_SIZE;
     const gridIndexY = this.getRandomNumber(numberOfGaps);
     const y = this.getRandomNumber(numberOfGaps) * CELL_SIZE;
-    const text = this.getRandomWord()
+    const text = this.getRandomWord();
 
-    this.add(GAME_WIDTH, y, text, gridIndexY, -100, true)
-  }
+    this.add(GAME_WIDTH, y, text, gridIndexY, -100, true);
+  };
 
-
-  public add = (x: number, y: number, word: string, gridIndexY: number, xTween: number, enemy: boolean) => {
-    
+  public add = (
+    x: number,
+    y: number,
+    word: string,
+    gridIndexY: number,
+    xTween: number,
+    enemy: boolean
+  ) => {
     const text = window.scene.add.text(x, y, word, {
       fontFamily: FONT,
       fontSize: FONT_SIZE
@@ -81,10 +101,10 @@ class TextCreator {
       object: textObject
     });
 
-    if (enemy){
-      this.enemies!.add(textObject)
-    }else{
-      this.attacks!.add(textObject)
+    if (enemy) {
+      this.enemies!.add(textObject);
+    } else {
+      this.attacks!.add(textObject);
     }
   };
 
