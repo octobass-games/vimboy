@@ -31,8 +31,14 @@ class TextCreator {
   ) => {
     const attackTextObj = attack as Phaser.GameObjects.Text;
     const enemyTextObj = enemy as Phaser.GameObjects.Text;
-    const enemyText = enemyTextObj.text.toLowerCase().trim();
+    const attackBody = attack.body as Phaser.Physics.Arcade.Body;
+    const enemyBody = enemy.body as Phaser.Physics.Arcade.Body;
 
+    if (attackBody.y !== enemyBody.y) {
+      return;
+    }
+
+    const enemyText = enemyTextObj.text.toLowerCase().trim();
     const enemyTextFirstChar = enemyText.charAt(0);
 
     if (attackTextObj.text.toLowerCase() === enemyTextFirstChar) {
