@@ -33,6 +33,10 @@ class VimBoy {
     this.movement!.update(this.vimboy!);
     this.wordAttack.update(this.vimboy!.x, this.vimboy!.y - CELL_SIZE / 2);
   };
+
+  public jumpToLine = (lineNumber: number) => {
+    this.movement!.jumpToLine(lineNumber, this.vimboy!);
+  };
 }
 
 export default VimBoy;

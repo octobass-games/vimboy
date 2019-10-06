@@ -27,29 +27,31 @@ class StatusLine {
   }
 
   public create = () => {
-    const rect = new Phaser.Geom.Rectangle(
-      0,
-      GAME_HEIGHT - CELL_SIZE,
-      GAME_WIDTH,
-      CELL_SIZE
-    );
-    this.graphics.fillStyle(Colours.BLACK);
-    this.graphics.fillRectShape(rect);
+    this.initBackground();
+    this.initMode();
+    this.initCommandText();
 
-    this.modeText = window.scene.add.text(
-      this.getTextXPosition(),
-      BOTTOM_BAR_Y + CELL_SIZE / 2,
-      this.modeString(),
-      {
-        fontFamily: FONT,
-        fontSize: FONT_SIZE / 3
+    window.scene.keyCapturer!.addListener(
+      "keydown",
+      ({ key }: KeyboardEvent) => {
+        if (window.scene.modeManager.mode === Mode.COMMAND) {
+          switch (key) {
+            case "Backspace":
+              this.storedCommand = this.storedCommand.slice(0, -1);
+              break;
+            case "Enter":
+              const lineNumber = parseInt(this.storedCommand);
+              window.scene.vimboy.jumpToLine(lineNumber);
+              window.scene.modeManager.setMode(Mode.NORMAL);
+              this.storedCommand = "";
+              break;
+            default:
+              this.storedCommand += key;
+              break;
+          }
+        }
       }
     );
-
-    this.commandText = window.scene.add.text(0, BOTTOM_BAR_Y, "asd", {
-      fontFamily: FONT,
-      fontSize: FONT_SIZE
-    });
   };
 
   public update = () => {
@@ -59,11 +61,17 @@ class StatusLine {
 
     if (this.mode() === Mode.COMMAND) {
       this.renderCommand();
+    } else {
+      this.hideCommand();
     }
   };
 
+  private hideCommand = () => {
+    this.commandText!.setText("");
+  };
+
   private renderCommand = () => {
-    this.modeText!.setText(":" + this.storedCommand);
+    this.commandText!.setText(":" + this.storedCommand);
   };
 
   private modeString = (): string => modeNames[this.mode()];
@@ -71,6 +79,36 @@ class StatusLine {
   private mode = () => window.scene.modeManager.mode;
 
   private getTextXPosition = () => GAME_WIDTH - this.modeString().length * 8;
+
+  private initBackground = () => {
+    const rect = new Phaser.Geom.Rectangle(
+      0,
+      GAME_HEIGHT - CELL_SIZE,
+      GAME_WIDTH,
+      CELL_SIZE
+    );
+    this.graphics.fillStyle(Colours.BLACK);
+    this.graphics.fillRectShape(rect);
+  };
+
+  private initMode = () => {
+    this.modeText = window.scene.add.text(
+      this.getTextXPosition(),
+      BOTTOM_BAR_Y + CELL_SIZE / 2,
+      this.modeString(),
+      {
+        fontFamily: FONT,
+        fontSize: FONT_SIZE / 3
+      }
+    );
+  };
+
+  private initCommandText = () => {
+    this.commandText = window.scene.add.text(0, BOTTOM_BAR_Y, "", {
+      fontFamily: FONT,
+      fontSize: FONT_SIZE
+    });
+  };
 }
 
 export default StatusLine;

@@ -62,7 +62,7 @@ class Movement {
     vimboy.setY(vimboy.y - CELL_SIZE);
   }
 
-  private jumpToLine(line: number, vimboy: Phaser.GameObjects.Sprite) {
+  public jumpToLine(line: number, vimboy: Phaser.GameObjects.Sprite) {
     vimboy.setY(line * CELL_SIZE - CELL_SIZE / 2);
   }
 }

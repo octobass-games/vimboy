@@ -13,10 +13,11 @@ const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
 };
 
 export class PlayScene extends Phaser.Scene {
-  private vimboy: VimBoy;
+  public vimboy: VimBoy;
   public textCreator: TextCreator;
   public modeManager: ModeManager;
   public statusLine?: StatusLine;
+  public keyCapturer?: Phaser.Input.Keyboard.KeyboardPlugin;
 
   constructor() {
     super(sceneConfig);
@@ -32,6 +33,10 @@ export class PlayScene extends Phaser.Scene {
   }
 
   public create() {
+    this.keyCapturer = window.scene.input.keyboard.addCapture([
+      Phaser.Input.Keyboard.KeyCodes.I
+    ]); // I is a lie, it captures all keys
+
     const graphics = this.add.graphics({ x: 0, y: 0 });
     new Background(graphics).drawBackground();
     this.statusLine = new StatusLine(graphics);
