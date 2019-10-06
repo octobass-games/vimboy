@@ -37,6 +37,10 @@ class VimBoy {
   public jumpToLine = (lineNumber: number) => {
     this.movement!.jumpToLine(lineNumber, this.vimboy!);
   };
+
+  public jumpBackNLines = (n: number) => {
+    this.movement!.jumpBackNLines(n, this.vimboy!);
+  };
 }
 
 export default VimBoy;

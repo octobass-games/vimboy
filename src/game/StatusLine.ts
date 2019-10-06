@@ -43,7 +43,8 @@ class StatusLine {
             case "Enter":
               calculateCommand(this.storedCommand, {
                 noMatch: () => undefined,
-                jumpToLine: window.scene.vimboy.jumpToLine
+                jumpToLine: window.scene.vimboy.jumpToLine,
+                jumpBackNLines: window.scene.vimboy.jumpBackNLines
               });
 
               window.scene.modeManager.setMode(Mode.NORMAL);

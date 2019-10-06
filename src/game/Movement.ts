@@ -63,9 +63,17 @@ class Movement {
   }
 
   public jumpToLine(line: number, vimboy: Phaser.GameObjects.Sprite) {
-    const lineNo = this.clamp(line, 0, this.bottomLine());
+    const lineNo = this.clamp(line, 1, this.bottomLine());
     vimboy.setY(lineNo * CELL_SIZE - CELL_SIZE / 2);
   }
+
+  public jumpBackNLines(n: number, vimboy: Phaser.GameObjects.Sprite) {
+    const line = this.currentLine(vimboy) - n;
+    this.jumpToLine(line, vimboy);
+  }
+
+  private currentLine = (vimboy: Phaser.GameObjects.Sprite): number =>
+    (vimboy.y + CELL_SIZE / 2) / CELL_SIZE;
 
   private bottomLine = (): number => PLAY_ZONE_HEIGHT / CELL_SIZE;
 
