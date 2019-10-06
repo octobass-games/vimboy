@@ -25,10 +25,7 @@ class NormalMode extends Mode {
             this.timerStarted = true;
 
             setTimeout(() => {
-                const binding: Binding | undefined = this.bindings.find(binding => {
-                    console.log(this.input);
-                    return this.input === binding.key;
-                });
+                const binding: Binding | undefined = this.bindings.find(binding => this.input === binding.key);
 
                 binding && binding.action.act(this.context);
 
