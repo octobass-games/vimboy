@@ -1,5 +1,5 @@
 import { CELL_SIZE, BOTTOM_BAR_Y, PLAY_ZONE_HEIGHT } from "../constants/game";
-import { Mode } from "./ModeManager";
+// import { Mode } from "./ModeManager";
 import { isKeyPressed, onKeyCombo, COMBO_DEFAULTS } from "./KeyHelper";
 
 class Movement {
@@ -24,19 +24,19 @@ class Movement {
   };
 
   private checkKeys = (vimboy: Phaser.GameObjects.Sprite) => {
-    if (window.scene.modeManager.mode === Mode.NORMAL) {
-      if (isKeyPressed(this.up)) {
-        this.upALine(vimboy);
-      }
+    // if (window.scene.modeManager.mode === Mode.NORMAL) {
+    //   if (isKeyPressed(this.up)) {
+    //     this.upALine(vimboy);
+    //   }
 
-      if (isKeyPressed(this.down)) {
-        this.downALine(vimboy);
-      }
+    //   if (isKeyPressed(this.down)) {
+    //     this.downALine(vimboy);
+    //   }
 
-      if (isKeyPressed(this.bottomOfFile) && this.bottomOfFile.shiftKey) {
-        this.jumpToLine(this.bottomLine(), vimboy);
-      }
-    }
+    //  if (isKeyPressed(this.bottomOfFile) && this.bottomOfFile.shiftKey) {
+    //    this.jumpToLine(this.bottomLine(), vimboy);
+    //  }
+    //}
   };
 
   private checkKeyCombos = (vimboy: Phaser.GameObjects.Sprite) => {
@@ -45,8 +45,8 @@ class Movement {
     );
   };
 
-  private canMove = (): boolean =>
-    window.scene.modeManager.mode === Mode.NORMAL;
+  private canMove = (): boolean => true
+    // window.scene.modeManager.mode === Mode.NORMAL;
 
   private downALine(vimboy: Phaser.GameObjects.Sprite) {
     if (vimboy.y + CELL_SIZE >= BOTTOM_BAR_Y) {

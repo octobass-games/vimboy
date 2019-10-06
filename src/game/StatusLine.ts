@@ -7,15 +7,15 @@ import {
 
 import { Colours } from "../constants/colours";
 import { FONT, FONT_SIZE } from "../constants/text";
-import { Mode } from "./ModeManager";
+// import { Mode } from "./ModeManager";
 import { calculateCommand } from "./commandModeUtils";
 
 const padding = 10;
 
 const modeNames = {
-  [Mode.NORMAL]: "-- NORMAL --",
-  [Mode.COMMAND]: "-- NORMAL --",
-  [Mode.INSERT]: "-- INSERT --"
+  NORMAL: "-- NORMAL --",
+  COMMAND: "-- NORMAL --",
+  INSERT: "-- INSERT --"
 };
 
 class StatusLine {
@@ -37,26 +37,26 @@ class StatusLine {
     window.scene.keyCapturer!.addListener(
       "keydown",
       ({ key }: KeyboardEvent) => {
-        if (window.scene.modeManager.mode === Mode.COMMAND) {
-          switch (key) {
-            case "Backspace":
-              this.storedCommand = this.storedCommand.slice(0, -1);
-              break;
-            case "Enter":
-              calculateCommand(this.storedCommand, {
-                noMatch: () => undefined,
-                jumpToLine: window.scene.vimboy.jumpToLine,
-                jumpBackNLines: window.scene.vimboy.jumpBackNLines
-              });
+        // if (window.scene.modeManager.mode === Mode.COMMAND) {
+        //   switch (key) {
+        //     case "Backspace":
+        //       this.storedCommand = this.storedCommand.slice(0, -1);
+        //       break;
+        //     case "Enter":
+        //       calculateCommand(this.storedCommand, {
+        //         noMatch: () => undefined,
+        //         jumpToLine: window.scene.vimboy.jumpToLine,
+        //         jumpBackNLines: window.scene.vimboy.jumpBackNLines
+        //       });
 
-              window.scene.modeManager.setMode(Mode.NORMAL);
-              this.storedCommand = "";
-              break;
-            default:
-              this.storedCommand += key;
-              break;
-          }
-        }
+        //       window.scene.modeManager.setMode(Mode.NORMAL);
+        //       this.storedCommand = "";
+        //       break;
+        //     default:
+        //       this.storedCommand += key;
+        //       break;
+        //   }
+        // }
       }
     );
   };
@@ -66,11 +66,11 @@ class StatusLine {
       this.modeText!.setText(this.modeString());
     }
 
-    if (this.mode() === Mode.COMMAND) {
-      this.renderCommand();
-    } else {
-      this.hideCommand();
-    }
+    // if (this.mode() === Mode.COMMAND) {
+    //   this.renderCommand();
+    // } else {
+    //   this.hideCommand();
+    // }
   };
 
   private hideCommand = () => {
@@ -81,9 +81,11 @@ class StatusLine {
     this.commandText!.setText(":" + this.storedCommand);
   };
 
-  private modeString = (): string => modeNames[this.mode()];
+  // private modeString = (): string => modeNames[this.mode()];
+  private modeString = (): string => '';
 
-  private mode = () => window.scene.modeManager.mode;
+  // private mode = () => window.scene.modeManager.mode;
+  private mode = () => 'test';
 
   private initBackground = () => {
     const rect = new Phaser.Geom.Rectangle(
