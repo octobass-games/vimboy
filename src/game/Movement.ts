@@ -18,7 +18,12 @@ class Movement {
     this.bottomOfFile = window.scene.input.keyboard.addKey("G");
   }
 
-  public checkKeys(vimboy: Phaser.GameObjects.Sprite) {
+  public update = (vimboy: Phaser.GameObjects.Sprite) => {
+    this.checkKeys(vimboy);
+    this.checkKeyCombos(vimboy);
+  };
+
+  private checkKeys = (vimboy: Phaser.GameObjects.Sprite) => {
     if (window.scene.modeManager.mode === Mode.NORMAL) {
       if (isKeyPressed(this.up)) {
         this.upALine(vimboy);
@@ -31,10 +36,17 @@ class Movement {
       if (isKeyPressed(this.bottomOfFile) && this.bottomOfFile.shiftKey) {
         this.jumpToLine(PLAY_ZONE_HEIGHT / CELL_SIZE, vimboy);
       }
-
-      onKeyCombo(this.topOfFile, () => this.jumpToLine(1, vimboy));
     }
-  }
+  };
+
+  private checkKeyCombos = (vimboy: Phaser.GameObjects.Sprite) => {
+    onKeyCombo(this.topOfFile, () =>
+      this.canMove() ? this.jumpToLine(1, vimboy) : undefined
+    );
+  };
+
+  private canMove = (): boolean =>
+    window.scene.modeManager.mode === Mode.NORMAL;
 
   private downALine(vimboy: Phaser.GameObjects.Sprite) {
     if (vimboy.y + CELL_SIZE >= BOTTOM_BAR_Y) {
