@@ -2,6 +2,7 @@ import Phaser from "phaser";
 import { CELL_SIZE, GAME_WIDTH, PLAY_ZONE_HEIGHT } from "../constants/game";
 
 import { FONT, FONT_SIZE } from "../constants/text";
+import Random from "./Random";
 
 export enum TextTypes {
   ENEMY = "ENEMY",
@@ -80,7 +81,7 @@ class TextCreator {
 
   private addEnemyText = () => {
     const numberOfGaps = PLAY_ZONE_HEIGHT / CELL_SIZE;
-    const gridIndexY = this.getRandomNumber(numberOfGaps);
+    const gridIndexY = Random.getNumber(numberOfGaps);
 
     const enemyInRow = this.words.find(
       t => t.type === TextTypes.ENEMY && t.gridIndexY === gridIndexY
@@ -94,8 +95,8 @@ class TextCreator {
       return;
     }
 
-    const y = this.getRandomNumber(numberOfGaps) * CELL_SIZE;
-    const text = this.getRandomWord();
+    const y = Random.getNumber(numberOfGaps) * CELL_SIZE;
+    const text = Random.getWord();
 
     this.add(GAME_WIDTH, y, text, gridIndexY, -100, TextTypes.ENEMY);
   };
@@ -141,11 +142,6 @@ class TextCreator {
         break;
     }
   };
-
-  private getRandomWord = () => "Hello World";
-
-  private getRandomNumber = (max: number): number =>
-    Math.floor(Math.random() * Math.floor(max));
 }
 
 export default TextCreator;
