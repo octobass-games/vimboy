@@ -3,11 +3,17 @@ import { CELL_SIZE, GAME_WIDTH, PLAY_ZONE_HEIGHT } from "../constants/game";
 
 import { FONT, FONT_SIZE } from "../constants/text";
 import Random from "./Random";
+import { StringColours } from "../constants/colours";
 
 export enum TextTypes {
   ENEMY = "ENEMY",
   ATTACK = "ATTACK"
 }
+
+const colourMap = {
+  [TextTypes.ENEMY]: StringColours.BEIGE,
+  [TextTypes.ATTACK]: StringColours.GREEN
+};
 
 interface TextItem {
   gridIndexY: number;
@@ -105,10 +111,12 @@ class TextCreator {
     xTween: number,
     type: TextTypes
   ) => {
-    const text = window.scene.add.text(x, y, word, {
-      fontFamily: FONT,
-      fontSize: FONT_SIZE
-    });
+    const text = window.scene.add
+      .text(x, y, word, {
+        fontFamily: FONT,
+        fontSize: FONT_SIZE
+      })
+      .setColor(colourMap[type]);
 
     const textObject = window.scene.physics.world.enableBody(text);
 
