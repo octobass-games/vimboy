@@ -14,7 +14,6 @@ class InsertMode extends Mode {
     }
 
     handle(keyEvent: KeyboardEvent, context: any) {
-        console.log(keyEvent.key);
         if (keyEvent.key !== 'Escape') {
             InsertMode.bindings[0].action.act(context);
         } else {

@@ -10,7 +10,7 @@ import VimBoy from './VimBoy';
 // }
 
 class ModeManager {
-  private mode: Mode;
+  public mode: Mode;
 
   constructor() {
       this.mode = new NormalMode();

@@ -7,26 +7,22 @@ import {
 
 import { Colours } from "../constants/colours";
 import { FONT, FONT_SIZE } from "../constants/text";
-// import { Mode } from "./ModeManager";
+import ModeManager from "./ModeManager";
 import { calculateCommand } from "./commandModeUtils";
 
 const padding = 10;
-
-const modeNames = {
-  NORMAL: "-- NORMAL --",
-  COMMAND: "-- NORMAL --",
-  INSERT: "-- INSERT --"
-};
 
 class StatusLine {
   private graphics: Phaser.GameObjects.Graphics;
   private modeText?: Phaser.GameObjects.Text;
   private commandText?: Phaser.GameObjects.Text;
+  private modeManager: ModeManager;
 
   private storedCommand: string = "";
 
-  constructor(graphics: Phaser.GameObjects.Graphics) {
+  constructor(graphics: Phaser.GameObjects.Graphics, modeManager: ModeManager) {
     this.graphics = graphics;
+    this.modeManager = modeManager;
   }
 
   public create = () => {
@@ -66,11 +62,11 @@ class StatusLine {
       this.modeText!.setText(this.modeString());
     }
 
-    // if (this.mode() === Mode.COMMAND) {
-    //   this.renderCommand();
-    // } else {
-    //   this.hideCommand();
-    // }
+    if (this.mode().name === 'command') {
+      this.renderCommand();
+    } else {
+      this.hideCommand();
+    }
   };
 
   private hideCommand = () => {
@@ -81,11 +77,9 @@ class StatusLine {
     this.commandText!.setText(":" + this.storedCommand);
   };
 
-  // private modeString = (): string => modeNames[this.mode()];
-  private modeString = (): string => '';
+  private modeString = (): string => this.modeManager.mode.display;
 
-  // private mode = () => window.scene.modeManager.mode;
-  private mode = () => 'test';
+  private mode = () => this.modeManager.mode;
 
   private initBackground = () => {
     const rect = new Phaser.Geom.Rectangle(
