@@ -34,7 +34,7 @@ class Movement {
       }
 
       if (isKeyPressed(this.bottomOfFile) && this.bottomOfFile.shiftKey) {
-        this.jumpToLine(PLAY_ZONE_HEIGHT / CELL_SIZE, vimboy);
+        this.jumpToLine(this.bottomLine(), vimboy);
       }
     }
   };
@@ -63,8 +63,14 @@ class Movement {
   }
 
   public jumpToLine(line: number, vimboy: Phaser.GameObjects.Sprite) {
-    vimboy.setY(line * CELL_SIZE - CELL_SIZE / 2);
+    const lineNo = this.clamp(line, 0, this.bottomLine());
+    vimboy.setY(lineNo * CELL_SIZE - CELL_SIZE / 2);
   }
+
+  private bottomLine = (): number => PLAY_ZONE_HEIGHT / CELL_SIZE;
+
+  private clamp = (num: number, min: number, max: number) =>
+    num <= min ? min : num >= max ? max : num;
 }
 
 export default Movement;
