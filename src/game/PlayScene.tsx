@@ -5,6 +5,7 @@ import TextCreator from "./TextCreator";
 import VimBoy from "./VimBoy";
 import ModeManager from "./ModeManager";
 import StatusLine from "./StatusLine";
+import ScoreBoard from "./ScoreBoard";
 
 const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
   active: false,
@@ -17,6 +18,7 @@ export class PlayScene extends Phaser.Scene {
   public textCreator: TextCreator;
   public modeManager: ModeManager;
   public statusLine?: StatusLine;
+  public scoreBoard: ScoreBoard;
   public keyCapturer?: Phaser.Input.Keyboard.KeyboardPlugin;
 
   constructor() {
@@ -26,6 +28,7 @@ export class PlayScene extends Phaser.Scene {
     this.vimboy = new VimBoy();
     this.textCreator = new TextCreator();
     this.modeManager = new ModeManager();
+    this.scoreBoard = new ScoreBoard();
   }
 
   public preload(): void {
@@ -41,7 +44,7 @@ export class PlayScene extends Phaser.Scene {
     new Background(graphics).drawBackground();
     this.statusLine = new StatusLine(graphics);
     this.statusLine.create();
-
+    this.scoreBoard.create();
     this.modeManager.create();
     this.vimboy.create();
     this.textCreator.create();

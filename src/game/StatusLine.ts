@@ -10,6 +10,8 @@ import { FONT, FONT_SIZE } from "../constants/text";
 import { Mode } from "./ModeManager";
 import { calculateCommand } from "./commandModeUtils";
 
+const padding = 10;
+
 const modeNames = {
   [Mode.NORMAL]: "-- NORMAL --",
   [Mode.COMMAND]: "-- NORMAL --",
@@ -61,7 +63,7 @@ class StatusLine {
 
   public update = () => {
     if (this.modeText!.text !== this.modeString()) {
-      this.modeText!.setText(this.modeString()).setX(this.getTextXPosition());
+      this.modeText!.setText(this.modeString());
     }
 
     if (this.mode() === Mode.COMMAND) {
@@ -83,14 +85,12 @@ class StatusLine {
 
   private mode = () => window.scene.modeManager.mode;
 
-  private getTextXPosition = () => GAME_WIDTH - this.modeString().length * 8;
-
   private initBackground = () => {
     const rect = new Phaser.Geom.Rectangle(
       0,
-      GAME_HEIGHT - CELL_SIZE,
+      GAME_HEIGHT - CELL_SIZE * 2,
       GAME_WIDTH,
-      CELL_SIZE
+      CELL_SIZE * 2
     );
     this.graphics.fillStyle(Colours.BLACK);
     this.graphics.fillRectShape(rect);
@@ -98,12 +98,12 @@ class StatusLine {
 
   private initMode = () => {
     this.modeText = window.scene.add.text(
-      this.getTextXPosition(),
-      BOTTOM_BAR_Y + CELL_SIZE / 2,
+      padding,
+      GAME_HEIGHT - CELL_SIZE / 2 - padding,
       this.modeString(),
       {
         fontFamily: FONT,
-        fontSize: FONT_SIZE / 3
+        fontSize: FONT_SIZE / 2
       }
     );
   };
