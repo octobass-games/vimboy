@@ -7,58 +7,29 @@ import {
 
 import { Colours } from "../constants/colours";
 import { FONT, FONT_SIZE } from "../constants/text";
-import { Mode } from "./ModeManager";
+import ModeManager from "./ModeManager";
+import CommandMode from "./mode/CommandMode";
 import { calculateCommand } from "./commandModeUtils";
 
 const padding = 10;
-
-const modeNames = {
-  [Mode.NORMAL]: "-- NORMAL --",
-  [Mode.COMMAND]: "-- NORMAL --",
-  [Mode.INSERT]: "-- INSERT --"
-};
 
 class StatusLine {
   private graphics: Phaser.GameObjects.Graphics;
   private modeText?: Phaser.GameObjects.Text;
   private commandText?: Phaser.GameObjects.Text;
+  private modeManager: ModeManager;
 
   private storedCommand: string = "";
 
-  constructor(graphics: Phaser.GameObjects.Graphics) {
+  constructor(graphics: Phaser.GameObjects.Graphics, modeManager: ModeManager) {
     this.graphics = graphics;
+    this.modeManager = modeManager;
   }
 
   public create = () => {
     this.initBackground();
     this.initMode();
     this.initCommandText();
-
-    window.scene.keyCapturer!.addListener(
-      "keydown",
-      ({ key }: KeyboardEvent) => {
-        if (window.scene.modeManager.mode === Mode.COMMAND) {
-          switch (key) {
-            case "Backspace":
-              this.storedCommand = this.storedCommand.slice(0, -1);
-              break;
-            case "Enter":
-              calculateCommand(this.storedCommand, {
-                noMatch: () => undefined,
-                jumpToLine: window.scene.vimboy.jumpToLine,
-                jumpBackNLines: window.scene.vimboy.jumpBackNLines
-              });
-
-              window.scene.modeManager.setMode(Mode.NORMAL);
-              this.storedCommand = "";
-              break;
-            default:
-              this.storedCommand += key;
-              break;
-          }
-        }
-      }
-    );
   };
 
   public update = () => {
@@ -66,7 +37,7 @@ class StatusLine {
       this.modeText!.setText(this.modeString());
     }
 
-    if (this.mode() === Mode.COMMAND) {
+    if (this.mode().name === 'command') {
       this.renderCommand();
     } else {
       this.hideCommand();
@@ -78,12 +49,13 @@ class StatusLine {
   };
 
   private renderCommand = () => {
-    this.commandText!.setText(":" + this.storedCommand);
+    const mode = this.modeManager.mode as CommandMode;
+    this.commandText!.setText(":" + mode.getCommand());
   };
 
-  private modeString = (): string => modeNames[this.mode()];
+  private modeString = (): string => this.modeManager.mode.display;
 
-  private mode = () => window.scene.modeManager.mode;
+  private mode = () => this.modeManager.mode;
 
   private initBackground = () => {
     const rect = new Phaser.Geom.Rectangle(

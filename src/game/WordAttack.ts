@@ -1,4 +1,4 @@
-import { Mode } from "./ModeManager";
+// import { Mode } from "./ModeManager";
 import { PLAY_ZONE_HEIGHT } from "../constants/game";
 import { isKeyPressed } from "./KeyHelper";
 import { TextTypes } from "./TextCreator";
@@ -13,22 +13,22 @@ class WordAttack {
   };
 
   public update = (x: number, y: number) => {
-    if (window.scene.modeManager.mode === Mode.INSERT) {
-      Object.entries(this.keys!).forEach(([letter, keyObject]) => {
-        if (isKeyPressed(keyObject)) {
-          window.scene.textCreator.add(
-            x,
-            y,
-            letter,
-            PLAY_ZONE_HEIGHT / y,
-            100,
-            TextTypes.ATTACK
-          );
+    // if (window.scene.modeManager.mode === Mode.INSERT) {
+    //   Object.entries(this.keys!).forEach(([letter, keyObject]) => {
+    //     if (isKeyPressed(keyObject)) {
+    //       window.scene.textCreator.add(
+    //         x,
+    //         y,
+    //         letter,
+    //         PLAY_ZONE_HEIGHT / y,
+    //         100,
+    //         TextTypes.ATTACK
+    //       );
 
-          window.scene.vimboy.playWordAttack();
-        }
-      });
-    }
+    //       window.scene.vimboy.playWordAttack();
+    //     }
+    //   });
+    // }
   };
 }
 
