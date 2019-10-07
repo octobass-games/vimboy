@@ -4,12 +4,6 @@ import InsertMode from './mode/InsertMode';
 import CommandMode from './mode/CommandMode';
 import VimBoy from './VimBoy';
 
-// export enum Mode {
-//   NORMAL = "NORMAL",
-//   INSERT = "INSERT",
-//   COMMAND = "COMMAND"
-// }
-
 class ModeManager {
   public mode: Mode;
 
@@ -23,31 +17,6 @@ class ModeManager {
       (keyEvent: KeyboardEvent) => this.mode.handle(keyEvent, { modeManager: this, vimboy, key: keyEvent.key })
     );
   }
-
-//  public create() {
-//    window.scene.keyCapturer!.addListener(
-//      "keydown",
-//      (keyEvent: KeyboardEvent) => {
-//        switch (keyEvent.key) {
-//          case "i":
-//            if (this.mode === Mode.NORMAL) {
-//              this.setMode(Mode.INSERT);
-//            }
-//            break;
-//          case "Escape":
-//            if (this.mode !== Mode.NORMAL) {
-//              this.setMode(Mode.NORMAL);
-//            }
-//            break;
-//          case ":":
-//            if (this.mode === Mode.NORMAL) {
-//              this.setMode(Mode.COMMAND);
-//            }
-//            break;
-//        }
-//      }
-//    );
-//  }
 
   public update() {}
 

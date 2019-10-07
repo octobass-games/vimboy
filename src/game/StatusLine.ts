@@ -29,32 +29,6 @@ class StatusLine {
     this.initBackground();
     this.initMode();
     this.initCommandText();
-
-    window.scene.keyCapturer!.addListener(
-      "keydown",
-      ({ key }: KeyboardEvent) => {
-        // if (window.scene.modeManager.mode === Mode.COMMAND) {
-        //   switch (key) {
-        //     case "Backspace":
-        //       this.storedCommand = this.storedCommand.slice(0, -1);
-        //       break;
-        //     case "Enter":
-        //       calculateCommand(this.storedCommand, {
-        //         noMatch: () => undefined,
-        //         jumpToLine: window.scene.vimboy.jumpToLine,
-        //         jumpBackNLines: window.scene.vimboy.jumpBackNLines
-        //       });
-
-        //       window.scene.modeManager.setMode(Mode.NORMAL);
-        //       this.storedCommand = "";
-        //       break;
-        //     default:
-        //       this.storedCommand += key;
-        //       break;
-        //   }
-        // }
-      }
-    );
   };
 
   public update = () => {
