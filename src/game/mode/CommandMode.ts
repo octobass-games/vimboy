@@ -19,6 +19,8 @@ class CommandMode extends Mode {
             }
 
             new EnterNormalMode().act(context);
+        } else if (keyEvent.key === 'Backspace' && this.input.length > 0) {
+            this.input = this.input.slice(0, this.input.length - 1);
         } else {
             this.input = this.input.concat(keyEvent.key);
         }
