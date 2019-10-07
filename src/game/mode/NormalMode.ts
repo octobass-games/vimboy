@@ -35,6 +35,8 @@ class NormalMode extends Mode {
             if (binding) {
                 binding.action.act(context);
                 this.input = '';
+            } else if (!NormalMode.bindings.some(binding => binding.key.includes(this.input))) {
+                this.input = '';
             }
         }
     }
