@@ -8,12 +8,14 @@ import {
 import { Colours } from "../constants/colours";
 import { FONT, FONT_SIZE } from "../constants/text";
 import ModeManager from "./ModeManager";
+import Mode from './mode/Mode';
 import CommandMode from "./mode/CommandMode";
 import { calculateCommand } from "./commandModeUtils";
+import ModeObserver from './ModeObserver';
 
 const padding = 10;
 
-class StatusLine {
+class StatusLine implements ModeObserver {
   private graphics: Phaser.GameObjects.Graphics;
   private modeText?: Phaser.GameObjects.Text;
   private commandText?: Phaser.GameObjects.Text;
@@ -27,21 +29,26 @@ class StatusLine {
   }
 
   public create = () => {
+    this.modeManager.register(this);
     this.initBackground();
     this.initMode();
     this.initCommandText();
   };
 
-  public update = () => {
-    if (this.modeText!.text !== this.modeString()) {
-      this.modeText!.setText(this.modeString());
-    }
+  updateMode(mode: Mode): void {
+      this.modeText!.setText(`--- ${mode.name.toUpperCase()} ---`);
+  }
 
-    if (this.mode().name === 'command') {
-      this.renderCommand();
-    } else {
-      this.hideCommand();
-    }
+  public update = () => {
+//    if (this.modeText!.text !== this.modeString()) {
+//      this.modeText!.setText(this.modeString());
+//    }
+//
+//    if (this.mode().name === 'command') {
+//      this.renderCommand();
+//    } else {
+//      this.hideCommand();
+//    }
   };
 
   private hideCommand = () => {
