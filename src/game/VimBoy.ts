@@ -1,6 +1,7 @@
 import { CELL_SIZE, PLAY_ZONE_HEIGHT } from "../constants/game";
 import Movement from "./Movement";
 import WordAttack from "./WordAttack";
+import { Images } from "./ImageLoader";
 
 class VimBoy {
   public movement?: Movement;
@@ -18,12 +19,12 @@ class VimBoy {
     this.vimboy = window.scene.add.sprite(
       50 / 2,
       PLAY_ZONE_HEIGHT - CELL_SIZE / 2,
-      "vimboy"
+      Images.VIMBOY
     );
 
     window.scene.anims.create({
       key: "vimboy-bob",
-      frames: window.scene.anims.generateFrameNumbers("vimboy", {
+      frames: window.scene.anims.generateFrameNumbers(Images.VIMBOY, {
         start: 0,
         end: 4
       }),
@@ -33,7 +34,7 @@ class VimBoy {
 
     window.scene.anims.create({
       key: "vimboy-word-attack",
-      frames: window.scene.anims.generateFrameNumbers("vimboy", {
+      frames: window.scene.anims.generateFrameNumbers(Images.VIMBOY, {
         frames: [5]
       }),
       frameRate: 10,
@@ -42,7 +43,7 @@ class VimBoy {
 
     window.scene.anims.create({
       key: "vimboy-up",
-      frames: window.scene.anims.generateFrameNumbers("vimboy", {
+      frames: window.scene.anims.generateFrameNumbers(Images.VIMBOY, {
         frames: [1, 2, 3]
       }),
       frameRate: 10,
@@ -51,7 +52,7 @@ class VimBoy {
 
     window.scene.anims.create({
       key: "vimboy-down",
-      frames: window.scene.anims.generateFrameNumbers("vimboy", {
+      frames: window.scene.anims.generateFrameNumbers(Images.VIMBOY, {
         frames: [6, 7, 8]
       }),
       frameRate: 10,
@@ -60,7 +61,7 @@ class VimBoy {
 
     window.scene.anims.create({
       key: "vimboy-pop",
-      frames: window.scene.anims.generateFrameNumbers("vimboy", {
+      frames: window.scene.anims.generateFrameNumbers(Images.VIMBOY, {
         frames: [9]
       }),
       frameRate: 10,

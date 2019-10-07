@@ -1,5 +1,6 @@
 import { BOTTOM_BAR_Y, GAME_WIDTH, CELL_SIZE } from "../constants/game";
 import { Colours } from "../constants/colours";
+import { Images } from "./ImageLoader";
 
 const colours = [
   Colours.RED,
@@ -31,7 +32,7 @@ class Health {
           .image(
             this.getTextXPosition() - index * 30,
             BOTTOM_BAR_Y + CELL_SIZE * 1.5,
-            "heart"
+            Images.HEART
           )
           .setTint(colours[index])
       );
