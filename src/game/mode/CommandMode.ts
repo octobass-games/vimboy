@@ -12,7 +12,7 @@ class CommandMode extends Mode {
     private input: string = '';
 
     constructor() {
-        super('command', '--- COMMAND ---', []);
+        super('command', '--- COMMAND ---');
     }
 
     handle(keyEvent: KeyboardEvent, context: any) {

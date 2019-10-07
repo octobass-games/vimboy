@@ -22,7 +22,7 @@ class NormalMode extends Mode {
     private input: string = '';
 
     constructor() {
-        super('normal', '--- NORMAL ---', NormalMode.bindings);
+        super('normal', '--- NORMAL ---');
     }
 
     handle(keyEvent: KeyboardEvent, context: any) {
@@ -31,7 +31,7 @@ class NormalMode extends Mode {
         } else {
             this.input = this.input.concat(keyEvent.key);
 
-            const binding: Binding | undefined = this.bindings.find(binding => this.input === binding.key);
+            const binding: Binding | undefined = NormalMode.bindings.find(binding => this.input === binding.key);
             if (binding) {
                 binding.action.act(context);
                 this.input = '';
