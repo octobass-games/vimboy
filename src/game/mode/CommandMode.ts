@@ -25,6 +25,10 @@ class CommandMode extends Mode {
             this.input = this.input.concat(keyEvent.key);
         }
     }
+
+    public getCommand(): string {
+        return this.input;
+    }
 }
 
 export default CommandMode;

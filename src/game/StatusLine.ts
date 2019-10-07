@@ -8,6 +8,7 @@ import {
 import { Colours } from "../constants/colours";
 import { FONT, FONT_SIZE } from "../constants/text";
 import ModeManager from "./ModeManager";
+import CommandMode from "./mode/CommandMode";
 import { calculateCommand } from "./commandModeUtils";
 
 const padding = 10;
@@ -48,7 +49,8 @@ class StatusLine {
   };
 
   private renderCommand = () => {
-    this.commandText!.setText(":" + this.storedCommand);
+    const mode = this.modeManager.mode as CommandMode;
+    this.commandText!.setText(":" + mode.getCommand());
   };
 
   private modeString = (): string => this.modeManager.mode.display;
