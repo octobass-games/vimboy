@@ -55,6 +55,8 @@ export class PlayScene extends Phaser.Scene {
     this.statusLine = new StatusLine(graphics, this.modeManager);
     this.statusLine.create();
 
+    this.scoreBoard.create();
+
     this.textCreator.create();
   }
 
