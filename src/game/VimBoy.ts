@@ -11,14 +11,6 @@ class VimBoy {
     this.wordAttack = new WordAttack();
   }
 
-  public preload = () => {
-    window.scene.load.spritesheet(
-      "vimboy",
-      process.env.PUBLIC_URL + "/images/vimboy-spritesheet.png",
-      { frameWidth: 50, frameHeight: CELL_SIZE }
-    );
-  };
-
   public create = () => {
     this.movement = new Movement();
     this.wordAttack.create();

@@ -6,6 +6,8 @@ import VimBoy from "./VimBoy";
 import ModeManager from "./ModeManager";
 import StatusLine from "./StatusLine";
 import ScoreBoard from "./ScoreBoard";
+import Health from "./Health";
+import preloadImages from "./ImageLoader";
 
 const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
   active: false,
@@ -19,6 +21,7 @@ export class PlayScene extends Phaser.Scene {
   public modeManager: ModeManager;
   public statusLine?: StatusLine;
   public scoreBoard: ScoreBoard;
+  public health: Health;
   public keyCapturer?: Phaser.Input.Keyboard.KeyboardPlugin;
 
   constructor() {
@@ -29,10 +32,11 @@ export class PlayScene extends Phaser.Scene {
     this.textCreator = new TextCreator();
     this.modeManager = new ModeManager();
     this.scoreBoard = new ScoreBoard();
+    this.health = new Health();
   }
 
   public preload(): void {
-    this.vimboy.preload();
+    preloadImages();
   }
 
   public create() {
@@ -45,6 +49,7 @@ export class PlayScene extends Phaser.Scene {
     this.statusLine = new StatusLine(graphics);
     this.statusLine.create();
     this.scoreBoard.create();
+    this.health.create();
     this.modeManager.create();
     this.vimboy.create();
     this.textCreator.create();

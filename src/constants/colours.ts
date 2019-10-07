@@ -11,5 +11,7 @@ export enum Colours {
   BEIGE = 0xb39862,
   DARK_GREEN = 0x072c07,
   DARKER_GREEN = 0x062606,
-  RED = 0x56fc03
+  RED = 0xf74a5e,
+  YELLOW = 0xffea5e,
+  PINK = 0xff5eaf
 }
