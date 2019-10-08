@@ -1,5 +1,5 @@
 interface Action {
-    act(context: any): void;
+    act(): void;
 }
 
 export default Action;

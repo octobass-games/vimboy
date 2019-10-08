@@ -7,11 +7,11 @@ class InsertMode extends Mode {
         super('insert', '--- INSERT ---');
     }
 
-    handle(keyEvent: KeyboardEvent, context: any) {
+    handle(keyEvent: KeyboardEvent) {
         if (keyEvent.key === 'Escape') {
-            new EnterNormalMode().act(context);
+            new EnterNormalMode().act();
         } else {
-            new PrintText().act(context);
+            new PrintText().act();
         }
     }
 }

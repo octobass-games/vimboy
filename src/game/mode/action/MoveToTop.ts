@@ -1,8 +1,8 @@
 import Action from './Action';
 
 class MoveToTop implements Action {
-    act(context: any) {
-        context.vimboy.movement.jumpToLine(1, context.vimboy.vimboy);
+    act() {
+        window.scene.vimboy.movement!.jumpToLine(1, window.scene.vimboy.vimboy!);
     }
 }
 

@@ -1,8 +1,8 @@
 import Action from './Action';
 
 class EnterInsertMode implements Action {
-    act(context: any) {
-        context.modeManager.switchToInsert();
+    act() {
+        window.scene.modeManager.switchToInsert();
     }
 }
 

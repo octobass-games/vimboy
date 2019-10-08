@@ -7,7 +7,7 @@ abstract class Mode {
       this.display = display;
   }
 
-  abstract handle(keyEvent: KeyboardEvent, context: any): void;
+  abstract handle(keyEvent: KeyboardEvent): void;
 }
 
 export default Mode;
