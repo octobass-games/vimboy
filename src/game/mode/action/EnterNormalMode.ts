@@ -1,8 +1,8 @@
 import Action from './Action';
 
 class EnterNormalMode implements Action {
-    act(context: any) {
-        context.modeManager.switchToNormal();
+    act() {
+        window.scene.modeManager.switchToNormal();
     }
 }
 

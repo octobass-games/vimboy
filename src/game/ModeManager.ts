@@ -14,7 +14,9 @@ class ModeManager {
   public create(vimboy: VimBoy) {
     window.scene.keyCapturer!.addListener(
       "keydown",
-      (keyEvent: KeyboardEvent) => this.mode.handle(keyEvent, { modeManager: this, vimboy, key: keyEvent.key })
+      (keyEvent: KeyboardEvent) => {
+          this.mode.handle(keyEvent);
+      }
     );
   }
 

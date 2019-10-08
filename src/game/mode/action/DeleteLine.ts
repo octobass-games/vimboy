@@ -1,7 +1,7 @@
 import Action from './Action';
 
 class DeleteLine implements Action {
-    act(context: any) {
+    act() {
         console.log('deleting line');
     }
 }

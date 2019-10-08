@@ -1,8 +1,8 @@
 import Action from './Action';
 
 class EnterCommandMode implements Action {
-    act(context: any) {
-        context.modeManager.switchToCommand();
+    act() {
+        window.scene.modeManager.switchToCommand();
     }
 }
 

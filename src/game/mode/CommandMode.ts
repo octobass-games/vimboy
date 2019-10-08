@@ -15,21 +15,21 @@ class CommandMode extends Mode {
         super('command', '');
     }
 
-    handle(keyEvent: KeyboardEvent, context: any) {
+    handle(keyEvent: KeyboardEvent) {
         if (keyEvent.key === 'Enter') {
             const lineNumber = parseInt(this.input);
 
             if (!isNaN(lineNumber)) {
-                context.vimboy.jumpToLine(lineNumber);
+                window.scene.vimboy.jumpToLine(lineNumber);
             } else {
                 console.log('command not found');
             }
 
-            new EnterNormalMode().act(context);
+            new EnterNormalMode().act();
         } else if (keyEvent.key === 'Backspace' && this.input.length > 0) {
             this.input = this.input.slice(0, this.input.length - 1);
         } else if (keyEvent.key === 'Escape') {
-            new EnterNormalMode().act(context);
+            new EnterNormalMode().act();
         } else if (CommandMode.whitelist.includes(keyEvent.key)) {
             this.input = this.input.concat(keyEvent.key);
         }

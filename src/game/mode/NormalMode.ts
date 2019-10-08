@@ -25,7 +25,7 @@ class NormalMode extends Mode {
         super('normal', '');
     }
 
-    handle(keyEvent: KeyboardEvent, context: any) {
+    handle(keyEvent: KeyboardEvent) {
         if (keyEvent.key === 'Escape') {
             this.input = '';
         } else {
@@ -33,7 +33,7 @@ class NormalMode extends Mode {
 
             const binding: Binding | undefined = NormalMode.bindings.find(binding => this.input === binding.key);
             if (binding) {
-                binding.action.act(context);
+                binding.action.act();
                 this.input = '';
             } else if (!NormalMode.bindings.some(binding => binding.key.includes(this.input))) {
                 this.input = '';
