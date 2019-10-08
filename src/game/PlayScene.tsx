@@ -8,6 +8,7 @@ import StatusLine from "./StatusLine";
 import ScoreBoard from "./ScoreBoard";
 import Health from "./Health";
 import preloadImages from "./ImageLoader";
+import { loadAnimations } from "./AnimationLoader";
 
 const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
   active: false,
@@ -42,6 +43,7 @@ export class PlayScene extends Phaser.Scene {
   }
 
   public create() {
+    loadAnimations();
     this.keyCapturer = window.scene.input.keyboard.addCapture([
       Phaser.Input.Keyboard.KeyCodes.I
     ]); // I is a lie, it captures all keys
