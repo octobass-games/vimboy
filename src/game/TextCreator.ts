@@ -59,6 +59,7 @@ class TextCreator {
         enemy.destroy();
       } else {
         enemyTextObj.setText(enemyText.substr(1));
+        window.scene.scoreBoard.updateScore(1);
       }
     }
     attackTextObj.destroy();

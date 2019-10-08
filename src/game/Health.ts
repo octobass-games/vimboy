@@ -26,7 +26,6 @@ class Health {
   private renderImages = () => {
     this.images.forEach(i => i.destroy());
     [...Array(this.lifes)].forEach((life, index) => {
-      console.log(life, index);
       this.images.push(
         window.scene.add
           .image(

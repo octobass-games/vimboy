@@ -7,24 +7,13 @@ import {
 
 import { Colours } from "../constants/colours";
 import { FONT, FONT_SIZE } from "../constants/text";
-import ModeManager from "./ModeManager";
 import CommandMode from "./mode/CommandMode";
-import { calculateCommand } from "./commandModeUtils";
 
 const padding = 10;
 
 class StatusLine {
-  private graphics: Phaser.GameObjects.Graphics;
   private modeText?: Phaser.GameObjects.Text;
   private commandText?: Phaser.GameObjects.Text;
-  private modeManager: ModeManager;
-
-  private storedCommand: string = "";
-
-  constructor(graphics: Phaser.GameObjects.Graphics, modeManager: ModeManager) {
-    this.graphics = graphics;
-    this.modeManager = modeManager;
-  }
 
   public create = () => {
     this.initBackground();
@@ -37,7 +26,7 @@ class StatusLine {
       this.modeText!.setText(this.modeString());
     }
 
-    if (this.mode().name === 'command') {
+    if (this.mode().name === "command") {
       this.renderCommand();
     } else {
       this.hideCommand();
@@ -49,13 +38,13 @@ class StatusLine {
   };
 
   private renderCommand = () => {
-    const mode = this.modeManager.mode as CommandMode;
+    const mode = window.scene.modeManager.mode as CommandMode;
     this.commandText!.setText(":" + mode.getCommand());
   };
 
-  private modeString = (): string => this.modeManager.mode.display;
+  private modeString = (): string => window.scene.modeManager.mode.display;
 
-  private mode = () => this.modeManager.mode;
+  private mode = () => window.scene.modeManager.mode;
 
   private initBackground = () => {
     const rect = new Phaser.Geom.Rectangle(
@@ -64,8 +53,8 @@ class StatusLine {
       GAME_WIDTH,
       CELL_SIZE * 2
     );
-    this.graphics.fillStyle(Colours.BLACK);
-    this.graphics.fillRectShape(rect);
+    window.scene.graphics!.fillStyle(Colours.BLACK);
+    window.scene.graphics!.fillRectShape(rect);
   };
 
   private initMode = () => {

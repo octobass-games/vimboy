@@ -19,10 +19,11 @@ export class PlayScene extends Phaser.Scene {
   public vimboy: VimBoy;
   public textCreator: TextCreator;
   public modeManager: ModeManager;
-  public statusLine?: StatusLine;
+  public statusLine: StatusLine;
   public scoreBoard: ScoreBoard;
   public health: Health;
   public keyCapturer?: Phaser.Input.Keyboard.KeyboardPlugin;
+  public graphics?: Phaser.GameObjects.Graphics;
 
   constructor() {
     super(sceneConfig);
@@ -33,6 +34,7 @@ export class PlayScene extends Phaser.Scene {
     this.modeManager = new ModeManager();
     this.scoreBoard = new ScoreBoard();
     this.health = new Health();
+    this.statusLine = new StatusLine();
   }
 
   public preload(): void {
@@ -44,17 +46,14 @@ export class PlayScene extends Phaser.Scene {
       Phaser.Input.Keyboard.KeyCodes.I
     ]); // I is a lie, it captures all keys
 
-    const graphics = this.add.graphics({ x: 0, y: 0 });
-    new Background(graphics).drawBackground();
+    this.graphics = this.add.graphics({ x: 0, y: 0 });
 
-    this.scoreBoard.create();
-    this.health.create();
+    new Background(this.graphics).drawBackground();
 
     this.vimboy.create();
-    this.modeManager.create(this.vimboy);
-    this.statusLine = new StatusLine(graphics, this.modeManager);
+    this.modeManager.create();
     this.statusLine.create();
-
+    this.health.create();
     this.scoreBoard.create();
 
     this.textCreator.create();
