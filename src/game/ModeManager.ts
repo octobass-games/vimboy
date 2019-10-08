@@ -15,7 +15,6 @@ class ModeManager {
     window.scene.keyCapturer!.addListener(
       "keydown",
       (keyEvent: KeyboardEvent) => {
-          window.key = keyEvent.key;
           this.mode.handle(keyEvent);
       }
     );

@@ -1,8 +1,5 @@
 import { PlayScene } from '../game/PlayScene'
 
 declare global {
-    interface Window {
-        scene: PlayScene,
-        key: string
-    }
+    interface Window { scene: PlayScene }
 }

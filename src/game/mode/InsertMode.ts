@@ -1,6 +1,7 @@
 import Mode from './Mode';
-import PrintText from './action/PrintText';
 import EnterNormalMode from './action/EnterNormalMode';
+import { PLAY_ZONE_HEIGHT, CELL_SIZE } from '../../constants/game';
+import { TextTypes } from '../TextCreator';
 
 class InsertMode extends Mode {
     constructor() {
@@ -11,7 +12,14 @@ class InsertMode extends Mode {
         if (keyEvent.key === 'Escape') {
             new EnterNormalMode().act();
         } else {
-            new PrintText().act();
+            window.scene.textCreator.add(
+              window.scene.vimboy.vimboy!.x,
+              window.scene.vimboy.vimboy!.y - CELL_SIZE / 2,
+              keyEvent.key,
+              PLAY_ZONE_HEIGHT / (window.scene.vimboy.vimboy!.y - CELL_SIZE / 2),
+              100,
+              TextTypes.ATTACK
+            );
         }
     }
 }
