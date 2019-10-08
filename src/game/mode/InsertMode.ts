@@ -4,7 +4,7 @@ import EnterNormalMode from './action/EnterNormalMode';
 
 class InsertMode extends Mode {
     constructor() {
-        super('insert', '--- INSERT ---');
+        super('insert', '-- INSERT --');
     }
 
     handle(keyEvent: KeyboardEvent, context: any) {

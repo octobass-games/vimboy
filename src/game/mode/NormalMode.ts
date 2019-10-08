@@ -22,7 +22,7 @@ class NormalMode extends Mode {
     private input: string = '';
 
     constructor() {
-        super('normal', '--- NORMAL ---');
+        super('normal', '');
     }
 
     handle(keyEvent: KeyboardEvent, context: any) {
