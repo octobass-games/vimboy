@@ -38,6 +38,10 @@ class TextCreator {
     );
   };
 
+  public getFirstWordOnLine(line: number): TextItem | undefined {
+      return this.words.find(word => word.gridIndexY === line);
+  }
+
   private onCollision = (
     attack: Phaser.GameObjects.GameObject,
     enemy: Phaser.GameObjects.GameObject

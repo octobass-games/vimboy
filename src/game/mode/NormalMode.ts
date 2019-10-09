@@ -3,6 +3,7 @@ import Binding from './binding/Binding';
 import EnterInsertMode from './action/EnterInsertMode';
 import EnterCommandMode from './action/EnterCommandMode';
 import DeleteLine from './action/DeleteLine';
+import DeleteWord from './action/DeleteWord';
 import MoveUp from './action/MoveUp';
 import MoveDown from './action/MoveDown';
 import MoveToTop from './action/MoveToTop';
@@ -14,6 +15,7 @@ class NormalMode extends Mode {
         new Binding('j', new MoveDown()),
         new Binding('k', new MoveUp()),
         new Binding('dd', new DeleteLine()),
+        new Binding('dw', new DeleteWord()),
         new Binding('gg', new MoveToTop()),
         new Binding('ShiftG', new MoveToBottom()),
         new Binding('Shift:', new EnterCommandMode()),
