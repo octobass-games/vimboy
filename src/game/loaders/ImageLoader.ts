@@ -1,4 +1,4 @@
-import { CELL_SIZE } from "../constants/game";
+import { CELL_SIZE } from "../../constants/game";
 
 export enum Images {
   VIMBOY = "vimboy",

@@ -1,4 +1,4 @@
-import { Colours } from "../constants/colours";
+import { Colours } from "../../constants/colours";
 
 class Random {
   private static words: string[] = [

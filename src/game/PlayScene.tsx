@@ -6,8 +6,8 @@ import ModeManager from "./ModeManager";
 import StatusLine from "./StatusLine";
 import ScoreBoard from "./ScoreBoard";
 import Health from "./Health";
-import preloadImages from "./ImageLoader";
-import { loadAnimations } from "./AnimationLoader";
+import preloadImages from "./loaders/ImageLoader";
+import { loadAnimations } from "./loaders/AnimationLoader";
 import EntityManager from "./entities/EntityManager";
 
 const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {

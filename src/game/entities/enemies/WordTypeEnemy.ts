@@ -4,12 +4,12 @@ import {
   GAME_WIDTH,
   PLAY_ZONE_HEIGHT
 } from "../../../constants/game";
-import Random from "../../Random";
+import Random from "../../utils/Random";
 import { StringColours } from "../../../constants/colours";
 import { GameObjects } from "phaser";
 import { createText } from "../helpers/TextCreator";
-import { Images } from "../../ImageLoader";
-import { Animations } from "../../AnimationLoader";
+import { Images } from "../../loaders/ImageLoader";
+import { Animations } from "../../loaders/AnimationLoader";
 
 const createWordTypeEnemy = (): Phaser.GameObjects.GameObject | undefined => {
   const numberOfGaps = PLAY_ZONE_HEIGHT / CELL_SIZE;
