@@ -1,7 +1,6 @@
 import Phaser from "phaser";
 
 import Background from "./Background";
-import TextCreator from "./TextCreator";
 import VimBoy from "./VimBoy";
 import ModeManager from "./ModeManager";
 import StatusLine from "./StatusLine";

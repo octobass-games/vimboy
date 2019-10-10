@@ -6,6 +6,9 @@ export enum EntityType {
 interface Entity {
   line: number;
   type: EntityType;
+}
+
+export interface Enemy extends Entity {
   onCollision: (
     entity: Entity,
     gameObject: Phaser.GameObjects.GameObject

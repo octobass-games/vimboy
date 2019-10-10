@@ -1,49 +1,28 @@
 import Entity, { EntityType } from "../Entity";
-import { CELL_SIZE, PLAY_ZONE_HEIGHT } from "../../../constants/game";
-import { FONT, FONT_SIZE } from "../../../constants/text";
+import { CELL_SIZE } from "../../../constants/game";
 import { StringColours } from "../../../constants/colours";
-
-const create = (line: number, letter: string) => {
-  const y = line * CELL_SIZE;
-
-  const text = window.scene.add
-    .text(0, window.scene.vimboy.vimboy!.y - CELL_SIZE / 2, letter, {
-      fontFamily: FONT,
-      fontSize: FONT_SIZE
-    })
-    .setColor(StringColours.BLUE);
-
-  const textObject = window.scene.physics.world.enableBody(text);
-
-  const body = textObject.body as Phaser.Physics.Arcade.Body;
-
-  body.setAllowGravity(false);
-
-  window.scene.tweens.timeline({
-    targets: body.velocity,
-    loop: -1,
-    tweens: [{ x: 100, y: 0, duration: 2000, ease: "Stepped" }]
-  });
-
-  return text;
-};
+import { createText } from "../helpers/TextCreator";
 
 const createWordAttack = (letter: string) => {
-  const line =
-    PLAY_ZONE_HEIGHT / (window.scene.vimboy.vimboy!.y - CELL_SIZE / 2);
-  const obj = create(line, letter);
+  const y = window.scene.vimboy.vimboy!.y - CELL_SIZE / 2;
+  const line = y / CELL_SIZE;
+
+  const text = createText({
+    x: 0,
+    y,
+    word: letter,
+    xTween: 100,
+    colour: StringColours.BLUE
+  });
 
   const entity: Entity = {
     line,
-    type: EntityType.WORD_ATTACK,
-    onCollision: (entity: Entity) => {
-      console.log("collision - word", entity);
-    }
+    type: EntityType.WORD_ATTACK
   };
 
-  obj.setData({ data: entity });
+  text.setData({ data: entity });
 
-  return obj;
+  return text;
 };
 
 export default createWordAttack;
