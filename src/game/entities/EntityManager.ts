@@ -85,6 +85,10 @@ class EntityManager {
     obj.destroy();
     this.nonEnemies!.remove(obj);
   };
+
+  public getEnemies(): Array<GameObjects.GameObject> {
+      return this.enemies!.getChildren();
+  }
 }
 
 export default EntityManager;
