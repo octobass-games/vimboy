@@ -1,6 +1,6 @@
 import { BOTTOM_BAR_Y, GAME_WIDTH, CELL_SIZE } from "../constants/game";
 import { Colours } from "../constants/colours";
-import { Images } from "./ImageLoader";
+import { Images } from "./loaders/ImageLoader";
 
 const colours = [
   Colours.RED,

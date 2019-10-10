@@ -1,7 +1,7 @@
 import { CELL_SIZE, PLAY_ZONE_HEIGHT } from "../constants/game";
 import Movement from "./Movement";
-import { Images } from "./ImageLoader";
-import { Animations } from "./AnimationLoader";
+import { Images } from "./loaders/ImageLoader";
+import { Animations } from "./loaders/AnimationLoader";
 
 class VimBoy {
   public movement?: Movement;

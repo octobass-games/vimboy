@@ -5,7 +5,8 @@ export enum Animations {
   VIMBOY_WORD_ATTACK = "VIMBOY_WORD_ATTACK",
   VIMBOY_UP = "VIMBOY_UP",
   VIMBOY_DOWN = "VIMBOY_DOWN",
-  VIMBOY_POP = "VIMBOY_POP"
+  VIMBOY_POP = "VIMBOY_POP",
+  CLASH = "CLASH"
 }
 
 export const loadAnimations = () => {
@@ -50,6 +51,15 @@ export const loadAnimations = () => {
     key: Animations.VIMBOY_POP,
     frames: window.scene.anims.generateFrameNumbers(Images.VIMBOY, {
       frames: [9]
+    }),
+    frameRate: 10,
+    repeat: 0
+  });
+
+  window.scene.anims.create({
+    key: Animations.CLASH,
+    frames: window.scene.anims.generateFrameNumbers(Images.CLASH, {
+      frames: [0, 1, 2]
     }),
     frameRate: 10,
     repeat: 0

@@ -1,7 +1,7 @@
 import Phaser, { GameObjects } from "phaser";
 import Entity, { Enemy } from "./Entity";
 import createWordTypeEnemy from "./enemies/WordTypeEnemy";
-import Random from "../Random";
+import Random from "../utils/Random";
 import { GAME_WIDTH } from "../../constants/game";
 
 class EntityManager {

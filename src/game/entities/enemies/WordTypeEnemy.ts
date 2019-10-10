@@ -4,10 +4,12 @@ import {
   GAME_WIDTH,
   PLAY_ZONE_HEIGHT
 } from "../../../constants/game";
-import Random from "../../Random";
+import Random from "../../utils/Random";
 import { StringColours } from "../../../constants/colours";
 import { GameObjects } from "phaser";
 import { createText } from "../helpers/TextCreator";
+import { Images } from "../../loaders/ImageLoader";
+import { Animations } from "../../loaders/AnimationLoader";
 
 const createWordTypeEnemy = (): Phaser.GameObjects.GameObject | undefined => {
   const numberOfGaps = PLAY_ZONE_HEIGHT / CELL_SIZE;
@@ -54,7 +56,15 @@ const onWordAttackCollision = (
       window.scene.scoreBoard.updateScore(1);
     }
   }
+  const image = window.scene.add
+    .sprite(attackObject.x, attackObject.y + CELL_SIZE / 2, Images.CLASH)
+    .setTint(Random.getColour())
+    .setAlpha(0.7);
+
+  image.anims.play(Animations.CLASH);
+
   window.scene.entityManager.destroyNonEnemy(attackObject);
+  setTimeout(() => image.destroy(), 200);
 };
 
 const onCollision = (line: number, text: GameObjects.Text) => (
