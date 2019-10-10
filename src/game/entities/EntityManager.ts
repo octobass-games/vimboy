@@ -48,15 +48,21 @@ class EntityManager {
   }
 
   public lineHasEnemy = (line: number): boolean => {
+    const enemy = this.getFirstWordOnLine(line);
+    return enemy !== undefined;
+  };
+
+  public getFirstWordOnLine(line: number): GameObjects.GameObject | undefined {
+    var word = undefined;
     this.enemies!.children.each(c => {
       const enemy = c.getData("data") as Enemy;
 
       if (enemy.line === line) {
-        return true;
+        word = c;
       }
     });
-    return false;
-  };
+    return word;
+  }
 
   private cleanup = (obj: GameObjects.GameObject) => {
     const body = obj.body as Phaser.Physics.Arcade.Body;
