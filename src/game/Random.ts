@@ -7,6 +7,14 @@ class Random {
     "class Pizza {}"
   ];
 
+  private static colours: Colours[] = [
+    Colours.PINK,
+    Colours.RED,
+    Colours.YELLOW,
+    Colours.BLUE,
+    Colours.GREEN
+  ];
+
   public static getNumber(max: number): number {
     return Math.round(Math.floor(Math.random() * Math.floor(max)));
   }
@@ -17,8 +25,8 @@ class Random {
   }
 
   public static getColour(): Colours {
-    const index = Random.getNumber(Object.values(Colours).length);
-    return Object.values(Colours)[index] as Colours;
+    const index = Random.getNumber(this.colours.length);
+    return this.colours[index];
   }
 }
 

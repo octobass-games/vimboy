@@ -58,7 +58,8 @@ const onWordAttackCollision = (
   }
   const image = window.scene.add
     .sprite(attackObject.x, attackObject.y + CELL_SIZE / 2, Images.CLASH)
-    .setTint(Random.getColour());
+    .setTint(Random.getColour())
+    .setAlpha(0.7);
 
   image.anims.play(Animations.CLASH);
 
