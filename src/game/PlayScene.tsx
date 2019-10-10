@@ -1,7 +1,6 @@
 import Phaser from "phaser";
 
 import Background from "./Background";
-import TextCreator from "./TextCreator";
 import VimBoy from "./VimBoy";
 import ModeManager from "./ModeManager";
 import StatusLine from "./StatusLine";
@@ -9,6 +8,7 @@ import ScoreBoard from "./ScoreBoard";
 import Health from "./Health";
 import preloadImages from "./ImageLoader";
 import { loadAnimations } from "./AnimationLoader";
+import EntityManager from "./entities/EntityManager";
 
 const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
   active: false,
@@ -18,11 +18,11 @@ const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
 
 export class PlayScene extends Phaser.Scene {
   public vimboy: VimBoy;
-  public textCreator: TextCreator;
   public modeManager: ModeManager;
   public statusLine: StatusLine;
   public scoreBoard: ScoreBoard;
   public health: Health;
+  public entityManager: EntityManager;
   public keyCapturer?: Phaser.Input.Keyboard.KeyboardPlugin;
   public graphics?: Phaser.GameObjects.Graphics;
 
@@ -31,11 +31,11 @@ export class PlayScene extends Phaser.Scene {
     window.scene = this;
 
     this.vimboy = new VimBoy();
-    this.textCreator = new TextCreator();
     this.modeManager = new ModeManager();
     this.scoreBoard = new ScoreBoard();
     this.health = new Health();
     this.statusLine = new StatusLine();
+    this.entityManager = new EntityManager();
   }
 
   public preload(): void {
@@ -57,14 +57,13 @@ export class PlayScene extends Phaser.Scene {
     this.statusLine.create();
     this.health.create();
     this.scoreBoard.create();
-
-    this.textCreator.create();
+    this.entityManager.create();
   }
 
   public update() {
     this.vimboy.update();
-    this.textCreator.update();
     this.modeManager.update();
     this.statusLine!.update();
+    this.entityManager.update();
   }
 }
