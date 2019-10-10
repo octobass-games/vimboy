@@ -52,6 +52,10 @@ class EntityManager {
     return enemy !== undefined;
   };
 
+  public getEnemiesAboveLine(line: number): Array<GameObjects.GameObject> {
+      return this.enemies!.getChildren().filter(enemy => (enemy.getData("data") as Enemy).line < line)
+  }
+
   public getFirstWordOnLine(line: number): GameObjects.GameObject | undefined {
     var word = undefined;
     this.enemies!.children.each(c => {
