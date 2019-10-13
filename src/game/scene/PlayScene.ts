@@ -25,7 +25,7 @@ export class PlayScene extends Phaser.Scene {
   public entityManager: EntityManager;
   public keyCapturer?: Phaser.Input.Keyboard.KeyboardPlugin;
   public graphics?: Phaser.GameObjects.Graphics;
- 
+
   constructor() {
     super(sceneConfig);
     window.scene = this;
