@@ -20,7 +20,9 @@ class Health {
 
   public injure = () => {
     this.lifes--;
-    this.renderImages();
+    if (this.lifes > 0) {
+      this.renderImages();
+    }
   };
 
   private renderImages = () => {
