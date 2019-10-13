@@ -1,14 +1,14 @@
 import Phaser from "phaser";
 
-import Background from "./Background";
-import VimBoy from "./VimBoy";
-import ModeManager from "./ModeManager";
-import StatusLine from "./StatusLine";
-import ScoreBoard from "./ScoreBoard";
-import Health from "./Health";
-import preloadImages from "./loaders/ImageLoader";
-import { loadAnimations } from "./loaders/AnimationLoader";
-import EntityManager from "./entities/EntityManager";
+import Background from "../Background";
+import VimBoy from "../VimBoy";
+import ModeManager from "../ModeManager";
+import StatusLine from "../StatusLine";
+import ScoreBoard from "../ScoreBoard";
+import Health from "../Health";
+import preloadImages from "../loaders/ImageLoader";
+import { loadAnimations } from "../loaders/AnimationLoader";
+import EntityManager from "../entities/EntityManager";
 
 const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
   active: false,
@@ -25,7 +25,7 @@ export class PlayScene extends Phaser.Scene {
   public entityManager: EntityManager;
   public keyCapturer?: Phaser.Input.Keyboard.KeyboardPlugin;
   public graphics?: Phaser.GameObjects.Graphics;
-
+ 
   constructor() {
     super(sceneConfig);
     window.scene = this;

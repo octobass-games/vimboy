@@ -1,12 +1,7 @@
 import { Colours } from "../../constants/colours";
+import { words } from "./words";
 
 class Random {
-  private static words: string[] = [
-    "console.log('Hello, World!')",
-    "const fn = () => {}",
-    "class Pizza {}"
-  ];
-
   private static colours: Colours[] = [
     Colours.PINK,
     Colours.RED,
@@ -20,8 +15,8 @@ class Random {
   }
 
   public static getWord(): string {
-    const index = Random.getNumber(Random.words.length);
-    return Random.words[index];
+    const index = Random.getNumber(words.length);
+    return words[index];
   }
 
   public static getColour(): Colours {

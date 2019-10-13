@@ -1,7 +1,7 @@
 import Phaser from "phaser";
 import "./index.css";
 import { GAME_WIDTH, GAME_HEIGHT } from "./constants/game";
-import { PlayScene } from "./game/PlayScene";
+import { PlayScene } from "./game/scene/PlayScene";
 
 const config: Phaser.Types.Core.GameConfig = {
   type: Phaser.AUTO,
