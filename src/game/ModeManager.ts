@@ -6,6 +6,7 @@ import { Colours } from "../constants/colours";
 
 class ModeManager {
   public mode: Mode;
+  private colour: Colours = Colours.LIGHT_GREEN;
 
   constructor() {
     this.mode = new NormalMode();
@@ -30,20 +31,25 @@ class ModeManager {
   public switchToInsert(): void {
     this.mode = new InsertMode();
     window.scene.tweens.setGlobalTimeScale(1);
-    window.scene.vimboy.changeColour(Colours.LIGHT_BLUE);
+    this.colour = Colours.LIGHT_BLUE;
+    window.scene.vimboy.changeColour(this.colour);
   }
 
   public switchToNormal(): void {
     this.mode = new NormalMode();
-    window.scene.vimboy.changeColour(Colours.LIGHT_GREEN);
+    this.colour = Colours.LIGHT_GREEN;
+    window.scene.vimboy.changeColour(this.colour);
     window.scene.tweens.setGlobalTimeScale(0.2);
   }
 
   public switchToCommand(): void {
-    window.scene.vimboy.changeColour(Colours.PINK);
+    this.colour = Colours.PINK;
+    window.scene.vimboy.changeColour(this.colour);
     window.scene.tweens.setGlobalTimeScale(0.2);
     this.mode = new CommandMode();
   }
+
+  public getCurrentColour = () => this.colour;
 }
 
 export default ModeManager;

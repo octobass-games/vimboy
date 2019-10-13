@@ -17,6 +17,12 @@ class EntityManager {
       this.enemies,
       this.onCollision
     );
+
+    window.scene.physics.add.overlap(
+      window.scene.vimboy.vimboy!,
+      this.enemies,
+      window.scene.vimboy.onEnemyCollision
+    );
   };
 
   private onCollision = (
@@ -53,7 +59,9 @@ class EntityManager {
   };
 
   public getEnemiesAboveLine(line: number): Array<GameObjects.GameObject> {
-      return this.enemies!.getChildren().filter(enemy => (enemy.getData("data") as Enemy).line < line)
+    return this.enemies!.getChildren().filter(
+      enemy => (enemy.getData("data") as Enemy).line < line
+    );
   }
 
   public getFirstWordOnLine(line: number): GameObjects.GameObject | undefined {
@@ -87,7 +95,7 @@ class EntityManager {
   };
 
   public getEnemies(): Array<GameObjects.GameObject> {
-      return this.enemies!.getChildren();
+    return this.enemies!.getChildren();
   }
 }
 

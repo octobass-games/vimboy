@@ -1,6 +1,7 @@
 import { FONT, FONT_SIZE } from "../../../constants/text";
 import { StringColours } from "../../../constants/colours";
 import { GameObjects } from "phaser";
+import { enableBody } from "./BodyCreator";
 
 interface CreateText {
   x: number;
@@ -24,11 +25,7 @@ export const createText = ({
     })
     .setColor(colour);
 
-  const textObject = window.scene.physics.world.enableBody(text);
-
-  const body = textObject.body as Phaser.Physics.Arcade.Body;
-
-  body.setAllowGravity(false);
+  enableBody(text);
 
   window.scene.tweens.add({
     targets: text,

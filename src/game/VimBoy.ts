@@ -3,6 +3,7 @@ import Movement from "./Movement";
 import { Images } from "./loaders/ImageLoader";
 import { Animations } from "./loaders/AnimationLoader";
 import { Colours } from "../constants/colours";
+import { enableBody } from "./entities/helpers/BodyCreator";
 
 class VimBoy {
   public movement?: Movement;
@@ -16,6 +17,9 @@ class VimBoy {
       PLAY_ZONE_HEIGHT - CELL_SIZE / 2,
       Images.VIMBOY
     );
+
+    enableBody(this.vimboy);
+
     window.scene.vimboy.changeColour(Colours.LIGHT_GREEN);
   };
 
@@ -25,6 +29,22 @@ class VimBoy {
     if (!this.vimboy!.anims.isPlaying) {
       this.vimboy!.anims.play(Animations.VIMBOY_BOB, true);
     }
+  };
+
+  public onEnemyCollision = (
+    player: Phaser.GameObjects.GameObject,
+    enemy: Phaser.GameObjects.GameObject
+  ) => {
+    window.scene.entityManager.destroyEnemy(enemy);
+    window.scene.health.injure();
+    this.vimboy!.setTint(Colours.RED);
+
+    window.scene.time.addEvent({
+      delay: 200,
+      callback: () => {
+        this.vimboy!.setTint(window.scene.modeManager.getCurrentColour());
+      }
+    });
   };
 
   public playWordAttack = () =>
