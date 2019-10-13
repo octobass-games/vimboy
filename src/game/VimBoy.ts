@@ -2,6 +2,7 @@ import { CELL_SIZE, PLAY_ZONE_HEIGHT } from "../constants/game";
 import Movement from "./Movement";
 import { Images } from "./loaders/ImageLoader";
 import { Animations } from "./loaders/AnimationLoader";
+import { Colours } from "../constants/colours";
 
 class VimBoy {
   public movement?: Movement;
@@ -15,6 +16,7 @@ class VimBoy {
       PLAY_ZONE_HEIGHT - CELL_SIZE / 2,
       Images.VIMBOY
     );
+    window.scene.vimboy.changeColour(Colours.LIGHT_GREEN);
   };
 
   public update = () => {
@@ -39,6 +41,8 @@ class VimBoy {
     this.movement!.jumpBackNLines(n, this.vimboy!);
 
   public currentLine = () => this.movement!.currentLine(this.vimboy!);
+
+  public changeColour = (colour: number) => this.vimboy!.setTint(colour);
 }
 
 export default VimBoy;

@@ -30,10 +30,12 @@ export const createText = ({
 
   body.setAllowGravity(false);
 
-  window.scene.tweens.timeline({
-    targets: body.velocity,
-    loop: -1,
-    tweens: [{ x: xTween, y: 0, duration: 2000, ease: "Stepped" }]
+  window.scene.tweens.add({
+    targets: text,
+    x: xTween,
+    ease: "Power0",
+    loop: 0,
+    duration: 10000
   });
 
   return text;

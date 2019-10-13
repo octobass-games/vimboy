@@ -1,5 +1,5 @@
 import Entity, { EntityType } from "../Entity";
-import { CELL_SIZE } from "../../../constants/game";
+import { CELL_SIZE, GAME_WIDTH } from "../../../constants/game";
 import { StringColours } from "../../../constants/colours";
 import { createText } from "../helpers/TextCreator";
 
@@ -11,7 +11,7 @@ const createWordAttack = (letter: string) => {
     x: 0,
     y,
     word: letter,
-    xTween: 100,
+    xTween: GAME_WIDTH,
     colour: StringColours.BLUE
   });
 
