@@ -3,7 +3,8 @@ import { CELL_SIZE } from "../../constants/game";
 export enum Images {
   VIMBOY = "vimboy",
   HEART = "heart",
-  CLASH = "clash"
+  CLASH = "clash",
+  PRESENT = "present"
 }
 
 const preloadImages = () => {
@@ -22,6 +23,11 @@ const preloadImages = () => {
     Images.CLASH,
     process.env.PUBLIC_URL + "/images/clash.png",
     { frameWidth: CELL_SIZE, frameHeight: CELL_SIZE }
+  );
+
+  window.scene.load.image(
+    Images.PRESENT,
+    process.env.PUBLIC_URL + "/images/present.png"
   );
 };
 

@@ -5,7 +5,6 @@ import {
   PLAY_ZONE_HEIGHT
 } from "../../../constants/game";
 import Random from "../../utils/Random";
-import { StringColours } from "../../../constants/colours";
 import { GameObjects } from "phaser";
 import { createText } from "../helpers/TextCreator";
 import { Images } from "../../loaders/ImageLoader";
@@ -27,7 +26,7 @@ const createWordTypeEnemy = (): Phaser.GameObjects.GameObject | undefined => {
     y,
     word,
     xTween: -GAME_WIDTH,
-    colour: StringColours.BEIGE
+    colour: Random.getStringColour()
   });
 
   const entity: Enemy = {

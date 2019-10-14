@@ -3,6 +3,7 @@ import Entity, { Enemy } from "./Entity";
 import createWordTypeEnemy from "./enemies/WordTypeEnemy";
 import Random from "../utils/Random";
 import { GAME_WIDTH } from "../../constants/game";
+import createDeleteWordPickup from "./pickups/DeleteWordPickup";
 
 class EntityManager {
   private enemies?: GameObjects.Group;
@@ -23,6 +24,12 @@ class EntityManager {
       this.enemies,
       window.scene.vimboy.onEnemyCollision
     );
+
+    window.scene.physics.add.overlap(
+      window.scene.vimboy.vimboy!,
+      this.nonEnemies,
+      window.scene.vimboy.onPickupCollision
+    );
   };
 
   private onCollision = (
@@ -41,14 +48,23 @@ class EntityManager {
     }
   }
 
-  public createNonEnemy(creator: () => GameObjects.GameObject) {
-    this.nonEnemies!.add(creator());
+  public createNonEnemy(creator: () => GameObjects.GameObject | undefined) {
+    const obj = creator();
+    if (obj) {
+      this.nonEnemies!.add(obj);
+    }
   }
 
   public update() {
-    if (Random.getNumber(100) === 99) {
+    const randomNumber = Random.getNumber(300);
+    if (randomNumber === 1) {
       this.createEnemy(createWordTypeEnemy);
     }
+
+    if (randomNumber === 2) {
+      this.createNonEnemy(createDeleteWordPickup);
+    }
+
     this.enemies!.children.each(this.cleanup);
     this.nonEnemies!.children.each(this.cleanup);
   }
@@ -58,23 +74,40 @@ class EntityManager {
     return enemy !== undefined;
   };
 
+  public lineHasNonEnemy = (line: number): boolean => {
+    const enemy = this.getNonEnemyOnLine(line);
+    return enemy !== undefined;
+  };
+
   public getEnemiesAboveLine(line: number): Array<GameObjects.GameObject> {
     return this.enemies!.getChildren().filter(
-      enemy => (enemy.getData("data") as Enemy).line < line
+      enemy => (enemy.getData("data") as Entity).line < line
     );
   }
 
-  public getFirstWordOnLine(line: number): GameObjects.GameObject | undefined {
+  public getFirstWordOnLine = (
+    line: number
+  ): GameObjects.GameObject | undefined => this.getOnLine(line, this.enemies!);
+
+  public getNonEnemyOnLine = (
+    line: number
+  ): GameObjects.GameObject | undefined =>
+    this.getOnLine(line, this.nonEnemies!);
+
+  private getOnLine = (
+    line: number,
+    group: GameObjects.Group
+  ): GameObjects.GameObject | undefined => {
     var word = undefined;
-    this.enemies!.children.each(c => {
-      const enemy = c.getData("data") as Enemy;
+    group.children.each(c => {
+      const enemy = c.getData("data") as Entity;
 
       if (enemy.line === line) {
         word = c;
       }
     });
     return word;
-  }
+  };
 
   private cleanup = (obj: GameObjects.GameObject) => {
     const body = obj.body as Phaser.Physics.Arcade.Body;

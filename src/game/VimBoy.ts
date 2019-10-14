@@ -47,6 +47,13 @@ class VimBoy {
     });
   };
 
+  public onPickupCollision = (
+    player: Phaser.GameObjects.GameObject,
+    pickup: Phaser.GameObjects.GameObject
+  ) => {
+    window.scene.entityManager.destroyNonEnemy(pickup);
+  };
+
   public playWordAttack = () =>
     this.vimboy!.anims.play(Animations.VIMBOY_WORD_ATTACK, true);
 

@@ -24,6 +24,5 @@ export const initGame = () => {
 };
 
 export const play = () => {
-  console.log(game.scene.scenes);
   game.scene.start("Game");
 };
