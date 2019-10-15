@@ -52,6 +52,7 @@ class VimBoy {
     pickup: Phaser.GameObjects.GameObject
   ) => {
     window.scene.entityManager.destroyNonEnemy(pickup);
+    window.scene.powerUpManager.addPowerUp(pickup.getData("data"));
   };
 
   public playWordAttack = () =>

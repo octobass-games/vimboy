@@ -9,6 +9,7 @@ import Health from "../Health";
 import preloadImages from "../loaders/ImageLoader";
 import { loadAnimations } from "../loaders/AnimationLoader";
 import EntityManager from "../entities/EntityManager";
+import PowerUpManager from "../PowerUpManager";
 
 const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
   active: false,
@@ -23,6 +24,7 @@ export class PlayScene extends Phaser.Scene {
   public scoreBoard: ScoreBoard;
   public health: Health;
   public entityManager: EntityManager;
+  public powerUpManager: PowerUpManager;
   public keyCapturer?: Phaser.Input.Keyboard.KeyboardPlugin;
   public graphics?: Phaser.GameObjects.Graphics;
 
@@ -36,6 +38,7 @@ export class PlayScene extends Phaser.Scene {
     this.health = new Health();
     this.statusLine = new StatusLine();
     this.entityManager = new EntityManager();
+    this.powerUpManager = new PowerUpManager();
   }
 
   public preload(): void {
@@ -60,6 +63,7 @@ export class PlayScene extends Phaser.Scene {
     this.health.create();
     this.scoreBoard.create();
     this.entityManager.create();
+    this.powerUpManager.create();
   }
 
   public update() {
@@ -67,5 +71,6 @@ export class PlayScene extends Phaser.Scene {
     this.modeManager.update();
     this.statusLine!.update();
     this.entityManager.update();
+    this.powerUpManager.update();
   }
 }

@@ -19,9 +19,9 @@ class Background {
   public drawBackground() {
     // Left bar
     const rect = window.scene.add.rectangle(
-      CELL_SIZE / 2,
+      GAME_START_X / 2,
       PLAY_ZONE_HEIGHT / 2,
-      CELL_SIZE,
+      GAME_START_X,
       PLAY_ZONE_HEIGHT
     );
     rect.setFillStyle(Colours.BLACK);
@@ -46,7 +46,7 @@ class Background {
         fontFamily: FONT,
         fontSize: FONT_SIZE,
         align: "right",
-        fixedWidth: CELL_SIZE - 5,
+        fixedWidth: GAME_START_X - 5,
         color: StringColours.WHITE
       });
       text.setAlpha(0.5);
