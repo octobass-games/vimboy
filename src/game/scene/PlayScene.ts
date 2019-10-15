@@ -50,7 +50,9 @@ export class PlayScene extends Phaser.Scene {
 
     this.graphics = this.add.graphics({ x: 0, y: 0 });
 
-    new Background(this.graphics).drawBackground();
+    const background = new Background(this.graphics);
+
+    background.drawBackground();
 
     this.vimboy.create();
     this.modeManager.create();

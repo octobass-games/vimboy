@@ -1,6 +1,9 @@
+export const CELL_SIZE = 40;
+
 export const GAME_WIDTH = 800;
 export const GAME_HEIGHT = 640;
-export const CELL_SIZE = 40;
+
+export const GAME_START_X = CELL_SIZE;
 
 export const BOTTOM_BAR_HEIGHT = CELL_SIZE * 2;
 

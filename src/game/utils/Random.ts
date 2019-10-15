@@ -10,7 +10,7 @@ class Random {
     Colours.GREEN
   ];
 
-  private static stringColours: StringColours[] = [
+  public static stringColours: StringColours[] = [
     StringColours.PINK,
     StringColours.RED,
     StringColours.YELLOW,

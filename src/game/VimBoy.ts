@@ -1,4 +1,4 @@
-import { CELL_SIZE, PLAY_ZONE_HEIGHT } from "../constants/game";
+import { CELL_SIZE, PLAY_ZONE_HEIGHT, GAME_START_X } from "../constants/game";
 import Movement from "./Movement";
 import { Images } from "./loaders/ImageLoader";
 import { Animations } from "./loaders/AnimationLoader";
@@ -13,7 +13,7 @@ class VimBoy {
     this.movement = new Movement();
 
     this.vimboy = window.scene.add.sprite(
-      50 / 2,
+      GAME_START_X + 50 / 2,
       PLAY_ZONE_HEIGHT - CELL_SIZE / 2,
       Images.VIMBOY
     );

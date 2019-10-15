@@ -4,7 +4,9 @@ export enum StringColours {
   BEIGE = "#b39862",
   PINK = "#ff5eaf",
   RED = "#f74a5e",
-  YELLOW = "#ffea5e"
+  YELLOW = "#ffea5e",
+  GREY = "#3e3e3e",
+  WHITE = "#ffffff"
 }
 
 export enum Colours {
@@ -19,5 +21,6 @@ export enum Colours {
   DARKER_GREEN = 0x062606,
   RED = 0xf74a5e,
   YELLOW = 0xffea5e,
-  PINK = 0xff5eaf
+  PINK = 0xff5eaf,
+  GREY = 0x3e3e3e
 }
