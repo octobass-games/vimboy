@@ -4,12 +4,11 @@ import {
   PLAY_ZONE_HEIGHT
 } from "../../../constants/game";
 import { enableBody } from "../helpers/BodyCreator";
-import Entity, { EntityType } from "../Entity";
+import Entity, { EntityType, Pickup } from "../Entity";
 import { Images } from "../../loaders/ImageLoader";
-import { Colours } from "../../../constants/colours";
 import Random from "../../utils/Random";
 
-const createDeleteWordPickup = () => {
+const createPickup = () => {
   const numberOfGaps = PLAY_ZONE_HEIGHT / CELL_SIZE;
   const line = Random.getNumber(numberOfGaps);
 
@@ -18,10 +17,11 @@ const createDeleteWordPickup = () => {
   }
 
   const y = line * CELL_SIZE - CELL_SIZE / 2;
+  const colour = Random.getColour();
 
   const image = window.scene.add
     .sprite(GAME_WIDTH + 200, y, Images.PRESENT)
-    .setTint(Colours.PINK);
+    .setTint(colour);
 
   enableBody(image);
 
@@ -33,9 +33,10 @@ const createDeleteWordPickup = () => {
     duration: 10000
   });
 
-  const entity: Entity = {
+  const entity: Pickup = {
     line,
-    type: EntityType.DELETE_WORD_PICKUP
+    type: EntityType.PICKUP,
+    colour
   };
 
   image.setData({ data: entity });
@@ -43,4 +44,4 @@ const createDeleteWordPickup = () => {
   return image;
 };
 
-export default createDeleteWordPickup;
+export default createPickup;

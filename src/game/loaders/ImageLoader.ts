@@ -4,7 +4,8 @@ export enum Images {
   VIMBOY = "vimboy",
   HEART = "heart",
   CLASH = "clash",
-  PRESENT = "present"
+  PRESENT = "present",
+  POWER_UP_FOUND = "POWER_UP_FOUND"
 }
 
 const preloadImages = () => {
@@ -28,6 +29,11 @@ const preloadImages = () => {
   window.scene.load.image(
     Images.PRESENT,
     process.env.PUBLIC_URL + "/images/present.png"
+  );
+
+  window.scene.load.image(
+    Images.POWER_UP_FOUND,
+    process.env.PUBLIC_URL + "/images/power-up-holder.png"
   );
 };
 

@@ -1,7 +1,7 @@
 export enum EntityType {
   WORD_TYPE_ENEMY = "WORD_TYPE_ENEMY",
   WORD_ATTACK = "WORD_ATTACK",
-  DELETE_WORD_PICKUP = "DELETE_WORD_PICKUP"
+  PICKUP = "PICKUP"
 }
 
 interface Entity {
@@ -14,6 +14,10 @@ export interface Enemy extends Entity {
     entity: Entity,
     gameObject: Phaser.GameObjects.GameObject
   ) => void;
+}
+
+export interface Pickup extends Entity {
+  colour: number;
 }
 
 export default Entity;

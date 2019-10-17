@@ -1,37 +1,57 @@
 import Entity from "./entities/Entity";
 import { Images } from "./loaders/ImageLoader";
-import { GAME_WIDTH, GAME_HEIGHT, CELL_SIZE } from "../constants/game";
+import {
+  GAME_WIDTH,
+  GAME_HEIGHT,
+  CELL_SIZE,
+  GAME_START_X
+} from "../constants/game";
 import { GameObjects } from "phaser";
+import { FONT, FONT_SIZE } from "../constants/text";
+import { StringColours } from "../constants/colours";
 
 class PowerUpManager {
-  private powerUps: Entity[] = [];
-  private group?: Phaser.GameObjects.Group;
+  private powerUps: Phaser.GameObjects.Group[] = [];
 
-  public addPowerUp = (entity: Entity) => {
+  public addPowerUp = (colour: number) => {
     if (this.powerUps.length === 6) {
-      this.powerUps.shift();
-      const child = this.group!.children.getArray()[0];
-      this.group!.remove(child);
+      const powerUpToKill = this.powerUps.shift();
+      powerUpToKill!.destroy();
     }
 
-    this.powerUps.push(entity);
     const powerUp = window.scene.add.sprite(
-      GAME_WIDTH / 2,
+      0,
       GAME_HEIGHT - CELL_SIZE / 2,
-      Images.PRESENT
+      Images.POWER_UP_FOUND
     );
-    this.group!.add(powerUp);
 
-    this.group!.children.getArray().forEach((child, index) => {
-      const sprite = child as GameObjects.Sprite;
-      sprite.setX(GAME_WIDTH / 3 + index * CELL_SIZE);
+    const label = window.scene.add.text(0, GAME_HEIGHT - CELL_SIZE + 5, "DW", {
+      fontFamily: FONT,
+      fontSize: 30,
+      align: "center",
+      fixedWidth: CELL_SIZE - 10,
+      color: StringColours.WHITE
     });
-    // this.group!.
+    powerUp.setTint(colour);
+
+    const group = window.scene.add.group([powerUp, label]);
+    this.powerUps.push(group);
+    this.refreshGroupPositioning();
   };
 
-  public create() {
-    this.group = window.scene.add.group();
-  }
+  private refreshGroupPositioning = () => {
+    this.powerUps.forEach((g, index) => {
+      const sprite = g.getChildren()[0] as GameObjects.Sprite;
+      const text = g.getChildren()[1] as GameObjects.Text;
+
+      const x = GAME_WIDTH / 3 + index * CELL_SIZE;
+
+      sprite.setX(x);
+      text.setX(x - CELL_SIZE / 2 + 5);
+    });
+  };
+
+  public create() {}
 
   public update() {}
 }

@@ -3,7 +3,7 @@ import Entity, { Enemy } from "./Entity";
 import createWordTypeEnemy from "./enemies/WordTypeEnemy";
 import Random from "../utils/Random";
 import { GAME_WIDTH } from "../../constants/game";
-import createDeleteWordPickup from "./pickups/DeleteWordPickup";
+import createPickup from "./pickups/EntityPickup";
 
 class EntityManager {
   private enemies?: GameObjects.Group;
@@ -62,7 +62,7 @@ class EntityManager {
     }
 
     if (randomNumber === 2) {
-      this.createNonEnemy(createDeleteWordPickup);
+      this.createNonEnemy(createPickup);
     }
 
     this.enemies!.children.each(this.cleanup);

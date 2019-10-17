@@ -4,6 +4,9 @@ import { Images } from "./loaders/ImageLoader";
 import { Animations } from "./loaders/AnimationLoader";
 import { Colours } from "../constants/colours";
 import { enableBody } from "./entities/helpers/BodyCreator";
+import { GameObjects } from "phaser";
+import { Pickup } from "./entities/Entity";
+import { playClashAnimation } from "./utils/animationPlayer";
 
 class VimBoy {
   public movement?: Movement;
@@ -51,8 +54,14 @@ class VimBoy {
     player: Phaser.GameObjects.GameObject,
     pickup: Phaser.GameObjects.GameObject
   ) => {
+    const pickupEntity = pickup.getData("data") as Pickup;
+
+    const obj = pickup as GameObjects.Sprite;
+
+    playClashAnimation(obj.x, obj.y);
+
     window.scene.entityManager.destroyNonEnemy(pickup);
-    window.scene.powerUpManager.addPowerUp(pickup.getData("data"));
+    window.scene.powerUpManager.addPowerUp(pickupEntity.colour);
   };
 
   public playWordAttack = () =>
