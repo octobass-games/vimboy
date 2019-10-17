@@ -4,7 +4,7 @@ import {
   PLAY_ZONE_HEIGHT
 } from "../../../constants/game";
 import { enableBody } from "../helpers/BodyCreator";
-import Entity, { EntityType, Pickup } from "../Entity";
+import { EntityType, Pickup } from "../Entity";
 import { Images } from "../../loaders/ImageLoader";
 import Random from "../../utils/Random";
 

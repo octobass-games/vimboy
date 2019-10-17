@@ -1,14 +1,20 @@
-import Entity from "./entities/Entity";
 import { Images } from "./loaders/ImageLoader";
-import {
-  GAME_WIDTH,
-  GAME_HEIGHT,
-  CELL_SIZE,
-  GAME_START_X
-} from "../constants/game";
+import { GAME_WIDTH, GAME_HEIGHT, CELL_SIZE } from "../constants/game";
 import { GameObjects } from "phaser";
-import { FONT, FONT_SIZE } from "../constants/text";
+import { FONT } from "../constants/text";
 import { StringColours } from "../constants/colours";
+import Random from "./utils/Random";
+import { playClashAnimation } from "./utils/animationPlayer";
+
+export enum PowerUp {
+  DELETE_WORD,
+  DELETE_LINE
+}
+
+const powerUpToString: Record<PowerUp, string> = {
+  [PowerUp.DELETE_LINE]: "dd",
+  [PowerUp.DELETE_WORD]: "dw"
+};
 
 class PowerUpManager {
   private powerUps: Phaser.GameObjects.Group[] = [];
@@ -16,7 +22,7 @@ class PowerUpManager {
   public addPowerUp = (colour: number) => {
     if (this.powerUps.length === 6) {
       const powerUpToKill = this.powerUps.shift();
-      powerUpToKill!.destroy();
+      powerUpToKill!.destroy(true);
     }
 
     const powerUp = window.scene.add.sprite(
@@ -25,19 +31,52 @@ class PowerUpManager {
       Images.POWER_UP_FOUND
     );
 
-    const label = window.scene.add.text(0, GAME_HEIGHT - CELL_SIZE + 5, "DW", {
-      fontFamily: FONT,
-      fontSize: 30,
-      align: "center",
-      fixedWidth: CELL_SIZE - 10,
-      color: StringColours.WHITE
-    });
+    const pickedPowerUp = Random.randomEnum(PowerUp);
+
+    const label = window.scene.add.text(
+      0,
+      GAME_HEIGHT - CELL_SIZE + 5,
+      powerUpToString[pickedPowerUp],
+      {
+        fontFamily: FONT,
+        fontSize: 30,
+        align: "center",
+        fixedWidth: CELL_SIZE - 10,
+        color: StringColours.WHITE
+      }
+    );
     powerUp.setTint(colour);
+    powerUp.setData("powerUp", pickedPowerUp);
 
     const group = window.scene.add.group([powerUp, label]);
     this.powerUps.push(group);
     this.refreshGroupPositioning();
   };
+
+  public usePowerUp(powerUp: PowerUp, cb: () => void) {
+    const index = this.powerUps.findIndex(g => {
+      const obj = g.getChildren()[0];
+      const foundPowerUp = obj.getData("powerUp") as PowerUp;
+      if (foundPowerUp === powerUp) {
+        return true;
+      }
+      return false;
+    });
+
+    if (index === -1) {
+      console.log("could not use power up as not available");
+      return;
+    }
+
+    const output = this.powerUps.splice(index, 1);
+    const powerUpToKill = output[0];
+    const sprite = powerUpToKill.getChildren()[0] as GameObjects.Sprite;
+    playClashAnimation(sprite.x, sprite.y);
+    output[0].destroy(true);
+    this.refreshGroupPositioning();
+
+    cb();
+  }
 
   private refreshGroupPositioning = () => {
     this.powerUps.forEach((g, index) => {
