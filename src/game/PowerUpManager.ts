@@ -4,7 +4,7 @@ import { GameObjects } from "phaser";
 import { FONT } from "../constants/text";
 import { StringColours } from "../constants/colours";
 import Random from "./utils/Random";
-import { playClashAnimation } from "./utils/animationPlayer";
+import { playClashAnimation, playTextFlash } from "./utils/animationPlayer";
 
 export enum PowerUp {
   DELETE_WORD,
@@ -14,6 +14,11 @@ export enum PowerUp {
 const powerUpToString: Record<PowerUp, string> = {
   [PowerUp.DELETE_LINE]: "dd",
   [PowerUp.DELETE_WORD]: "dw"
+};
+
+const powerUpToString2: Record<PowerUp, string> = {
+  [PowerUp.DELETE_LINE]: "Delete Line",
+  [PowerUp.DELETE_WORD]: "Delete Word"
 };
 
 class PowerUpManager {
@@ -65,6 +70,8 @@ class PowerUpManager {
 
     if (index === -1) {
       console.log("could not use power up as not available");
+      playTextFlash(CELL_SIZE, GAME_HEIGHT - CELL_SIZE, "Ugh");
+
       return;
     }
 
@@ -76,6 +83,11 @@ class PowerUpManager {
     this.refreshGroupPositioning();
 
     cb();
+    playTextFlash(
+      CELL_SIZE,
+      GAME_HEIGHT - CELL_SIZE,
+      powerUpToString2[powerUp]
+    );
   }
 
   private refreshGroupPositioning = () => {
