@@ -22,7 +22,7 @@ class Random {
     return Math.round(Math.floor(Math.random() * Math.floor(max)));
   }
 
-  public static getWord(): string {
+  public static getWords(): string[] {
     const index = Random.getNumber(words.length);
     return words[index];
   }

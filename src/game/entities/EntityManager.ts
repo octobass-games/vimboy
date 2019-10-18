@@ -85,9 +85,8 @@ class EntityManager {
     );
   }
 
-  public getFirstWordOnLine = (
-    line: number
-  ): GameObjects.GameObject | undefined => this.getOnLine(line, this.enemies!);
+  public getFirstWordOnLine = (line: number): GameObjects.Text | undefined =>
+    this.getOnLine(line, this.enemies!) as any;
 
   public getNonEnemyOnLine = (
     line: number

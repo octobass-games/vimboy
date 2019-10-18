@@ -14,6 +14,7 @@ export interface Enemy extends Entity {
     entity: Entity,
     gameObject: Phaser.GameObjects.GameObject
   ) => void;
+  words: string[];
 }
 
 export interface Pickup extends Entity {

@@ -18,12 +18,12 @@ const createWordTypeEnemy = (): Phaser.GameObjects.GameObject | undefined => {
   }
 
   const y = line * CELL_SIZE;
-  const word = Random.getWord();
+  const words = Random.getWords();
 
   const text = createText({
     x: GAME_WIDTH,
     y,
-    word,
+    word: words.join(""),
     xTween: -GAME_WIDTH,
     colour: Random.getStringColour()
   });
@@ -31,7 +31,8 @@ const createWordTypeEnemy = (): Phaser.GameObjects.GameObject | undefined => {
   const entity: Enemy = {
     line,
     type: EntityType.WORD_TYPE_ENEMY,
-    onCollision: onCollision(line, text)
+    onCollision: onCollision(line, text),
+    words
   };
 
   text.setData({ data: entity });

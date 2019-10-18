@@ -1,6 +1,7 @@
 import Action from "./Action";
 import VimBoy from "../../VimBoy";
 import { PowerUp } from "../../PowerUpManager";
+import { Enemy } from "../../entities/Entity";
 
 class DeleteWord implements Action {
   act(): void {
@@ -11,8 +12,22 @@ class DeleteWord implements Action {
       const word = window.scene.entityManager.getFirstWordOnLine(
         currentLine - 1
       );
+
       if (word) {
-        window.scene.entityManager.destroyEnemy(word);
+        const data = word.getData("data") as Enemy;
+        if (data.words.length === 1) {
+          window.scene.entityManager.destroyEnemy(word);
+        } else {
+          const newWords = data.words.splice(1);
+
+          const newData: Enemy = {
+            ...data,
+            words: newWords
+          };
+
+          word.setData("data", newData);
+          word.setText(newWords.join(""));
+        }
       }
     });
   }
