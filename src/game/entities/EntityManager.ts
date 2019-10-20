@@ -2,7 +2,7 @@ import Phaser, { GameObjects } from "phaser";
 import Entity, { Enemy } from "./Entity";
 import createWordTypeEnemy from "./enemies/WordTypeEnemy";
 import Random from "../utils/Random";
-import { GAME_WIDTH } from "../../constants/game";
+import { GAME_WIDTH, CELL_SIZE } from "../../constants/game";
 import createPickup from "./pickups/EntityPickup";
 
 class EntityManager {
@@ -129,6 +129,47 @@ class EntityManager {
   public getEnemies(): Array<GameObjects.GameObject> {
     return this.enemies!.getChildren();
   }
+
+  public moveEverythingRight = () => {
+    this.applyToAll(c => {
+      c.setX(c.x + CELL_SIZE);
+    });
+  };
+
+  public moveEverythingLeft = () => {
+    this.applyToAll(c => {
+      c.setX(c.x - CELL_SIZE);
+    });
+  };
+
+  public slowItDown = () => {
+    this.applyToAll(c => {
+      const body = c.body as Phaser.Physics.Arcade.Body;
+      body.setVelocityX(body.velocity.x / 2);
+    });
+  };
+
+  public speedItUp = () => {
+    this.applyToAll(c => {
+      const body = c.body as Phaser.Physics.Arcade.Body;
+      body.setVelocityX(body.velocity.x * 2);
+    });
+  };
+
+  private applyToAll = (
+    cb: (child: GameObjects.Text | GameObjects.Sprite) => void
+  ) => {
+    this.enemies!.getChildren().forEach(c => {
+      const text = c as GameObjects.Text;
+      cb(text);
+    });
+
+    this.nonEnemies!.getChildren().forEach(c => {
+      const sprite = c as GameObjects.Sprite;
+      sprite.setX(sprite.x - CELL_SIZE);
+      cb(sprite);
+    });
+  };
 }
 
 export default EntityManager;

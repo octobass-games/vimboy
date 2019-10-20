@@ -25,15 +25,19 @@ export const createText = ({
     })
     .setColor(colour);
 
-  enableBody(text);
+  const body = enableBody(text);
 
-  window.scene.tweens.add({
-    targets: text,
-    x: xTween,
-    ease: "Power0",
-    loop: 0,
-    duration: 10000
-  });
+  body.setAllowRotation(false);
+  body.setVelocityX(xTween);
+  console.log(body);
+
+  // window.scene.tweens.add({
+  //   targets: text,
+  //   x: xTween,
+  //   ease: "Power0",
+  //   loop: 0,
+  //   duration: 10000
+  // });
 
   return text;
 };

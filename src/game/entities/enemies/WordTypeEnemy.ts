@@ -24,7 +24,7 @@ const createWordTypeEnemy = (): Phaser.GameObjects.GameObject | undefined => {
     x: GAME_WIDTH,
     y,
     word: words.join(""),
-    xTween: -GAME_WIDTH,
+    xTween: -CELL_SIZE,
     colour: Random.getStringColour()
   });
 
