@@ -20,13 +20,13 @@ const createWordTypeEnemy = (): Phaser.GameObjects.GameObject | undefined => {
   const y = line * CELL_SIZE;
   const words = Random.getWords();
 
-  const velocity = -CELL_SIZE;
+  const velocity = -CELL_SIZE * 3;
 
   const text = createText({
     x: GAME_WIDTH,
     y,
     word: words.join(""),
-    xTween: velocity,
+    xVelocity: velocity,
     colour: Random.getStringColour()
   });
 

@@ -1,5 +1,5 @@
 import Entity, { EntityType } from "../Entity";
-import { CELL_SIZE, GAME_WIDTH, GAME_START_X } from "../../../constants/game";
+import { CELL_SIZE, GAME_START_X } from "../../../constants/game";
 import { createText } from "../helpers/TextCreator";
 import Random from "../../utils/Random";
 
@@ -12,7 +12,7 @@ const createWordAttack = (letter: string) => {
     x: GAME_START_X + CELL_SIZE * 1.5,
     y,
     word: letter,
-    xTween: velocity,
+    xVelocity: velocity,
     colour: Random.getStringColour()
   });
 

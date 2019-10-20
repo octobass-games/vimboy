@@ -8,3 +8,11 @@ export const enableBody = (
   body.setAllowGravity(false);
   return body;
 };
+
+export const setVelocity = (
+  body: Phaser.Physics.Arcade.Body,
+  xVelocity: number
+) => {
+  body.setAllowRotation(false);
+  body.setVelocityX(window.scene.tweens.timeScale * xVelocity);
+};

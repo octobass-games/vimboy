@@ -1,13 +1,13 @@
 import { FONT, FONT_SIZE } from "../../../constants/text";
 import { StringColours } from "../../../constants/colours";
 import { GameObjects } from "phaser";
-import { enableBody } from "./BodyCreator";
+import { enableBody, setVelocity } from "./BodyCreator";
 
 interface CreateText {
   x: number;
   y: number;
   word: string;
-  xTween: number;
+  xVelocity: number;
   colour: StringColours;
 }
 
@@ -15,7 +15,7 @@ export const createText = ({
   x,
   y,
   word,
-  xTween,
+  xVelocity,
   colour
 }: CreateText): GameObjects.Text => {
   const text = window.scene.add
@@ -26,9 +26,7 @@ export const createText = ({
     .setColor(colour);
 
   const body = enableBody(text);
-
-  body.setAllowRotation(false);
-  body.setVelocityX(window.scene.tweens.timeScale * xTween);
+  setVelocity(body, xVelocity);
 
   return text;
 };
