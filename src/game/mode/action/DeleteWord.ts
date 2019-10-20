@@ -18,7 +18,7 @@ class DeleteWord implements Action {
         if (data.words.length === 1) {
           window.scene.entityManager.destroyEnemy(word);
         } else {
-          const newWords = data.words.splice(1);
+          const [, ...newWords] = data.words;
 
           const newData: Enemy = {
             ...data,
