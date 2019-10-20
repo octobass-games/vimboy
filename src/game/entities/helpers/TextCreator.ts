@@ -28,16 +28,7 @@ export const createText = ({
   const body = enableBody(text);
 
   body.setAllowRotation(false);
-  body.setVelocityX(xTween);
-  console.log(body);
-
-  // window.scene.tweens.add({
-  //   targets: text,
-  //   x: xTween,
-  //   ease: "Power0",
-  //   loop: 0,
-  //   duration: 10000
-  // });
+  body.setVelocityX(window.scene.tweens.timeScale * xTween);
 
   return text;
 };

@@ -7,6 +7,7 @@ export enum EntityType {
 interface Entity {
   line: number;
   type: EntityType;
+  normalVelocity: number;
 }
 
 export interface Enemy extends Entity {

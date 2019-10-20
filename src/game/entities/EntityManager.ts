@@ -1,4 +1,4 @@
-import Phaser, { GameObjects } from "phaser";
+import Phaser, { GameObjects, Physics } from "phaser";
 import Entity, { Enemy } from "./Entity";
 import createWordTypeEnemy from "./enemies/WordTypeEnemy";
 import Random from "../utils/Random";
@@ -142,32 +142,33 @@ class EntityManager {
     });
   };
 
-  public slowItDown = () => {
-    this.applyToAll(c => {
-      const body = c.body as Phaser.Physics.Arcade.Body;
-      body.setVelocityX(body.velocity.x / 2);
-    });
-  };
-
-  public speedItUp = () => {
-    this.applyToAll(c => {
-      const body = c.body as Phaser.Physics.Arcade.Body;
-      body.setVelocityX(body.velocity.x * 2);
+  public matchToTimescale = () => {
+    this.applyToAll((_, body, entity) => {
+      body.setVelocityX(
+        entity.normalVelocity * window.scene.tweens.getGlobalTimeScale()
+      );
     });
   };
 
   private applyToAll = (
-    cb: (child: GameObjects.Text | GameObjects.Sprite) => void
+    cb: (
+      child: GameObjects.Text | GameObjects.Sprite,
+      body: Physics.Arcade.Body,
+      entity: Entity
+    ) => void
   ) => {
     this.enemies!.getChildren().forEach(c => {
       const text = c as GameObjects.Text;
-      cb(text);
+      const body = c.body as Physics.Arcade.Body;
+      const entity = c.getData("data") as Entity;
+      cb(text, body, entity);
     });
 
     this.nonEnemies!.getChildren().forEach(c => {
       const sprite = c as GameObjects.Sprite;
-      sprite.setX(sprite.x - CELL_SIZE);
-      cb(sprite);
+      const body = c.body as Physics.Arcade.Body;
+      const entity = c.getData("data") as Entity;
+      cb(sprite, body, entity);
     });
   };
 }

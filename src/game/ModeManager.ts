@@ -30,23 +30,26 @@ class ModeManager {
 
   public switchToInsert(): void {
     this.mode = new InsertMode();
-    window.scene.tweens.setGlobalTimeScale(1);
-    window.scene.entityManager.speedItUp();
     this.colour = Colours.LIGHT_BLUE;
     window.scene.vimboy.changeColour(this.colour);
+
+    window.scene.tweens.setGlobalTimeScale(1);
+    window.scene.entityManager.matchToTimescale();
   }
 
   public switchToNormal(): void {
     this.mode = new NormalMode();
     this.colour = Colours.LIGHT_GREEN;
     window.scene.vimboy.changeColour(this.colour);
-    window.scene.entityManager.slowItDown();
+
     window.scene.tweens.setGlobalTimeScale(0.2);
+    window.scene.entityManager.matchToTimescale();
   }
 
   public switchToCommand(): void {
     this.colour = Colours.PINK;
     window.scene.vimboy.changeColour(this.colour);
+    window.scene.entityManager.matchToTimescale();
     this.mode = new CommandMode();
   }
 

@@ -20,11 +20,13 @@ const createWordTypeEnemy = (): Phaser.GameObjects.GameObject | undefined => {
   const y = line * CELL_SIZE;
   const words = Random.getWords();
 
+  const velocity = -CELL_SIZE;
+
   const text = createText({
     x: GAME_WIDTH,
     y,
     word: words.join(""),
-    xTween: -CELL_SIZE,
+    xTween: velocity,
     colour: Random.getStringColour()
   });
 
@@ -32,7 +34,8 @@ const createWordTypeEnemy = (): Phaser.GameObjects.GameObject | undefined => {
     line,
     type: EntityType.WORD_TYPE_ENEMY,
     onCollision: onCollision(line, text),
-    words
+    words,
+    normalVelocity: velocity
   };
 
   text.setData({ data: entity });

@@ -36,7 +36,8 @@ const createPickup = () => {
   const entity: Pickup = {
     line,
     type: EntityType.PICKUP,
-    colour
+    colour,
+    normalVelocity: CELL_SIZE
   };
 
   image.setData({ data: entity });
