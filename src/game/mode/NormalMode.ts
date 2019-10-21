@@ -9,6 +9,7 @@ import MoveDown from "./action/MoveDown";
 import MoveToTop from "./action/MoveToTop";
 import MoveToBottom from "./action/MoveToBottom";
 import JumpBackParagraph from "./action/JumpBackParagraph";
+import JumpForwardParagraph from "./action/JumpForwardParagraph";
 import MoveLeft from "./action/MoveLeft";
 import MoveRight from "./action/MoveRight";
 
@@ -25,6 +26,7 @@ class NormalMode extends Mode {
     new Binding("ShiftG", [new MoveToBottom()]),
     new Binding("Shift:", [new EnterCommandMode()]),
     new Binding("Shift{", [new JumpBackParagraph()]),
+    new Binding("Shift}", [new JumpForwardParagraph()]),
     new Binding("cw", [new DeleteWord(), new EnterInsertMode()])
   ];
 
