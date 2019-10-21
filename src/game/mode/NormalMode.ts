@@ -14,17 +14,18 @@ import MoveRight from "./action/MoveRight";
 
 class NormalMode extends Mode {
   private static bindings: Binding[] = [
-    new Binding("i", new EnterInsertMode()),
-    new Binding("j", new MoveDown()),
-    new Binding("k", new MoveUp()),
-    new Binding("h", new MoveLeft()),
-    new Binding("l", new MoveRight()),
-    new Binding("dd", new DeleteLine()),
-    new Binding("dw", new DeleteWord()),
-    new Binding("gg", new MoveToTop()),
-    new Binding("ShiftG", new MoveToBottom()),
-    new Binding("Shift:", new EnterCommandMode()),
-    new Binding("Shift{", new JumpBackParagraph())
+    new Binding("i", [new EnterInsertMode()]),
+    new Binding("j", [new MoveDown()]),
+    new Binding("k", [new MoveUp()]),
+    new Binding("h", [new MoveLeft()]),
+    new Binding("l", [new MoveRight()]),
+    new Binding("dd", [new DeleteLine()]),
+    new Binding("dw", [new DeleteWord()]),
+    new Binding("gg", [new MoveToTop()]),
+    new Binding("ShiftG", [new MoveToBottom()]),
+    new Binding("Shift:", [new EnterCommandMode()]),
+    new Binding("Shift{", [new JumpBackParagraph()]),
+    new Binding("cw", [new DeleteWord(), new EnterInsertMode()])
   ];
 
   private input: string = "";
@@ -43,7 +44,7 @@ class NormalMode extends Mode {
         binding => this.input === binding.key
       );
       if (binding) {
-        binding.action.act();
+        binding.actions.forEach(action => action.act());
         this.input = "";
       } else if (
         !NormalMode.bindings.some(binding => binding.key.includes(this.input))

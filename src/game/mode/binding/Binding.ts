@@ -2,11 +2,11 @@ import Action from '../action/Action';
 
 class Binding {
     public key: string;
-    public action: Action;
+    public actions: Action[];
 
-    constructor(key: string, action: Action) {
+    constructor(key: string, actions: Action[]) {
         this.key = key;
-        this.action = action;
+        this.actions = actions;
     }
 }
 
