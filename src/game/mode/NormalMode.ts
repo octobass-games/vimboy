@@ -1,5 +1,5 @@
 import Mode from "./Mode";
-import Binding from "./binding/Binding";
+import Binding, { BindingType, PickupBinding } from "./binding/Binding";
 import EnterInsertMode from "./action/EnterInsertMode";
 import EnterCommandMode from "./action/EnterCommandMode";
 import DeleteLine from "./action/DeleteLine";
@@ -11,20 +11,39 @@ import MoveToBottom from "./action/MoveToBottom";
 import JumpBackParagraph from "./action/JumpBackParagraph";
 import MoveLeft from "./action/MoveLeft";
 import MoveRight from "./action/MoveRight";
+import { Noun, Verb } from "../../constants/verbsAndNouns";
+
+const verbs: string[] = Object.values(Verb);
 
 class NormalMode extends Mode {
   private static bindings: Binding[] = [
-    new Binding("i", new EnterInsertMode()),
-    new Binding("j", new MoveDown()),
-    new Binding("k", new MoveUp()),
-    new Binding("h", new MoveLeft()),
-    new Binding("l", new MoveRight()),
-    new Binding("dd", new DeleteLine()),
-    new Binding("dw", new DeleteWord()),
-    new Binding("gg", new MoveToTop()),
-    new Binding("ShiftG", new MoveToBottom()),
-    new Binding("Shift:", new EnterCommandMode()),
-    new Binding("Shift{", new JumpBackParagraph())
+    { key: "i", action: new EnterInsertMode(), type: BindingType.NORMAL },
+    { key: "j", action: new MoveDown(), type: BindingType.NORMAL },
+    { key: "k", action: new MoveUp(), type: BindingType.NORMAL },
+    { key: "h", action: new MoveLeft(), type: BindingType.NORMAL },
+    { key: "l", action: new MoveRight(), type: BindingType.NORMAL },
+    { key: "gg", action: new MoveToTop(), type: BindingType.NORMAL },
+    { key: "ShiftG", action: new MoveToBottom(), type: BindingType.NORMAL },
+    { key: "Shift:", action: new EnterCommandMode(), type: BindingType.NORMAL },
+    {
+      key: "Shift{",
+      action: new JumpBackParagraph(),
+      type: BindingType.NORMAL
+    },
+    {
+      key: "dd",
+      action: new DeleteLine(),
+      type: BindingType.PICKUP,
+      verb: Verb.d,
+      noun: Noun.d
+    },
+    {
+      key: "dw",
+      action: new DeleteWord(),
+      type: BindingType.PICKUP,
+      verb: Verb.d,
+      noun: Noun.w
+    }
   ];
 
   private input: string = "";
@@ -35,23 +54,45 @@ class NormalMode extends Mode {
 
   handle(keyEvent: KeyboardEvent) {
     if (keyEvent.key === "Escape") {
-      this.input = "";
+      this.clear();
     } else {
       this.input = this.input.concat(keyEvent.key);
+      const binding = NormalMode.bindings.find(b => this.input === b.key);
 
-      const binding: Binding | undefined = NormalMode.bindings.find(
-        binding => this.input === binding.key
-      );
       if (binding) {
-        binding.action.act();
-        this.input = "";
-      } else if (
-        !NormalMode.bindings.some(binding => binding.key.includes(this.input))
-      ) {
-        this.input = "";
+        this.useBinding(binding);
+        this.clear();
+      } else if (!NormalMode.bindings.some(b => b.key.includes(this.input))) {
+        this.clear();
+      } else {
+        if (verbs.includes(this.input)) {
+          const verb = this.input as Verb;
+          window.scene.powerUpManager.setVerbIfAvailable(verb);
+        }
       }
     }
   }
+
+  private clear = () => {
+    window.scene.powerUpManager.clear();
+    this.input = "";
+  };
+
+  private useBinding = (binding: Binding) => {
+    if (binding.type === BindingType.PICKUP) {
+      this.handlePickup(binding);
+    } else {
+      binding.action.act();
+    }
+  };
+
+  private handlePickup = (binding: PickupBinding) => {
+    window.scene.powerUpManager.setNounIfAvailable(binding.noun);
+    if (window.scene.powerUpManager.canUsePowerUp(binding.verb, binding.noun)) {
+      window.scene.powerUpManager.use();
+      binding.action.act();
+    }
+  };
 }
 
 export default NormalMode;
