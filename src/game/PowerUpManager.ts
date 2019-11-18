@@ -2,9 +2,9 @@ import { Images } from "./loaders/ImageLoader";
 import { GAME_WIDTH, GAME_HEIGHT, CELL_SIZE } from "../constants/game";
 import { GameObjects } from "phaser";
 import { FONT } from "../constants/text";
-import { StringColours } from "../constants/colours";
+import { StringColours, Colours } from "../constants/colours";
 import Random from "./utils/Random";
-import { playTextFlash } from "./utils/animationPlayer";
+import { playTextFlash, playClashAnimation } from "./utils/animationPlayer";
 import { Verb, Noun } from "../constants/verbsAndNouns";
 
 class PowerUpManager {
@@ -35,7 +35,7 @@ class PowerUpManager {
     }
 
     const powerUp = window.scene.add.sprite(0, spriteY, Images.POWER_UP_FOUND);
-    const label = window.scene.add.text(0, spriteY, thing, textConfig);
+    const label = window.scene.add.text(0, labelY, thing, textConfig);
 
     powerUp.setTint(colour);
     powerUp.setData("powerUp", thing);
@@ -48,9 +48,9 @@ class PowerUpManager {
 
   public canUsePowerUp = (verb: Verb, noun: Noun): boolean =>
     this.selectedVerb !== undefined &&
-    this.selectedVerb.getChildren()[0].getData("data") === verb &&
+    this.getFromGroup(this.selectedVerb).sprite.getData("data") === verb &&
     this.selectedNoun !== undefined &&
-    this.selectedNoun.getChildren()[0].getData("data") === noun;
+    this.getFromGroup(this.selectedNoun).sprite.getData("data") === noun;
 
   public setVerbIfAvailable(verb: Verb) {
     this.selectedVerb = this.useItemAndCreateSelected(
@@ -77,7 +77,7 @@ class PowerUpManager {
 
     if (index !== -1) {
       const obj = list[index];
-      const colour = obj.getChildren()[0].getData("colour");
+      const colour = this.getFromGroup(obj).sprite.getData("colour");
 
       obj.destroy(true);
       list.splice(index, 1);
@@ -97,30 +97,69 @@ class PowerUpManager {
 
   public clear() {
     if (this.selectedNoun) {
-      this.selectedNoun.destroy(true);
+      this.clearUsedSelected(this.selectedNoun);
     }
     if (this.selectedVerb) {
-      this.selectedVerb.destroy(true);
+      this.clearUsedSelected(this.selectedVerb);
     }
+    this.selectedVerb = undefined;
+    this.selectedNoun = undefined;
   }
 
-  public use() {
-    // TODO: wait before doing this
-    this.clear();
-    playTextFlash(
-      CELL_SIZE,
-      GAME_HEIGHT - CELL_SIZE,
-      "TODO put used thing here"
-    );
+  private clearUsedSelected = (selected: GameObjects.Group) => {
+    const { sprite } = this.getFromGroup(selected);
+    playClashAnimation(sprite.x, sprite.y);
+    sprite.setTint(Colours.PINK);
+
+    window.scene.time.addEvent({
+      delay: 500,
+      callback: () => {
+        selected.destroy(true);
+      }
+    });
+  };
+
+  public unusedClear() {
+    if (this.selectedNoun) {
+      this.clearUnusedSelected(this.selectedNoun);
+    }
+    if (this.selectedVerb) {
+      this.clearUnusedSelected(this.selectedVerb);
+    }
+    this.selectedVerb = undefined;
+    this.selectedNoun = undefined;
   }
+
+  private clearUnusedSelected = (selected: GameObjects.Group) => {
+    const { sprite } = this.getFromGroup(selected);
+    sprite.setTint(Colours.RED);
+    window.scene.time.addEvent({
+      delay: 500,
+      callback: () => {
+        selected.destroy(true);
+      }
+    });
+  };
+
+  public use(name: string) {
+    playTextFlash(CELL_SIZE, GAME_HEIGHT - CELL_SIZE, name);
+    window.scene.time.addEvent({
+      delay: 500,
+      callback: () => {
+        this.clear();
+      }
+    });
+  }
+
+  public hasVerb = () => this.selectedVerb !== undefined;
 
   private findThingIndex = <Thing>(
     thing: Thing,
     list: Phaser.GameObjects.Group[]
   ): number =>
     list.findIndex(g => {
-      const obj = g.getChildren()[0];
-      const foundPowerUp = obj.getData("powerUp") as Thing;
+      const { sprite } = this.getFromGroup(g);
+      const foundPowerUp = sprite.getData("powerUp") as Thing;
       if (foundPowerUp === thing) {
         return true;
       }
@@ -138,8 +177,7 @@ class PowerUpManager {
   };
 
   private updateX = (g: GameObjects.Group, x: number) => {
-    const sprite = g.getChildren()[0] as GameObjects.Sprite;
-    const text = g.getChildren()[1] as GameObjects.Text;
+    const { sprite, text } = this.getFromGroup(g);
 
     sprite.setX(x);
     text.setX(this.getTextXPosition(x));
@@ -150,6 +188,12 @@ class PowerUpManager {
 
   private addLabel = (x: number, label: string) =>
     window.scene.add.text(this.getTextXPosition(x), labelY, label, textConfig);
+
+  private getFromGroup = (g: GameObjects.Group) => {
+    const sprite = g.getChildren()[0] as GameObjects.Sprite;
+    const text = g.getChildren()[1] as GameObjects.Text;
+    return { sprite, text };
+  };
 
   public create() {
     window.scene.add.sprite(

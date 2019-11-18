@@ -20,6 +20,7 @@ export interface PickupBinding extends BindingBase {
   type: BindingType.PICKUP;
   verb: Verb;
   noun: Noun;
+  name: string;
 }
 
 type Binding = NormalBinding | PickupBinding;

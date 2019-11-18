@@ -35,14 +35,16 @@ class NormalMode extends Mode {
       action: new DeleteLine(),
       type: BindingType.PICKUP,
       verb: Verb.d,
-      noun: Noun.d
+      noun: Noun.d,
+      name: "Delete Line"
     },
     {
       key: "dw",
       action: new DeleteWord(),
       type: BindingType.PICKUP,
       verb: Verb.d,
-      noun: Noun.w
+      noun: Noun.w,
+      name: "Delete Word"
     }
   ];
 
@@ -61,20 +63,19 @@ class NormalMode extends Mode {
 
       if (binding) {
         this.useBinding(binding);
-        this.clear();
       } else if (!NormalMode.bindings.some(b => b.key.includes(this.input))) {
         this.clear();
       } else {
         if (verbs.includes(this.input)) {
           const verb = this.input as Verb;
-          window.scene.powerUpManager.setVerbIfAvailable(verb);
+          this.powerUpManager().setVerbIfAvailable(verb);
         }
       }
     }
   }
 
   private clear = () => {
-    window.scene.powerUpManager.clear();
+    this.powerUpManager().clear();
     this.input = "";
   };
 
@@ -83,16 +84,26 @@ class NormalMode extends Mode {
       this.handlePickup(binding);
     } else {
       binding.action.act();
+      this.clear();
     }
   };
 
   private handlePickup = (binding: PickupBinding) => {
-    window.scene.powerUpManager.setNounIfAvailable(binding.noun);
-    if (window.scene.powerUpManager.canUsePowerUp(binding.verb, binding.noun)) {
-      window.scene.powerUpManager.use();
-      binding.action.act();
+    if (this.powerUpManager().hasVerb()) {
+      this.powerUpManager().setNounIfAvailable(binding.noun);
+      if (this.powerUpManager().canUsePowerUp(binding.verb, binding.noun)) {
+        this.powerUpManager().use(binding.name);
+        binding.action.act();
+        this.clear();
+        return;
+      }
     }
+
+    this.powerUpManager().unusedClear();
+    this.input = "";
   };
+
+  private powerUpManager = () => window.scene.powerUpManager;
 }
 
 export default NormalMode;
