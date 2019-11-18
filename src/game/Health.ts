@@ -1,4 +1,4 @@
-import { BOTTOM_BAR_Y, GAME_WIDTH, CELL_SIZE } from "../constants/game";
+import { GAME_WIDTH, CELL_SIZE, GAME_HEIGHT } from "../constants/game";
 import { Colours } from "../constants/colours";
 import { Images } from "./loaders/ImageLoader";
 
@@ -32,7 +32,7 @@ class Health {
         window.scene.add
           .image(
             this.getTextXPosition() - index * 30,
-            BOTTOM_BAR_Y + CELL_SIZE * 1.5,
+            GAME_HEIGHT - CELL_SIZE / 2,
             Images.HEART
           )
           .setTint(colours[index])

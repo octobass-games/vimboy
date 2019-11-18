@@ -36,6 +36,14 @@ class Random {
     return randomEnumValue;
   }
 
+  public static randomStringEnum<T>(anEnum: T): T[keyof T] {
+    const enumValues = Object.values(anEnum);
+    const index = Random.getNumber(enumValues.length);
+    return enumValues[index];
+  }
+
+  public static randomBool = (): boolean => Random.getNumber(2) === 1;
+
   public static getColour(): Colours {
     const index = Random.getNumber(this.colours.length);
     return this.colours[index];
