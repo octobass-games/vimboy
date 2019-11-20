@@ -10,6 +10,7 @@ import preloadImages from "../loaders/ImageLoader";
 import { loadAnimations } from "../loaders/AnimationLoader";
 import EntityManager from "../entities/EntityManager";
 import PowerUpManager from "../PowerUpManager";
+import preloadSounds, { Sound } from "../loaders/SoundLoader";
 
 const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
   active: false,
@@ -43,10 +44,12 @@ export class PlayScene extends Phaser.Scene {
 
   public preload(): void {
     preloadImages();
+    preloadSounds();
   }
 
   public create() {
     loadAnimations();
+    this.sound.play(Sound.MUSIC, { loop: true, volume: 0.5 });
     this.keyCapturer = window.scene.input.keyboard.addCapture([
       Phaser.Input.Keyboard.KeyCodes.I
     ]); // I is a lie, it captures all keys

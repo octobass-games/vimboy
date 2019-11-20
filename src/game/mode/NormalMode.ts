@@ -12,6 +12,7 @@ import JumpBackParagraph from "./action/JumpBackParagraph";
 import MoveLeft from "./action/MoveLeft";
 import MoveRight from "./action/MoveRight";
 import { Noun, Verb } from "../../constants/verbsAndNouns";
+import { Sound } from "../loaders/SoundLoader";
 
 const verbs: string[] = Object.values(Verb);
 
@@ -93,6 +94,7 @@ class NormalMode extends Mode {
       this.powerUpManager().setNounIfAvailable(binding.noun);
       if (this.powerUpManager().canUsePowerUp(binding.verb, binding.noun)) {
         this.powerUpManager().use(binding.name);
+        window.scene.sound.play(Sound.GOOD);
         binding.action.act();
         this.clear();
         return;

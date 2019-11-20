@@ -6,6 +6,7 @@ import { StringColours, Colours } from "../constants/colours";
 import Random from "./utils/Random";
 import { playTextFlash, playClashAnimation } from "./utils/animationPlayer";
 import { Verb, Noun } from "../constants/verbsAndNouns";
+import { Sound } from "./loaders/SoundLoader";
 
 class PowerUpManager {
   private verbs: Phaser.GameObjects.Group[] = [];
@@ -96,11 +97,12 @@ class PowerUpManager {
   }
 
   public clear() {
+    if (this.selectedVerb) {
+      window.scene.sound.play(Sound.BAD);
+      this.clearUsedSelected(this.selectedVerb);
+    }
     if (this.selectedNoun) {
       this.clearUsedSelected(this.selectedNoun);
-    }
-    if (this.selectedVerb) {
-      this.clearUsedSelected(this.selectedVerb);
     }
     this.selectedVerb = undefined;
     this.selectedNoun = undefined;

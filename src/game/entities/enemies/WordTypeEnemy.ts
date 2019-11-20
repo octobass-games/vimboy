@@ -8,6 +8,7 @@ import Random from "../../utils/Random";
 import { GameObjects } from "phaser";
 import { createText } from "../helpers/TextCreator";
 import { playClashAnimation } from "../../utils/animationPlayer";
+import { Sound } from "../../loaders/SoundLoader";
 
 const createWordTypeEnemy = (): Phaser.GameObjects.GameObject | undefined => {
   const numberOfGaps = PLAY_ZONE_HEIGHT / CELL_SIZE;
@@ -51,6 +52,7 @@ const onWordAttackCollision = (
   const enemyText = text.text.toLowerCase().trim();
   const enemyTextFirstChar = enemyText.charAt(0);
   if (attackObject.text.toLowerCase() === enemyTextFirstChar) {
+    window.scene.sound.play(Sound.BOOP);
     if (text.text.length === 1) {
       window.scene.entityManager.destroyEnemy(text);
     } else {

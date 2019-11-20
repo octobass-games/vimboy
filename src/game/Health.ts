@@ -1,6 +1,7 @@
 import { GAME_WIDTH, CELL_SIZE, GAME_HEIGHT } from "../constants/game";
 import { Colours } from "../constants/colours";
 import { Images } from "./loaders/ImageLoader";
+import { Sound } from "./loaders/SoundLoader";
 
 const colours = [
   Colours.RED,
@@ -19,6 +20,8 @@ class Health {
   }
 
   public injure = () => {
+    window.scene.sound.play(Sound.BAD);
+
     this.lifes--;
     if (this.lifes > 0) {
       this.renderImages();
