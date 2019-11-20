@@ -9,6 +9,7 @@ class DeleteLine implements Action {
     const word = window.scene.entityManager.getFirstWordOnLine(currentLine - 1);
 
     if (word) {
+      window.scene.scoreBoard.updateScore(word.text.length);
       window.scene.entityManager.destroyEnemy(word);
     }
   }
