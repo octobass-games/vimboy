@@ -1,7 +1,6 @@
 import { Menu } from "../game/scene/Menu";
-import { play } from "../game/Game";
 import { FONT, FONT_SIZE } from "../constants/text";
-import { CELL_SIZE } from "../constants/game";
+import { CELL_SIZE, GAME_HEIGHT, GAME_WIDTH } from "../constants/game";
 import { cursorX, historyX } from "./displayer";
 
 export const handleInput = (menu: Menu) => (keyEvent: KeyboardEvent) => {
@@ -20,11 +19,15 @@ export const handleInput = (menu: Menu) => (keyEvent: KeyboardEvent) => {
       break;
     default:
       menu.currentLine += keyEvent.key;
+      menu.currentLine = menu.currentLine.slice(
+        0,
+        GAME_WIDTH / (FONT_SIZE / 2)
+      );
       menu.lineText!.setText(menu.currentLine);
   }
 
   menu.lineText!.setText(menu.currentLine);
-  menu.cursor!.setX(cursorX(menu.currentLine.length * 17));
+  menu.cursor!.setX(cursorX(menu.lineText!));
 };
 
 const handleHistoryLoop = (
@@ -49,10 +52,10 @@ const handleHistoryLoop = (
   }
 };
 
-const playWords = ["play", "vim", "vi"];
+const playWords = ["play", "vim", "vi", "vimboy"];
 const handleCommand = (menu: Menu, command: string) => {
   if (playWords.includes(command.toLowerCase())) {
-    play();
+    menu.scene.start("Game");
   }
 };
 
@@ -63,6 +66,11 @@ const handleDelete = (menu: Menu) => {
 };
 
 const handleEnter = (menu: Menu) => {
+  if (menu.history.length >= GAME_HEIGHT / CELL_SIZE - 4) {
+    menu.history = [];
+    menu.historyObj!.clear(true);
+  }
+
   const y = menu.historyObj!.getChildren().length + 1;
 
   handleCommand(menu, menu.currentLine);

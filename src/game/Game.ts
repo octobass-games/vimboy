@@ -22,11 +22,3 @@ export const initGame = () => {
   game = new Phaser.Game(config);
   game.scene.add("Game", PlayScene);
 };
-
-export const play = () => {
-  game.scene.switch("Menu", "Game");
-};
-
-export const backToMainMenu = () => {
-  game.scene.switch("Game", "Menu");
-};

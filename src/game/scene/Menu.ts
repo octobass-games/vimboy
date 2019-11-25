@@ -74,7 +74,7 @@ export class Menu extends Phaser.Scene {
     });
 
     this.cursor = this.add.rectangle(
-      cursorX(0),
+      cursorX(this.lineText),
       FONT_SIZE + CELL_SIZE / 2,
       5,
       CELL_SIZE,

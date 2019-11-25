@@ -1,6 +1,5 @@
 import Mode from "./Mode";
 import EnterNormalMode from "./action/EnterNormalMode";
-import { backToMainMenu } from "../Game";
 
 class CommandMode extends Mode {
   private static whitelist: string[] = [
@@ -54,11 +53,10 @@ class CommandMode extends Mode {
 
       if (!isNaN(lineNumber)) {
         window.scene.vimboy.jumpToLine(lineNumber);
+        new EnterNormalMode().act();
       } else {
         this.handleStringCommands(this.input);
       }
-
-      new EnterNormalMode().act();
     } else if (keyEvent.key === "Backspace" && this.input.length > 0) {
       this.input = this.input.slice(0, this.input.length - 1);
     } else if (keyEvent.key === "Escape") {
@@ -75,11 +73,14 @@ class CommandMode extends Mode {
   private handleStringCommands = (str: string) => {
     switch (str.toLowerCase()) {
       case "q":
-        backToMainMenu();
+        window.scene.sound.stopAll();
+        window.scene.scene.start("Menu");
+
         return;
       default:
         console.log("command not found");
     }
+    new EnterNormalMode().act();
   };
 }
 
