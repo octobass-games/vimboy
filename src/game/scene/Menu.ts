@@ -4,6 +4,7 @@ import { GAME_HEIGHT, GAME_WIDTH, CELL_SIZE } from "../../constants/game";
 import { Colours, StringColours } from "../../constants/colours";
 import { FONT, FONT_SIZE } from "../../constants/text";
 import { handleInput } from "../../menu/handleInput";
+import { cursorX } from "../../menu/displayer";
 
 const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
   active: false,
@@ -55,25 +56,25 @@ export class Menu extends Phaser.Scene {
 
   private onLoaded = () => {
     this.historyObj = this.add.group();
-    this.header = this.add.text(0, 0, "vimboy@octobass.games", {
+    this.header = this.add.text(CELL_SIZE, 0, "vimboy@octobass.games", {
       fontFamily: FONT,
       fontSize: FONT_SIZE,
       color: StringColours.PINK
     });
 
-    this.preamble = this.add.text(0, FONT_SIZE, "~", {
+    this.preamble = this.add.text(CELL_SIZE, FONT_SIZE, "~", {
       fontFamily: FONT,
       fontSize: FONT_SIZE,
       color: StringColours.YELLOW
     });
 
-    this.lineText = this.add.text(30, FONT_SIZE, "", {
+    this.lineText = this.add.text(CELL_SIZE + 30, FONT_SIZE, "", {
       fontFamily: FONT,
       fontSize: FONT_SIZE
     });
 
     this.cursor = this.add.rectangle(
-      30,
+      cursorX(0),
       FONT_SIZE + CELL_SIZE / 2,
       5,
       CELL_SIZE,

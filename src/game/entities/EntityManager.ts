@@ -157,19 +157,23 @@ class EntityManager {
       entity: Entity
     ) => void
   ) => {
-    this.enemies!.getChildren().forEach(c => {
-      const text = c as GameObjects.Text;
-      const body = c.body as Physics.Arcade.Body;
-      const entity = c.getData("data") as Entity;
-      cb(text, body, entity);
-    });
+    if (this.enemies) {
+      this.enemies.getChildren().forEach(c => {
+        const text = c as GameObjects.Text;
+        const body = c.body as Physics.Arcade.Body;
+        const entity = c.getData("data") as Entity;
+        cb(text, body, entity);
+      });
+    }
 
-    this.nonEnemies!.getChildren().forEach(c => {
-      const sprite = c as GameObjects.Sprite;
-      const body = c.body as Physics.Arcade.Body;
-      const entity = c.getData("data") as Entity;
-      cb(sprite, body, entity);
-    });
+    if (this.nonEnemies) {
+      this.nonEnemies.getChildren().forEach(c => {
+        const sprite = c as GameObjects.Sprite;
+        const body = c.body as Physics.Arcade.Body;
+        const entity = c.getData("data") as Entity;
+        cb(sprite, body, entity);
+      });
+    }
   };
 }
 

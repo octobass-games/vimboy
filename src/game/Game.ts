@@ -24,5 +24,9 @@ export const initGame = () => {
 };
 
 export const play = () => {
-  game.scene.start("Game");
+  game.scene.switch("Menu", "Game");
+};
+
+export const backToMainMenu = () => {
+  game.scene.switch("Game", "Menu");
 };

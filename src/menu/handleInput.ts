@@ -1,8 +1,8 @@
 import { Menu } from "../game/scene/Menu";
 import { play } from "../game/Game";
 import { FONT, FONT_SIZE } from "../constants/text";
-import { PADDING } from "./constants";
 import { CELL_SIZE } from "../constants/game";
+import { cursorX, historyX } from "./displayer";
 
 export const handleInput = (menu: Menu) => (keyEvent: KeyboardEvent) => {
   switch (keyEvent.key) {
@@ -24,7 +24,7 @@ export const handleInput = (menu: Menu) => (keyEvent: KeyboardEvent) => {
   }
 
   menu.lineText!.setText(menu.currentLine);
-  menu.cursor!.setX(menu.currentLine.length * 17 + 30);
+  menu.cursor!.setX(cursorX(menu.currentLine.length * 17));
 };
 
 const handleHistoryLoop = (
@@ -69,7 +69,7 @@ const handleEnter = (menu: Menu) => {
 
   menu.history.push(menu.currentLine);
   menu.historyObj!.add(
-    menu.add.text(PADDING, (y - 1) * FONT_SIZE, menu.currentLine, {
+    menu.add.text(historyX, (y - 1) * FONT_SIZE, menu.currentLine, {
       fontFamily: FONT,
       fontSize: FONT_SIZE
     })
