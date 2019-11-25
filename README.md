@@ -17,3 +17,5 @@ type `vim` and hit `Enter` key
       h   l
         j
 ```
+
+[Vimboy gif](https://i.imgur.com/hiQQvB8.gifv)
