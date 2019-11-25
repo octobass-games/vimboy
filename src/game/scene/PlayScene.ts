@@ -11,6 +11,7 @@ import { loadAnimations } from "../loaders/AnimationLoader";
 import EntityManager from "../entities/EntityManager";
 import PowerUpManager from "../PowerUpManager";
 import preloadSounds, { Sound } from "../loaders/SoundLoader";
+import MusicManager from "../MusicManager";
 
 const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
   active: false,
@@ -26,6 +27,7 @@ export class PlayScene extends Phaser.Scene {
   public health: Health;
   public entityManager: EntityManager;
   public powerUpManager: PowerUpManager;
+  public musicManager: MusicManager;
   public keyCapturer?: Phaser.Input.Keyboard.KeyboardPlugin;
   public graphics?: Phaser.GameObjects.Graphics;
 
@@ -40,6 +42,7 @@ export class PlayScene extends Phaser.Scene {
     this.statusLine = new StatusLine();
     this.entityManager = new EntityManager();
     this.powerUpManager = new PowerUpManager();
+    this.musicManager = new MusicManager();
   }
 
   public preload(): void {
@@ -49,7 +52,6 @@ export class PlayScene extends Phaser.Scene {
 
   public create() {
     loadAnimations();
-    this.sound.play(Sound.MUSIC, { loop: true, volume: 0.5 });
     this.keyCapturer = window.scene.input.keyboard.addCapture([
       Phaser.Input.Keyboard.KeyCodes.I
     ]); // I is a lie, it captures all keys
@@ -67,6 +69,7 @@ export class PlayScene extends Phaser.Scene {
     this.scoreBoard.create();
     this.entityManager.create();
     this.powerUpManager.create();
+    this.musicManager.create();
   }
 
   public update() {
