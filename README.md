@@ -18,4 +18,4 @@ type `vim` and hit `Enter` key
         j
 ```
 
-[Vimboy gif](https://i.imgur.com/hiQQvB8.gifv)
+![Vimboy gif](https://i.imgur.com/hiQQvB8.gifv)
