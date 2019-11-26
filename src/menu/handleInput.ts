@@ -1,7 +1,8 @@
 import { Menu } from "../game/scene/Menu";
-import { FONT, FONT_SIZE } from "../constants/text";
+import { FONT_SIZE } from "../constants/text";
 import { CELL_SIZE, GAME_HEIGHT, GAME_WIDTH } from "../constants/game";
 import { cursorX, historyX } from "./displayer";
+import { handleCommand } from "./handleCommand";
 
 export const handleInput = (menu: Menu) => (keyEvent: KeyboardEvent) => {
   switch (keyEvent.key) {
@@ -52,13 +53,6 @@ const handleHistoryLoop = (
   }
 };
 
-const playWords = ["play", "vim", "vi", "vimboy"];
-const handleCommand = (menu: Menu, command: string) => {
-  if (playWords.includes(command.toLowerCase())) {
-    menu.scene.start("Game");
-  }
-};
-
 const handleDelete = (menu: Menu) => {
   if (menu.currentLine.length > 0) {
     menu.currentLine = menu.currentLine.slice(0, menu.currentLine.length - 1);
@@ -67,25 +61,7 @@ const handleDelete = (menu: Menu) => {
 
 const handleEnter = (menu: Menu) => {
   if (menu.history.length >= GAME_HEIGHT / CELL_SIZE - 4) {
-    menu.history = [];
-    menu.historyObj!.clear(true);
+    menu.clearHistory();
   }
-
-  const y = menu.historyObj!.getChildren().length + 1;
-
-  handleCommand(menu, menu.currentLine);
-
-  menu.history.push(menu.currentLine);
-  menu.historyObj!.add(
-    menu.add.text(historyX, (y - 1) * FONT_SIZE, menu.currentLine, {
-      fontFamily: FONT,
-      fontSize: FONT_SIZE
-    })
-  );
-  menu.currentLine = "";
-  menu.lineText!.setY((y + 1) * FONT_SIZE);
-  menu.cursor!.setY((y + 1) * FONT_SIZE + CELL_SIZE / 2);
-  menu.preamble!.setY((y + 1) * FONT_SIZE);
-  menu.header!.setY(y * FONT_SIZE);
-  menu.historyPosition = 0;
+  handleCommand(menu, menu.currentLine.toLowerCase());
 };

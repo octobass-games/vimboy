@@ -4,7 +4,7 @@ import { GAME_HEIGHT, GAME_WIDTH, CELL_SIZE } from "../../constants/game";
 import { Colours, StringColours } from "../../constants/colours";
 import { FONT, FONT_SIZE } from "../../constants/text";
 import { handleInput } from "../../menu/handleInput";
-import { cursorX } from "../../menu/displayer";
+import { cursorX, historyX } from "../../menu/displayer";
 
 const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
   active: false,
@@ -94,4 +94,31 @@ export class Menu extends Phaser.Scene {
   public create() {}
 
   public update() {}
+
+  public clearHistory() {
+    this.history = [];
+    this.historyObj!.clear(true);
+  }
+
+  public addHistory(item: string) {
+    const y = this.historyObj!.getChildren().length + 1;
+    this.history.push(item);
+    this.historyObj!.add(
+      this.add.text(historyX, (y - 1) * FONT_SIZE, item, {
+        fontFamily: FONT,
+        fontSize: FONT_SIZE
+      })
+    );
+  }
+
+  public moveDownALine = () => {
+    const y = this.historyObj!.getChildren().length + 1;
+
+    this.currentLine = "";
+    this.lineText!.setY((y + 1) * FONT_SIZE);
+    this.cursor!.setY((y + 1) * FONT_SIZE + CELL_SIZE / 2);
+    this.preamble!.setY((y + 1) * FONT_SIZE);
+    this.header!.setY(y * FONT_SIZE);
+    this.historyPosition = 0;
+  };
 }
