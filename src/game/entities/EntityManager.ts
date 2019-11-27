@@ -57,11 +57,11 @@ class EntityManager {
 
   public update() {
     const randomNumber = Random.getNumber(300);
-    if (randomNumber === 1) {
+    if (randomNumber === 1 || this.enemies!.getChildren().length < 3) {
       this.createEnemy(createWordTypeEnemy);
     }
 
-    if (randomNumber === 2) {
+    if (randomNumber === 2 || this.nonEnemies!.getChildren().length < 1) {
       this.createNonEnemy(createPickup);
     }
 

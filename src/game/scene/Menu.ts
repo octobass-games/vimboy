@@ -112,7 +112,7 @@ export class Menu extends Phaser.Scene {
   }
 
   public moveDownALine = () => {
-    const y = this.historyObj!.getChildren().length + 1;
+    const y = this.historyObj!.getChildren().length;
 
     this.currentLine = "";
     this.lineText!.setY((y + 1) * FONT_SIZE);

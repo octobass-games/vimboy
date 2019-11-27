@@ -1,7 +1,7 @@
 import { Menu } from "../game/scene/Menu";
 import { FONT_SIZE } from "../constants/text";
 import { CELL_SIZE, GAME_HEIGHT, GAME_WIDTH } from "../constants/game";
-import { cursorX, historyX } from "./displayer";
+import { cursorX } from "./displayer";
 import { handleCommand } from "./handleCommand";
 
 export const handleInput = (menu: Menu) => (keyEvent: KeyboardEvent) => {

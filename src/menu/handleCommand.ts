@@ -34,8 +34,10 @@ export const handleCommand = (menu: Menu, command: string) => {
     case "help gameplay":
       printResponse(menu, command, instructions);
       break;
+    case "":
+      break;
     default:
-      menu.addHistory("command not found: ${command}");
+      menu.addHistory(`command not found: ${command}`);
   }
   menu.moveDownALine();
 };
