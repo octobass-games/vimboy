@@ -26,6 +26,10 @@ class Health {
     if (this.lifes > 0) {
       this.renderImages();
     }
+
+    if (this.lifes === 0) {
+      window.scene.scene.start("End");
+    }
   };
 
   private renderImages = () => {

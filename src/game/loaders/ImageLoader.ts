@@ -6,7 +6,9 @@ export enum Images {
   CLASH = "clash",
   PRESENT = "present",
   POWER_UP_FOUND = "POWER_UP_FOUND",
-  POWER_UP_CONTAINER = "POWER_UP_CONTAINER"
+  POWER_UP_CONTAINER = "POWER_UP_CONTAINER",
+  GHOST = "GHOST",
+  TROPHY = "TROPHY"
 }
 
 const preloadImages = () => {
@@ -40,6 +42,15 @@ const preloadImages = () => {
   window.scene.load.image(
     Images.POWER_UP_CONTAINER,
     process.env.PUBLIC_URL + "/images/power-up-wrapper.png"
+  );
+
+  window.scene.load.image(
+    Images.GHOST,
+    process.env.PUBLIC_URL + "/images/ghost.png"
+  );
+  window.scene.load.image(
+    Images.TROPHY,
+    process.env.PUBLIC_URL + "/images/trophy.png"
   );
 };
 

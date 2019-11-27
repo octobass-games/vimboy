@@ -3,7 +3,7 @@ import { FONT, FONT_SIZE } from "../constants/text";
 
 class ScoreBoard {
   private text?: Phaser.GameObjects.Text;
-  private score: number = 0;
+  public score: number = 0;
 
   public create() {
     this.text = window.scene.add.text(
