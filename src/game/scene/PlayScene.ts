@@ -51,6 +51,14 @@ export class PlayScene extends Phaser.Scene {
   }
 
   public create() {
+    this.vimboy = new VimBoy();
+    this.modeManager = new ModeManager();
+    this.scoreBoard = new ScoreBoard();
+    this.health = new Health();
+    this.statusLine = new StatusLine();
+    this.entityManager = new EntityManager();
+    this.powerUpManager = new PowerUpManager();
+    this.musicManager = new MusicManager();
     loadAnimations();
     this.keyCapturer = window.scene.input.keyboard.addCapture([
       Phaser.Input.Keyboard.KeyCodes.I

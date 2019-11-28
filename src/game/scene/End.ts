@@ -1,8 +1,8 @@
-import Phaser from "phaser";
+import Phaser, { GameObjects } from "phaser";
 import { Images } from "../loaders/ImageLoader";
 import { GAME_WIDTH, GAME_HEIGHT, CELL_SIZE } from "../../constants/game";
 import { Sound } from "../loaders/SoundLoader";
-import { FONT, FONT_SIZE } from "../../constants/text";
+import { FONT, FONT_SIZE, FONT_CONFIG } from "../../constants/text";
 import { StringColours } from "../../constants/colours";
 
 const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
@@ -14,6 +14,9 @@ const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
 const goodScore = 100;
 
 export class End extends Phaser.Scene {
+  private replayButton?: GameObjects.Text;
+  private menuButton?: GameObjects.Text;
+  private replaySelected: boolean = true;
   constructor() {
     super(sceneConfig);
   }
@@ -32,6 +35,51 @@ export class End extends Phaser.Scene {
       this.renderImage(Images.GHOST, true);
       this.renderText("Better luck next time!");
     }
+
+    this.replayButton = this.add.text(0, (3 * GAME_HEIGHT) / 4, "> Replay", {
+      ...FONT_CONFIG,
+      align: "center",
+      fixedWidth: GAME_WIDTH / 2,
+      color: StringColours.YELLOW
+    });
+    this.menuButton = this.add.text(
+      GAME_WIDTH / 2,
+      (3 * GAME_HEIGHT) / 4,
+      "  Menu",
+      {
+        ...FONT_CONFIG,
+        align: "center",
+        fixedWidth: GAME_WIDTH / 2
+      }
+    );
+
+    this.input.keyboard.on("keydown", (keyEvent: KeyboardEvent) => {
+      switch (keyEvent.key.toLowerCase()) {
+        case "arrowleft":
+        case "h":
+          this.replaySelected = true;
+          this.replayButton!.setText("> Replay");
+          this.replayButton!.setColor(StringColours.YELLOW);
+          this.menuButton!.setText("  Menu");
+          this.menuButton!.setColor(StringColours.WHITE);
+          break;
+        case "arrowright":
+        case "l":
+          this.replaySelected = false;
+          this.menuButton!.setText("> Menu");
+          this.menuButton!.setColor(StringColours.YELLOW);
+          this.replayButton!.setColor(StringColours.WHITE);
+          this.replayButton!.setText("  Replay");
+          break;
+        case "enter":
+          if (this.replaySelected) {
+            this.scene.start("Game");
+          } else {
+            this.scene.start("Menu");
+          }
+          break;
+      }
+    });
   }
 
   private renderImage = (imageStr: Images, tweenImage: boolean) => {
@@ -68,8 +116,7 @@ export class End extends Phaser.Scene {
       textStartY + CELL_SIZE * 2,
       `score: ${window.scene.scoreBoard.score}`,
       {
-        fontFamily: FONT,
-        fontSize: FONT_SIZE,
+        ...FONT_CONFIG,
         align: "center",
         fixedWidth: GAME_WIDTH
       }
