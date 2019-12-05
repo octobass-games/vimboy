@@ -9,9 +9,9 @@ export enum Images {
 
 export const CLASH_START_FRAME = 10;
 export const CLASH_FRAME_COUNT = 3;
-export const HEART_FRAME = 40;
-export const PRESENT_FRAME = 20;
-export const POWER_UP_FOUND_FRAME = 30;
+export const HEART_FRAME = 15;
+export const PRESENT_FRAME = 13;
+export const POWER_UP_FOUND_FRAME = 14;
 
 const preloadImages = () => {
   window.scene.load.spritesheet(
