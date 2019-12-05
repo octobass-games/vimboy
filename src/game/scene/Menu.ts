@@ -91,7 +91,9 @@ export class Menu extends Phaser.Scene {
     this.input.keyboard.on("keydown", handleInput(this));
   };
 
-  public create() {}
+  public create() {
+    this.currentLine = "";
+  }
 
   public update() {}
 

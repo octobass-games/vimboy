@@ -7,6 +7,7 @@ import { enableBody } from "./entities/helpers/BodyCreator";
 import { GameObjects } from "phaser";
 import Entity, { Pickup, EntityType } from "./entities/Entity";
 import { playClashAnimation } from "./utils/animationPlayer";
+import { Sound } from "./loaders/SoundLoader";
 
 class VimBoy {
   public movement?: Movement;
@@ -60,6 +61,7 @@ class VimBoy {
       const obj = pickup as GameObjects.Sprite;
 
       playClashAnimation(obj.x, obj.y);
+      window.scene.sound.play(Sound.BOOP);
 
       window.scene.entityManager.destroyNonEnemy(pickup);
       window.scene.powerUpManager.addPowerUp(pickupEntity.colour);

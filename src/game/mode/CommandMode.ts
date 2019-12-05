@@ -48,7 +48,8 @@ class CommandMode extends Mode {
   }
 
   handle(keyEvent: KeyboardEvent) {
-    if (keyEvent.key === "Enter") {
+    const key = keyEvent.key.toLowerCase();
+    if (key === "enter") {
       const lineNumber = parseInt(this.input);
 
       if (!isNaN(lineNumber)) {
@@ -57,12 +58,12 @@ class CommandMode extends Mode {
       } else {
         this.handleStringCommands(this.input);
       }
-    } else if (keyEvent.key === "Backspace" && this.input.length > 0) {
+    } else if (key === "backspace" && this.input.length > 0) {
       this.input = this.input.slice(0, this.input.length - 1);
-    } else if (keyEvent.key === "Escape") {
+    } else if (key === "escape") {
       new EnterNormalMode().act();
-    } else if (CommandMode.whitelist.includes(keyEvent.key)) {
-      this.input = this.input.concat(keyEvent.key);
+    } else if (CommandMode.whitelist.includes(key)) {
+      this.input = this.input.concat(key);
     }
   }
 

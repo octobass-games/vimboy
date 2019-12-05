@@ -59,12 +59,16 @@ class NormalMode extends Mode {
     if (keyEvent.key === "Escape") {
       this.clear();
     } else {
-      this.input = this.input.concat(keyEvent.key);
-      const binding = NormalMode.bindings.find(b => this.input === b.key);
+      this.input = this.input.concat(keyEvent.key.toLowerCase());
+      const binding = NormalMode.bindings.find(
+        b => this.input === b.key.toLowerCase()
+      );
 
       if (binding) {
         this.useBinding(binding);
-      } else if (!NormalMode.bindings.some(b => b.key.includes(this.input))) {
+      } else if (
+        !NormalMode.bindings.some(b => b.key.toLowerCase().includes(this.input))
+      ) {
         this.clear();
       } else {
         if (verbs.includes(this.input)) {
