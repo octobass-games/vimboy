@@ -4,6 +4,36 @@ import { CELL_SIZE, GAME_HEIGHT, GAME_WIDTH } from "../constants/game";
 import { cursorX } from "./displayer";
 import { handleCommand } from "./handleCommand";
 
+const whitelist: string[] = [
+  "a",
+  "b",
+  "c",
+  "d",
+  "e",
+  "f",
+  "g",
+  "h",
+  "i",
+  "j",
+  "k",
+  "l",
+  "m",
+  "n",
+  "o",
+  "p",
+  "q",
+  "r",
+  "s",
+  "t",
+  "u",
+  "v",
+  "w",
+  "x",
+  "y",
+  "z",
+  " "
+];
+
 export const handleInput = (menu: Menu) => (keyEvent: KeyboardEvent) => {
   switch (keyEvent.key) {
     case "Enter":
@@ -19,6 +49,9 @@ export const handleInput = (menu: Menu) => (keyEvent: KeyboardEvent) => {
       handleHistoryLoop(menu, -1, menu.history.length - 1);
       break;
     default:
+      if (!whitelist.includes(keyEvent.key.toLowerCase())) {
+        return;
+      }
       menu.currentLine += keyEvent.key;
       menu.currentLine = menu.currentLine.slice(
         0,
