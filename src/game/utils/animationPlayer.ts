@@ -7,9 +7,10 @@ import { CELL_SIZE } from "../../constants/game";
 
 export const playClashAnimation = (x: number, y: number) => {
   const image = window.scene.add
-    .sprite(x, y, Images.CLASH)
+    .sprite(x, y, Images.VIMBOY)
     .setTint(Random.getColour())
     .setAlpha(0.7);
+  image.setFrame(10);
 
   image.anims.play(Animations.CLASH);
 
