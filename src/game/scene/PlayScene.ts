@@ -10,7 +10,7 @@ import preloadImages from "../loaders/ImageLoader";
 import { loadAnimations } from "../loaders/AnimationLoader";
 import EntityManager from "../entities/EntityManager";
 import PowerUpManager from "../PowerUpManager";
-import preloadSounds, { Sound } from "../loaders/SoundLoader";
+import preloadSounds from "../loaders/SoundLoader";
 import MusicManager from "../MusicManager";
 
 const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {

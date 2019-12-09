@@ -5,7 +5,7 @@ import { Animations } from "./loaders/AnimationLoader";
 import { Colours } from "../constants/colours";
 import { enableBody } from "./entities/helpers/BodyCreator";
 import { GameObjects } from "phaser";
-import Entity, { Pickup, EntityType } from "./entities/Entity";
+import Entity, { EntityType } from "./entities/Entity";
 import { playClashAnimation } from "./utils/animationPlayer";
 import { Sound } from "./loaders/SoundLoader";
 

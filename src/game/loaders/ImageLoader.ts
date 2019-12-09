@@ -16,23 +16,17 @@ export const POWER_UP_FOUND_FRAME = 14;
 const preloadImages = () => {
   window.scene.load.spritesheet(
     Images.VIMBOY,
-    process.env.PUBLIC_URL + "/images/spritesheet.png",
+    "https://i.imgur.com/ND67D6J.png",
     { frameWidth: 50, frameHeight: CELL_SIZE }
   );
 
   window.scene.load.image(
     Images.POWER_UP_CONTAINER,
-    process.env.PUBLIC_URL + "/images/power-up-wrapper.png"
+    "https://i.imgur.com/terj3t4.png"
   );
 
-  window.scene.load.image(
-    Images.GHOST,
-    process.env.PUBLIC_URL + "/images/ghost.png"
-  );
-  window.scene.load.image(
-    Images.TROPHY,
-    process.env.PUBLIC_URL + "/images/trophy.png"
-  );
+  window.scene.load.image(Images.GHOST, "https://i.imgur.com/4gnVJiV.png");
+  window.scene.load.image(Images.TROPHY, "https://i.imgur.com/O5dS6aL.png");
 };
 
 export default preloadImages;

@@ -7,13 +7,16 @@ export enum Sound {
   BOOP = "boop"
 }
 
+const url = (name: string) =>
+  `https://storage.googleapis.com/octobass-vimboy/sounds/${name}.wav`;
+
 const preloadSounds = () => {
-  window.scene.load.audio(Sound.MUSIC, ["/sounds/vimboy-theme.wav"]);
-  window.scene.load.audio(Sound.BAD, ["/sounds/bad.wav"]);
-  window.scene.load.audio(Sound.DEATH, ["/sounds/death.wav"]);
-  window.scene.load.audio(Sound.GOOD, ["/sounds/good.wav"]);
-  window.scene.load.audio(Sound.BOOP, ["/sounds/boop.wav"]);
-  window.scene.load.audio(Sound.GOOD_SCORE, ["/sounds/good-score.wav"]);
+  window.scene.load.audio(Sound.MUSIC, [url("vimboy-theme")]);
+  window.scene.load.audio(Sound.BAD, [url("bad")]);
+  window.scene.load.audio(Sound.DEATH, [url("death")]);
+  window.scene.load.audio(Sound.GOOD, [url("good")]);
+  window.scene.load.audio(Sound.BOOP, [url("boop")]);
+  window.scene.load.audio(Sound.GOOD_SCORE, [url("good-score")]);
 };
 
 export default preloadSounds;

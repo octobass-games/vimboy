@@ -67,7 +67,7 @@ class PowerUpManager {
     this.selectedNoun = this.useItemAndCreateSelected(
       noun,
       this.nouns,
-      GAME_WIDTH / 2 + CELL_SIZE + 2
+      GAME_WIDTH / 2 + CELL_SIZE - 2
     );
   }
 
