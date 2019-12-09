@@ -5,7 +5,7 @@ import {
 } from "../../../constants/game";
 import { enableBody, setVelocity } from "../helpers/BodyCreator";
 import { EntityType, Pickup } from "../Entity";
-import { Images } from "../../loaders/ImageLoader";
+import { Images, PRESENT_FRAME } from "../../loaders/ImageLoader";
 import Random from "../../utils/Random";
 
 const createPickup = () => {
@@ -21,8 +21,9 @@ const createPickup = () => {
   const xVelocity = -CELL_SIZE * 4;
 
   const image = window.scene.add
-    .sprite(GAME_WIDTH + 200, y, Images.PRESENT)
-    .setTint(colour);
+    .sprite(GAME_WIDTH + 200, y, Images.VIMBOY)
+    .setTint(colour)
+    .setFrame(PRESENT_FRAME);
 
   const body = enableBody(image);
   setVelocity(body, xVelocity);

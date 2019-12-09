@@ -1,6 +1,6 @@
 import { GAME_WIDTH, CELL_SIZE, GAME_HEIGHT } from "../constants/game";
 import { Colours } from "../constants/colours";
-import { Images } from "./loaders/ImageLoader";
+import { Images, HEART_FRAME } from "./loaders/ImageLoader";
 import { Sound } from "./loaders/SoundLoader";
 
 const colours = [
@@ -40,9 +40,10 @@ class Health {
           .image(
             this.getTextXPosition() - index * 30,
             GAME_HEIGHT - CELL_SIZE / 2,
-            Images.HEART
+            Images.VIMBOY
           )
           .setTint(colours[index])
+          .setFrame(HEART_FRAME)
       );
     });
   };

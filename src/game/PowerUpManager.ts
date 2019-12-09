@@ -1,4 +1,4 @@
-import { Images } from "./loaders/ImageLoader";
+import { Images, POWER_UP_FOUND_FRAME } from "./loaders/ImageLoader";
 import { GAME_WIDTH, GAME_HEIGHT, CELL_SIZE } from "../constants/game";
 import { GameObjects } from "phaser";
 import { FONT } from "../constants/text";
@@ -35,7 +35,9 @@ class PowerUpManager {
       powerUpToKill!.destroy(true);
     }
 
-    const powerUp = window.scene.add.sprite(0, spriteY, Images.POWER_UP_FOUND);
+    const powerUp = window.scene.add
+      .sprite(0, spriteY, Images.VIMBOY)
+      .setFrame(POWER_UP_FOUND_FRAME);
     const label = window.scene.add.text(0, labelY, thing, textConfig);
 
     powerUp.setTint(colour);
@@ -65,7 +67,7 @@ class PowerUpManager {
     this.selectedNoun = this.useItemAndCreateSelected(
       noun,
       this.nouns,
-      GAME_WIDTH / 2 + CELL_SIZE + 2
+      GAME_WIDTH / 2 + CELL_SIZE - 2
     );
   }
 
@@ -83,13 +85,10 @@ class PowerUpManager {
       obj.destroy(true);
       list.splice(index, 1);
       this.refreshGroupPositioning();
-      const powerUp = window.scene.add.sprite(
-        x,
-        spriteY,
-        Images.POWER_UP_FOUND
-      );
+      const powerUp = window.scene.add.sprite(x, spriteY, Images.VIMBOY);
       powerUp.setTint(colour);
       powerUp.setData("data", thing);
+      powerUp.setFrame(POWER_UP_FOUND_FRAME);
 
       const label = this.addLabel(x, thing);
       return window.scene.add.group([powerUp, label]);
