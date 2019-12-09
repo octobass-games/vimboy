@@ -1,10 +1,16 @@
-# To run
+## Vimboy 🎮 💚 
+A vim inspired game. Still work in progress, play here: https://octobass.games/vimboy
+
+
+![Vimboy gif](https://i.imgur.com/hiQQvB8.gif)
+
+## To run
 
 `npm install`
 
 `npm start`
 
-# To start playing
+## To start playing
 
 type `vim` and hit `Enter` key
 
@@ -17,5 +23,3 @@ type `vim` and hit `Enter` key
       h   l
         j
 ```
-
-![Vimboy gif](https://i.imgur.com/hiQQvB8.gif)
