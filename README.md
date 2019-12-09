@@ -1,4 +1,4 @@
-## Vimboy 🎮 💚 
+## vimboy 🎮 💚 
 A vim inspired game. Still work in progress, play here: https://octobass.games/vimboy
 
 
