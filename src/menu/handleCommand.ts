@@ -2,6 +2,7 @@ import { Menu } from "../game/scene/Menu";
 
 const helpString = [
   "To play: vim",
+  "To play tutorial: tutorial",
   "",
   "help <term>   search for help on <term>",
   "where <term> is one of: controls, gameplay"
@@ -28,6 +29,9 @@ export const handleCommand = (menu: Menu, command: string) => {
     case "help":
       printResponse(menu, command, helpString);
       break;
+    case "tutorial":
+      window.tutorialMode = true;
+      return menu.scene.start("Game");
     case "help controls":
       printResponse(menu, command, helpControlsString);
       break;

@@ -8,7 +8,7 @@ import { EntityType, Pickup } from "../Entity";
 import { Images, PRESENT_FRAME } from "../../loaders/ImageLoader";
 import Random from "../../utils/Random";
 
-const createPickup = () => {
+const createPickup = (xVelocity: number = -CELL_SIZE * 4) => {
   const numberOfGaps = PLAY_ZONE_HEIGHT / CELL_SIZE;
   const line = Random.getNumber(numberOfGaps);
 
@@ -18,7 +18,6 @@ const createPickup = () => {
 
   const y = line * CELL_SIZE - CELL_SIZE / 2;
   const colour = Random.getColour();
-  const xVelocity = -CELL_SIZE * 4;
 
   const image = window.scene.add
     .sprite(GAME_WIDTH + 200, y, Images.VIMBOY)

@@ -7,22 +7,50 @@ import { Colours } from "../constants/colours";
 class ModeManager {
   public mode: Mode;
   private colour: Colours = Colours.LIGHT_GREEN;
+  private allowedKeys: Set<string> = new Set();
+
+  private allowedKeysMode: boolean = false;
 
   constructor() {
     this.mode = new NormalMode();
   }
 
   public create() {
+    this.listen();
+  }
+
+  private listen = () => {
     window.scene.keyCapturer!.addListener(
       "keydown",
       (keyEvent: KeyboardEvent) => {
-        this.mode.handle(keyEvent);
+        if (!this.allowedKeysMode) {
+          this.mode.handle(keyEvent);
+        } else if (this.allowedKeys.has(keyEvent.key.toLowerCase())) {
+          this.mode.handle(keyEvent);
+        }
       }
     );
     window.scene.tweens.setGlobalTimeScale(0.2);
-  }
+  };
 
   public update() {}
+
+  public allow = (...keys: string[]) => {
+    this.allowedKeysMode = true;
+    keys.forEach(key => {
+      this.allowedKeys.add(key.toLowerCase());
+    });
+  };
+
+  public allowNone = () => {
+    this.allowedKeysMode = true;
+    this.allowedKeys = new Set();
+  };
+
+  public allowAll = () => {
+    this.allowedKeysMode = false;
+    this.allowedKeys = new Set();
+  };
 
   public setMode = (mode: Mode) => {
     this.mode = mode;

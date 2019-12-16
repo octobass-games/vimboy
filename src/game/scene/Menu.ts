@@ -24,6 +24,7 @@ export class Menu extends Phaser.Scene {
 
   constructor() {
     super(sceneConfig);
+    window.tutorialMode = false;
   }
 
   public preload(): void {

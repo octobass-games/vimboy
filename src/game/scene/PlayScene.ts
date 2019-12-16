@@ -12,6 +12,7 @@ import EntityManager from "../entities/EntityManager";
 import PowerUpManager from "../PowerUpManager";
 import preloadSounds from "../loaders/SoundLoader";
 import MusicManager from "../MusicManager";
+import TutorialManager from "../tutorial/TutorialManager";
 
 const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
   active: false,
@@ -20,29 +21,22 @@ const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
 };
 
 export class PlayScene extends Phaser.Scene {
-  public vimboy: VimBoy;
-  public modeManager: ModeManager;
-  public statusLine: StatusLine;
-  public scoreBoard: ScoreBoard;
-  public health: Health;
-  public entityManager: EntityManager;
-  public powerUpManager: PowerUpManager;
-  public musicManager: MusicManager;
+  public vimboy!: VimBoy;
+  public modeManager!: ModeManager;
+  public statusLine!: StatusLine;
+  public scoreBoard!: ScoreBoard;
+  public health!: Health;
+  public entityManager!: EntityManager;
+  public powerUpManager!: PowerUpManager;
+  public musicManager!: MusicManager;
   public keyCapturer?: Phaser.Input.Keyboard.KeyboardPlugin;
   public graphics?: Phaser.GameObjects.Graphics;
+  public tutorialManager!: TutorialManager;
 
   constructor() {
     super(sceneConfig);
     window.scene = this;
-
-    this.vimboy = new VimBoy();
-    this.modeManager = new ModeManager();
-    this.scoreBoard = new ScoreBoard();
-    this.health = new Health();
-    this.statusLine = new StatusLine();
-    this.entityManager = new EntityManager();
-    this.powerUpManager = new PowerUpManager();
-    this.musicManager = new MusicManager();
+    this.init();
   }
 
   public preload(): void {
@@ -51,14 +45,7 @@ export class PlayScene extends Phaser.Scene {
   }
 
   public create() {
-    this.vimboy = new VimBoy();
-    this.modeManager = new ModeManager();
-    this.scoreBoard = new ScoreBoard();
-    this.health = new Health();
-    this.statusLine = new StatusLine();
-    this.entityManager = new EntityManager();
-    this.powerUpManager = new PowerUpManager();
-    this.musicManager = new MusicManager();
+    this.init();
     loadAnimations();
     this.keyCapturer = window.scene.input.keyboard.addCapture([
       Phaser.Input.Keyboard.KeyCodes.I
@@ -78,6 +65,7 @@ export class PlayScene extends Phaser.Scene {
     this.entityManager.create();
     this.powerUpManager.create();
     this.musicManager.create();
+    this.tutorialManager.create();
   }
 
   public update() {
@@ -86,5 +74,18 @@ export class PlayScene extends Phaser.Scene {
     this.statusLine!.update();
     this.entityManager.update();
     this.powerUpManager.update();
+    this.tutorialManager.update();
+  }
+
+  private init() {
+    this.vimboy = new VimBoy();
+    this.modeManager = new ModeManager();
+    this.scoreBoard = new ScoreBoard();
+    this.health = new Health();
+    this.statusLine = new StatusLine();
+    this.entityManager = new EntityManager();
+    this.powerUpManager = new PowerUpManager();
+    this.musicManager = new MusicManager();
+    this.tutorialManager = new TutorialManager();
   }
 }

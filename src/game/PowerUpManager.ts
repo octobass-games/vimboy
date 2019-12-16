@@ -205,6 +205,9 @@ class PowerUpManager {
   }
 
   public update() {}
+
+  public hasVerbs = () => this.verbs.length > 0;
+  public hasNouns = () => this.nouns.length > 0;
 }
 
 const spriteY = GAME_HEIGHT - CELL_SIZE * 1.5;

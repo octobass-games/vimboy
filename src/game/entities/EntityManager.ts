@@ -8,6 +8,7 @@ import createPickup from "./pickups/EntityPickup";
 class EntityManager {
   private enemies?: GameObjects.Group;
   private nonEnemies?: GameObjects.Group;
+  private generationPaused: boolean = false;
 
   public create = () => {
     this.enemies = window.scene.add.group();
@@ -38,6 +39,9 @@ class EntityManager {
   ) => {
     const enemyEntity = enemy.getData("data") as Enemy;
     const nonEnemyEntity = nonEnemy.getData("data") as Entity;
+    if (enemyEntity.line !== nonEnemyEntity.line) {
+      return;
+    }
     enemyEntity.onCollision(nonEnemyEntity, nonEnemy);
   };
 
@@ -56,6 +60,23 @@ class EntityManager {
   }
 
   public update() {
+    if (!this.generationPaused) {
+      this.generate();
+    }
+
+    this.enemies!.children.each(this.cleanup);
+    this.nonEnemies!.children.each(this.cleanup);
+  }
+
+  public pauseRandomGeneration() {
+    this.generationPaused = true;
+  }
+
+  public unpauseRandomGeneration() {
+    this.generationPaused = false;
+  }
+
+  private generate() {
     const randomNumber = Random.getNumber(300);
     if (randomNumber === 1 || this.enemies!.getChildren().length < 3) {
       this.createEnemy(createWordTypeEnemy);
@@ -64,9 +85,6 @@ class EntityManager {
     if (randomNumber === 2 || this.nonEnemies!.getChildren().length < 1) {
       this.createNonEnemy(createPickup);
     }
-
-    this.enemies!.children.each(this.cleanup);
-    this.nonEnemies!.children.each(this.cleanup);
   }
 
   public lineHasEnemy = (line: number): boolean => {
@@ -115,6 +133,11 @@ class EntityManager {
       this.destroyEnemy(obj);
     }
   };
+
+  public destroyAll() {
+    this.enemies!.children.each(this.destroyEnemy);
+    this.nonEnemies!.children.each(this.destroyNonEnemy);
+  }
 
   public destroyEnemy = (obj: GameObjects.GameObject) => {
     obj.destroy();

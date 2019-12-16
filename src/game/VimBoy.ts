@@ -12,6 +12,7 @@ import { Sound } from "./loaders/SoundLoader";
 class VimBoy {
   public movement?: Movement;
   public vimboy?: Phaser.GameObjects.Sprite;
+  private bulletProof: boolean = false;
 
   public create = () => {
     this.movement = new Movement();
@@ -39,16 +40,22 @@ class VimBoy {
     player: Phaser.GameObjects.GameObject,
     enemy: Phaser.GameObjects.GameObject
   ) => {
-    window.scene.entityManager.destroyEnemy(enemy);
-    window.scene.health.injure();
-    this.vimboy!.setTint(Colours.RED);
+    if (!this.bulletProof) {
+      window.scene.entityManager.destroyEnemy(enemy);
+      window.scene.health.injure();
+      this.vimboy!.setTint(Colours.RED);
 
-    window.scene.time.addEvent({
-      delay: 200,
-      callback: () => {
-        this.vimboy!.setTint(window.scene.modeManager.getCurrentColour());
-      }
-    });
+      window.scene.time.addEvent({
+        delay: 200,
+        callback: () => {
+          this.vimboy!.setTint(window.scene.modeManager.getCurrentColour());
+        }
+      });
+    }
+  };
+
+  public setBulletProof = (bulletProof: boolean) => {
+    this.bulletProof = bulletProof;
   };
 
   public onPickupCollision = (
