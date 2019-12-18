@@ -13,3 +13,15 @@ export const printWord = (words: string[], line: number, x?: number) => {
     createWordTypeEnemy(words, line, -CELL_SIZE * 10, x)
   );
 };
+
+export const genericInputUpdater = (
+  keyEvent: KeyboardEvent,
+  input: string,
+  updateInput: (s: string) => void
+) => {
+  if (keyEvent.key.toLowerCase() === "enter") {
+    updateInput("");
+  } else {
+    updateInput(input + keyEvent.key.toLowerCase());
+  }
+};
