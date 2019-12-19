@@ -1,17 +1,13 @@
-import {
-  GAME_WIDTH,
-  CELL_SIZE,
-  PLAY_ZONE_HEIGHT
-} from "../../../constants/game";
+import { GAME_WIDTH, CELL_SIZE, GAP_COUNT } from "../../../constants/game";
 import { enableBody, setVelocity } from "../helpers/BodyCreator";
 import { EntityType, Pickup } from "../Entity";
 import { Images, PRESENT_FRAME } from "../../loaders/ImageLoader";
 import Random from "../../utils/Random";
 
-const createPickup = (xVelocity: number = -CELL_SIZE * 4) => {
-  const numberOfGaps = PLAY_ZONE_HEIGHT / CELL_SIZE;
-  const line = Random.getNumber(numberOfGaps);
-
+const createPickup = (
+  xVelocity: number = -CELL_SIZE * 4,
+  line: number = Random.getNumber(GAP_COUNT)
+) => {
   if (window.scene.entityManager.getNonEnemyOnLine(line)) {
     return undefined;
   }

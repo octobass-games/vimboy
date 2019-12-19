@@ -3,36 +3,9 @@ import { FONT_SIZE } from "../constants/text";
 import { CELL_SIZE, GAME_HEIGHT, GAME_WIDTH } from "../constants/game";
 import { cursorX } from "./displayer";
 import { handleCommand } from "./handleCommand";
+import { alphabet } from "../constants/alphabet";
 
-const whitelist: string[] = [
-  "a",
-  "b",
-  "c",
-  "d",
-  "e",
-  "f",
-  "g",
-  "h",
-  "i",
-  "j",
-  "k",
-  "l",
-  "m",
-  "n",
-  "o",
-  "p",
-  "q",
-  "r",
-  "s",
-  "t",
-  "u",
-  "v",
-  "w",
-  "x",
-  "y",
-  "z",
-  " "
-];
+const whitelist: string[] = [...alphabet, " "];
 
 export const handleInput = (menu: Menu) => (keyEvent: KeyboardEvent) => {
   switch (keyEvent.key) {

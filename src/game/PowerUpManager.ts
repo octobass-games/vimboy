@@ -15,12 +15,15 @@ class PowerUpManager {
   private selectedVerb?: Phaser.GameObjects.Group;
   private selectedNoun?: Phaser.GameObjects.Group;
 
+  public presetVerb?: Verb;
+  public presetNoun?: Noun;
+
   public addPowerUp = (colour: number) => {
     if (Random.randomBool()) {
-      const verb = Random.randomStringEnum(Verb);
+      const verb = this.presetVerb || Random.randomStringEnum(Verb);
       this.drawPowerUp(colour, this.verbs, verb);
     } else {
-      const noun = Random.randomStringEnum(Noun);
+      const noun = this.presetNoun || Random.randomStringEnum(Noun);
       this.drawPowerUp(colour, this.nouns, noun);
     }
   };
@@ -197,6 +200,8 @@ class PowerUpManager {
   };
 
   public create() {
+    this.presetVerb = undefined;
+    this.presetNoun = undefined;
     window.scene.add.sprite(
       GAME_WIDTH / 2,
       GAME_HEIGHT - CELL_SIZE * 1.5,

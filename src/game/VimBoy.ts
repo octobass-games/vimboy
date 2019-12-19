@@ -15,6 +15,7 @@ class VimBoy {
   private bulletProof: boolean = false;
 
   public create = () => {
+    this.bulletProof = false;
     this.movement = new Movement();
 
     this.vimboy = window.scene.add.sprite(
@@ -84,6 +85,8 @@ class VimBoy {
 
   public jumpToLine = (lineNumber: number) =>
     this.movement!.jumpToLine(lineNumber, this.vimboy!);
+
+  public getLineNumber = (): number => this.movement!.currentLine(this.vimboy!);
 
   public jumpBackNLines = (n: number) =>
     this.movement!.jumpBackNLines(n, this.vimboy!);

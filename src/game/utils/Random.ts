@@ -22,6 +22,14 @@ class Random {
     return Math.round(Math.floor(Math.random() * Math.floor(max)));
   }
 
+  /* Returns a random integer between min (inclusive) and max (inclusive).
+   */
+  public static getRandomInt(min: number, max: number) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
   public static getWords(): string[] {
     const index = Random.getNumber(words.length);
     return words[index];

@@ -22,6 +22,11 @@ class ScoreBoard {
     this.text!.setText(this.score.toString()).setX(this.getTextXPosition());
   };
 
+  public resetScore = () => {
+    this.score = 0;
+    this.text!.setText(this.score.toString()).setX(this.getTextXPosition());
+  };
+
   private getTextXPosition = () =>
     GAME_WIDTH - this.score.toString().length * 30;
 }

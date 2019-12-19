@@ -16,6 +16,8 @@ class ModeManager {
   }
 
   public create() {
+    this.allowedKeysMode = false;
+    this.allowedKeys = new Set();
     this.listen();
   }
 

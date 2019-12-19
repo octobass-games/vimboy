@@ -5,7 +5,7 @@ import {
   PLAY_ZONE_HEIGHT
 } from "../../../constants/game";
 import Random from "../../utils/Random";
-import { GameObjects, Game } from "phaser";
+import { GameObjects } from "phaser";
 import { createText } from "../helpers/TextCreator";
 import { playClashAnimation } from "../../utils/animationPlayer";
 import { Sound } from "../../loaders/SoundLoader";

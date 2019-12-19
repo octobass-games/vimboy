@@ -1,4 +1,4 @@
-import { printWord } from "./tutorialUtils";
+import { printText } from "./tutorialUtils";
 import steps from "./tutorialSteps";
 
 class Tutorial {
@@ -18,14 +18,12 @@ class Tutorial {
   private funToRun = () => {};
 
   private runNext = (previousBoundFn?: (keyEvent: KeyboardEvent) => void) => {
-    if (previousBoundFn) {
-      window.scene.keyCapturer!.removeListener("keydown", previousBoundFn);
-    }
+    this.unbind(previousBoundFn);
     this.funToRun = () => {};
 
     const step = steps[this.index];
     const { text, keysToEnable, extra } = step;
-    this.printText(text);
+    printText(text);
 
     keysToEnable.forEach(k => {
       window.scene.modeManager.allow(k);
@@ -73,19 +71,16 @@ class Tutorial {
       this.index++;
       this.runNext(previousBoundFn);
     } else {
+      this.funToRun = () => {};
+      this.unbind(previousBoundFn);
       this.endTutorial();
     }
   };
 
-  private printText = (text: string[]) => {
-    text.forEach((text, index) => {
-      window.scene.time.addEvent({
-        delay: index * 1000,
-        callback: () => {
-          printWord([text], index);
-        }
-      });
-    });
+  private unbind = (previousBoundFn?: (keyEvent: KeyboardEvent) => void) => {
+    if (previousBoundFn) {
+      window.scene.keyCapturer!.removeListener("keydown", previousBoundFn);
+    }
   };
 }
 
