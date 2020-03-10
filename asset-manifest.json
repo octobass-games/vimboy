@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/vimboy/static/css/main.5ecd60fb.chunk.css",
+    "main.js": "/vimboy/static/js/main.333001a2.chunk.js",
+    "main.js.map": "/vimboy/static/js/main.333001a2.chunk.js.map",
+    "runtime-main.js": "/vimboy/static/js/runtime-main.38c5fd54.js",
+    "runtime-main.js.map": "/vimboy/static/js/runtime-main.38c5fd54.js.map",
+    "static/js/2.9980fcf4.chunk.js": "/vimboy/static/js/2.9980fcf4.chunk.js",
+    "static/js/2.9980fcf4.chunk.js.map": "/vimboy/static/js/2.9980fcf4.chunk.js.map",
+    "index.html": "/vimboy/index.html",
+    "precache-manifest.e2a454d3611cb7f1af497ac63b140ff4.js": "/vimboy/precache-manifest.e2a454d3611cb7f1af497ac63b140ff4.js",
+    "service-worker.js": "/vimboy/service-worker.js",
+    "static/css/main.5ecd60fb.chunk.css.map": "/vimboy/static/css/main.5ecd60fb.chunk.css.map"
+  }
+}
