@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "46b36d92687376e95a9e5ebf7ed0af46",
+    "revision": "54905877f71560068742b631ae15b8f5",
     "url": "/vimboy/index.html"
   },
   {

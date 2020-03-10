@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/vimboy/precache-manifest.e2a454d3611cb7f1af497ac63b140ff4.js"
+  "/vimboy/precache-manifest.3fa10f5cb9feccdb3982b7917f834556.js"
 );
 
 self.addEventListener('message', (event) => {
