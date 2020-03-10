@@ -2,10 +2,12 @@
   "name": "vimboy",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://octobass-games.github.io/vimboy",
   "dependencies": {
     "@types/jest": "24.0.18",
     "@types/node": "12.7.9",
     "@types/webfontloader": "^1.6.29",
+    "gh-pages": "^2.2.0",
     "phaser": "^3.19.0",
     "react": "^16.10.1",
     "react-scripts": "3.1.2",
@@ -13,6 +15,8 @@
     "webfontloader": "^1.6.28"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
