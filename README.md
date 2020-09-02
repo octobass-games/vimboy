@@ -1,5 +1,5 @@
 ## vimboy 🎮 💚 
-A vim inspired game. Still work in progress, play here: https://octobass.games/vimboy
+A vim inspired game. Play here: https://octobass.games/vimboy
 
 
 ![Vimboy gif](https://i.imgur.com/hiQQvB8.gif)
@@ -9,6 +9,9 @@ A vim inspired game. Still work in progress, play here: https://octobass.games/v
 `npm install`
 
 `npm start`
+
+## Tutorial
+type `tutorial` and hit `Enter` key
 
 ## To start playing
 
